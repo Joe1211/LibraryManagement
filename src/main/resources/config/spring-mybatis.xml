@@ -55,7 +55,7 @@
     <!-- mybatis文件配置，扫描所有mapper文件 -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"
           p:dataSource-ref="dataSource" p:configLocation="classpath:config/mybatis-config.xml"
-          p:mapperLocations="classpath:com.wonders.shixi.mapper/*.xml" /> <!-- configLocation为mybatis属性 mapperLocations为所有mapper -->
+          p:mapperLocations="classpath:com/wonders/shixi/mapper/*.xml" /> <!-- configLocation为mybatis属性 mapperLocations为所有mapper -->
 
     <!-- spring与mybatis整合配置，扫描所有mapper -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"

@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wonders.shixi.mapper.ReaderMapper">
+  <resultMap id="BaseResultMap" type="com.wonders.shixi.pojo.Reader">
+    <id column="reader_id" jdbcType="INTEGER" property="readerId" />
+    <result column="reader_name" jdbcType="VARCHAR" property="readerName" />
+    <result column="reader_phone" jdbcType="VARCHAR" property="readerPhone" />
+    <result column="reader_email" jdbcType="VARCHAR" property="readerEmail" />
+    <result column="reader_blacklist" jdbcType="INTEGER" property="readerBlacklist" />
+    <result column="reader_update" jdbcType="TIMESTAMP" property="readerUpdate" />
+    <result column="reader_state" jdbcType="INTEGER" property="readerState" />
+    <result column="reader_balance" jdbcType="DOUBLE" property="readerBalance" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    reader_id, reader_name, reader_phone, reader_email, reader_blacklist, reader_update, 
+    reader_state, reader_balance
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from reader
+    where reader_id = #{readerId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from reader
+    where reader_id = #{readerId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wonders.shixi.pojo.Reader">
+    insert into reader (reader_id, reader_name, reader_phone, 
+      reader_email, reader_blacklist, reader_update, 
+      reader_state, reader_balance)
+    values (#{readerId,jdbcType=INTEGER}, #{readerName,jdbcType=VARCHAR}, #{readerPhone,jdbcType=VARCHAR}, 
+      #{readerEmail,jdbcType=VARCHAR}, #{readerBlacklist,jdbcType=INTEGER}, #{readerUpdate,jdbcType=TIMESTAMP}, 
+      #{readerState,jdbcType=INTEGER}, #{readerBalance,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wonders.shixi.pojo.Reader">
+    insert into reader
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="readerId != null">
+        reader_id,
+      </if>
+      <if test="readerName != null">
+        reader_name,
+      </if>
+      <if test="readerPhone != null">
+        reader_phone,
+      </if>
+      <if test="readerEmail != null">
+        reader_email,
+      </if>
+      <if test="readerBlacklist != null">
+        reader_blacklist,
+      </if>
+      <if test="readerUpdate != null">
+        reader_update,
+      </if>
+      <if test="readerState != null">
+        reader_state,
+      </if>
+      <if test="readerBalance != null">
+        reader_balance,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="readerId != null">
+        #{readerId,jdbcType=INTEGER},
+      </if>
+      <if test="readerName != null">
+        #{readerName,jdbcType=VARCHAR},
+      </if>
+      <if test="readerPhone != null">
+        #{readerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="readerEmail != null">
+        #{readerEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="readerBlacklist != null">
+        #{readerBlacklist,jdbcType=INTEGER},
+      </if>
+      <if test="readerUpdate != null">
+        #{readerUpdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="readerState != null">
+        #{readerState,jdbcType=INTEGER},
+      </if>
+      <if test="readerBalance != null">
+        #{readerBalance,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wonders.shixi.pojo.Reader">
+    update reader
+    <set>
+      <if test="readerName != null">
+        reader_name = #{readerName,jdbcType=VARCHAR},
+      </if>
+      <if test="readerPhone != null">
+        reader_phone = #{readerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="readerEmail != null">
+        reader_email = #{readerEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="readerBlacklist != null">
+        reader_blacklist = #{readerBlacklist,jdbcType=INTEGER},
+      </if>
+      <if test="readerUpdate != null">
+        reader_update = #{readerUpdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="readerState != null">
+        reader_state = #{readerState,jdbcType=INTEGER},
+      </if>
+      <if test="readerBalance != null">
+        reader_balance = #{readerBalance,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where reader_id = #{readerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wonders.shixi.pojo.Reader">
+    update reader
+    set reader_name = #{readerName,jdbcType=VARCHAR},
+      reader_phone = #{readerPhone,jdbcType=VARCHAR},
+      reader_email = #{readerEmail,jdbcType=VARCHAR},
+      reader_blacklist = #{readerBlacklist,jdbcType=INTEGER},
+      reader_update = #{readerUpdate,jdbcType=TIMESTAMP},
+      reader_state = #{readerState,jdbcType=INTEGER},
+      reader_balance = #{readerBalance,jdbcType=DOUBLE}
+    where reader_id = #{readerId,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.wonders.shixi.pojo.Reader">
+    <id column="reader_id" jdbcType="INTEGER" property="readerId" />
+    <result column="reader_name" jdbcType="VARCHAR" property="readerName" />
+    <result column="reader_phone" jdbcType="VARCHAR" property="readerPhone" />
+    <result column="reader_email" jdbcType="VARCHAR" property="readerEmail" />
+    <result column="reader_blacklist" jdbcType="INTEGER" property="readerBlacklist" />
+    <result column="reader_update" jdbcType="TIMESTAMP" property="readerUpdate" />
+    <result column="reader_state" jdbcType="INTEGER" property="readerState" />
+    <result column="reader_balance" jdbcType="DOUBLE" property="readerBalance" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    reader_id, reader_name, reader_phone, reader_email, reader_blacklist, reader_update, 
+    reader_state, reader_balance
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from reader
+    where reader_id = #{readerId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from reader
+    where reader_id = #{readerId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wonders.shixi.pojo.Reader">
+    insert into reader (reader_id, reader_name, reader_phone, 
+      reader_email, reader_blacklist, reader_update, 
+      reader_state, reader_balance)
+    values (#{readerId,jdbcType=INTEGER}, #{readerName,jdbcType=VARCHAR}, #{readerPhone,jdbcType=VARCHAR}, 
+      #{readerEmail,jdbcType=VARCHAR}, #{readerBlacklist,jdbcType=INTEGER}, #{readerUpdate,jdbcType=TIMESTAMP}, 
+      #{readerState,jdbcType=INTEGER}, #{readerBalance,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wonders.shixi.pojo.Reader">
+    insert into reader
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="readerId != null">
+        reader_id,
+      </if>
+      <if test="readerName != null">
+        reader_name,
+      </if>
+      <if test="readerPhone != null">
+        reader_phone,
+      </if>
+      <if test="readerEmail != null">
+        reader_email,
+      </if>
+      <if test="readerBlacklist != null">
+        reader_blacklist,
+      </if>
+      <if test="readerUpdate != null">
+        reader_update,
+      </if>
+      <if test="readerState != null">
+        reader_state,
+      </if>
+      <if test="readerBalance != null">
+        reader_balance,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="readerId != null">
+        #{readerId,jdbcType=INTEGER},
+      </if>
+      <if test="readerName != null">
+        #{readerName,jdbcType=VARCHAR},
+      </if>
+      <if test="readerPhone != null">
+        #{readerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="readerEmail != null">
+        #{readerEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="readerBlacklist != null">
+        #{readerBlacklist,jdbcType=INTEGER},
+      </if>
+      <if test="readerUpdate != null">
+        #{readerUpdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="readerState != null">
+        #{readerState,jdbcType=INTEGER},
+      </if>
+      <if test="readerBalance != null">
+        #{readerBalance,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wonders.shixi.pojo.Reader">
+    update reader
+    <set>
+      <if test="readerName != null">
+        reader_name = #{readerName,jdbcType=VARCHAR},
+      </if>
+      <if test="readerPhone != null">
+        reader_phone = #{readerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="readerEmail != null">
+        reader_email = #{readerEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="readerBlacklist != null">
+        reader_blacklist = #{readerBlacklist,jdbcType=INTEGER},
+      </if>
+      <if test="readerUpdate != null">
+        reader_update = #{readerUpdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="readerState != null">
+        reader_state = #{readerState,jdbcType=INTEGER},
+      </if>
+      <if test="readerBalance != null">
+        reader_balance = #{readerBalance,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where reader_id = #{readerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wonders.shixi.pojo.Reader">
+    update reader
+    set reader_name = #{readerName,jdbcType=VARCHAR},
+      reader_phone = #{readerPhone,jdbcType=VARCHAR},
+      reader_email = #{readerEmail,jdbcType=VARCHAR},
+      reader_blacklist = #{readerBlacklist,jdbcType=INTEGER},
+      reader_update = #{readerUpdate,jdbcType=TIMESTAMP},
+      reader_state = #{readerState,jdbcType=INTEGER},
+      reader_balance = #{readerBalance,jdbcType=DOUBLE}
+    where reader_id = #{readerId,jdbcType=INTEGER}
+  </update>
+</mapper>

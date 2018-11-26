@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wonders.shixi.mapper.AdminMapper">
+  <resultMap id="BaseResultMap" type="com.wonders.shixi.pojo.Admin">
+    <id column="admin_id" jdbcType="INTEGER" property="adminId" />
+    <result column="admin_password" jdbcType="VARCHAR" property="adminPassword" />
+    <result column="admin_jurisdiction" jdbcType="INTEGER" property="adminJurisdiction" />
+    <result column="admin_update" jdbcType="TIMESTAMP" property="adminUpdate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    admin_id, admin_password, admin_jurisdiction, admin_update
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from admin
+    where admin_id = #{adminId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from admin
+    where admin_id = #{adminId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wonders.shixi.pojo.Admin">
+    insert into admin (admin_id, admin_password, admin_jurisdiction, 
+      admin_update)
+    values (#{adminId,jdbcType=INTEGER}, #{adminPassword,jdbcType=VARCHAR}, #{adminJurisdiction,jdbcType=INTEGER}, 
+      #{adminUpdate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wonders.shixi.pojo.Admin">
+    insert into admin
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="adminId != null">
+        admin_id,
+      </if>
+      <if test="adminPassword != null">
+        admin_password,
+      </if>
+      <if test="adminJurisdiction != null">
+        admin_jurisdiction,
+      </if>
+      <if test="adminUpdate != null">
+        admin_update,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="adminId != null">
+        #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="adminPassword != null">
+        #{adminPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="adminJurisdiction != null">
+        #{adminJurisdiction,jdbcType=INTEGER},
+      </if>
+      <if test="adminUpdate != null">
+        #{adminUpdate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wonders.shixi.pojo.Admin">
+    update admin
+    <set>
+      <if test="adminPassword != null">
+        admin_password = #{adminPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="adminJurisdiction != null">
+        admin_jurisdiction = #{adminJurisdiction,jdbcType=INTEGER},
+      </if>
+      <if test="adminUpdate != null">
+        admin_update = #{adminUpdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where admin_id = #{adminId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wonders.shixi.pojo.Admin">
+    update admin
+    set admin_password = #{adminPassword,jdbcType=VARCHAR},
+      admin_jurisdiction = #{adminJurisdiction,jdbcType=INTEGER},
+      admin_update = #{adminUpdate,jdbcType=TIMESTAMP}
+    where admin_id = #{adminId,jdbcType=INTEGER}
+  </update>
+</mapper>

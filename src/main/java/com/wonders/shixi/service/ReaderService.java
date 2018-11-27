@@ -1,8 +1,6 @@
 package com.wonders.shixi.service;
 
 import com.wonders.shixi.pojo.Reader;
-import org.springframework.stereotype.Service;
-import springfox.documentation.spring.web.json.Json;
 
 
 public interface ReaderService {

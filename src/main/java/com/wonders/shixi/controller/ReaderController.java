@@ -2,7 +2,6 @@ package com.wonders.shixi.controller;
 
 import com.wonders.shixi.controller.vo.Massage;
 import com.wonders.shixi.controller.vo.ReaderModel;
-import com.wonders.shixi.pojo.Reader;
 import com.wonders.shixi.service.ReaderService;
 import com.wonders.shixi.util.MassageUtil;
 import io.swagger.annotations.Api;

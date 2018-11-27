@@ -1,47 +1,25 @@
-package com.wonders.shixi.controller.vo;
-
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+package com.wonders.shixi.pojo;
 
 import java.util.Date;
 
-@ApiModel(value = "Reader", description = "读者")
-public class ReaderModel {
-    @ApiModelProperty(value = "读者id")
-    private Integer readerId;//读者id
-    @ApiModelProperty(value = "读者姓名")
-    private String readerName;//读者姓名
-    @ApiModelProperty(value = "读者手机号")
-    private String readerPhone;//读者手机号
-    @ApiModelProperty(value = "读者邮箱")
+public class Reader {
+    private Integer readerId;
 
-    private String readerEmail;//读者邮箱
-    @ApiModelProperty(value = "黑名单")
-    private Integer readerBlacklist;//黑名单
-    @ApiModelProperty(value = "读者最后登录时间")
-    private Date readerUpdate;//读者最后时间
-    @ApiModelProperty(value = "激活状态")
+    private String readerName;
+
+    private String readerPhone;
+
+    private String readerEmail;
+
+    private Integer readerBlacklist;
+
+    private Date readerUpdate;
+
     private Integer readerState;
-    @ApiModelProperty(value = "余额")
+
     private Double readerBalance;
 
-    /**
-     * reader转换readerModel
-     * @param reader
-     */
-    public ReaderModel(Reader reader){
-
-        this.setReaderId(reader.getReaderId());
-        this.setReaderBalance(reader.getReaderBalance());
-        this.setReaderBlacklist(reader.getReaderBlacklist());
-        this.setReaderEmail(reader.getReaderEmail());
-        this.setReaderPhone(reader.getReaderPhone());
-        this.setReaderUpdate(reader.getReaderUpdate());
-        this.setReaderState(reader.getReaderState());
-        this.setReaderName(reader.getReaderName());
-
-    }
+    private String readerPassword;
 
     public Integer getReaderId() {
         return readerId;
@@ -105,5 +83,13 @@ public class ReaderModel {
 
     public void setReaderBalance(Double readerBalance) {
         this.readerBalance = readerBalance;
+    }
+
+    public String getReaderPassword() {
+        return readerPassword;
+    }
+
+    public void setReaderPassword(String readerPassword) {
+        this.readerPassword = readerPassword == null ? null : readerPassword.trim();
     }
 }

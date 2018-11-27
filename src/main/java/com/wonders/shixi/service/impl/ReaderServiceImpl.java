@@ -27,7 +27,7 @@ public class ReaderServiceImpl implements ReaderService {
     }
 
     @Override
-    public boolean updatePassword(String management, String managementPassword, String readerPassword) {
+    public boolean updatePasswordByAdmin(String management, String managementPassword, String readerPassword) {
         return false;
     }
 }

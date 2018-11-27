@@ -1,34 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
-
-<display-name>Archetype Created Web Application</display-name>
-  <!-- 读取spring配置文件 -->
-  <context-param>
-    <param-name>contextConfigLocation</param-name>
-    <param-value>
-      classpath:config/spring.xml;
-      classpath:config/spring-mybatis.xml
-    </param-value>
-  </context-param>
-  <!-- Spring字符集过滤器 -->
-  <filter>
-    <filter-name>SpringEncodingFilter</filter-name>
-    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-    <init-param>
-      <param-name>encoding</param-name>
-      <param-value>UTF-8</param-value>
-    </init-param>
-    <init-param>
-      <param-name>forceEncoding</param-name>
-      <param-value>true</param-value>
-    </init-param>
-  </filter>
-  <filter-mapping>
-    <filter-name>SpringEncodingFilter</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
-
-  <!-- log4j2-begin -->
+    <context-param>
+        <param-name>webAppRootKey</param-name>
+        <param-value>LibraryManagement.root</param-value>
+    </context-param>
+    <!-- 读取spring配置文件 -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            classpath:config/spring.xml;
+            classpath:config/spring-mybatis.xml
+        </param-value>
+    </context-param>
     <context-param>
         <param-name>isLog4jContextSelectorNamed</param-name>
         <param-value>true</param-value>
@@ -41,9 +24,35 @@
         <param-name>log4jConfiguration</param-name>
         <param-value>classpath:config/log4j2.xml</param-value>
     </context-param>
+    <!-- 启动spring -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener
+        </listener-class>
+    </listener>
     <listener>
         <listener-class>org.apache.logging.log4j.web.Log4jServletContextListener</listener-class>
     </listener>
+    <!-- Spring字符集过滤器 -->
+    <filter>
+        <filter-name>SpringEncodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>forceEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>SpringEncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!-- log4j2-begin -->
+
+
 
     <filter>
         <filter-name>log4jServletFilter</filter-name>
@@ -58,31 +67,24 @@
         <dispatcher>ERROR</dispatcher>
         <dispatcher>ASYNC</dispatcher>
     </filter-mapping>
-  <!-- log4j2-end -->
+    <!-- log4j2-end -->
 
-  <context-param>
-    <param-name>webAppRootKey</param-name>
-    <param-value>ssm.root</param-value>
-  </context-param>
-  <!-- 启动spring -->
-  <listener>
-    <listener-class>org.springframework.web.context.ContextLoaderListener
-    </listener-class>
-  </listener>
-  <!-- spring mvc配置 -->
-  <servlet>
-    <servlet-name>sakila</servlet-name>
-    <servlet-class>
-      org.springframework.web.servlet.DispatcherServlet
-    </servlet-class>
-    <init-param>
-      <param-name>contextConfigLocation</param-name>
-      <param-value>classpath:config/spring-mvc.xml</param-value>
-    </init-param>
-    <load-on-startup>1</load-on-startup>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>sakila</servlet-name>
-    <url-pattern>/</url-pattern>
-  </servlet-mapping>
+
+
+    <!-- spring mvc配置 -->
+    <servlet>
+        <servlet-name>springmvc</servlet-name>
+        <servlet-class>
+            org.springframework.web.servlet.DispatcherServlet
+        </servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:config/spring-mvc.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>springmvc</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
 </web-app>

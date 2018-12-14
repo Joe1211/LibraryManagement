@@ -39,8 +39,8 @@ public class ReaderServiceImpl implements ReaderService {
      */
     @Override
     public Reader getReaderById(int id) {
-
-        return readerMapper.selectByPrimaryKey(id);
+       Reader reader= readerMapper.selectByPrimaryKey(id);
+        return reader;
     }
 
     /**

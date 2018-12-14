@@ -3,7 +3,6 @@ package com.wonders.shixi.controller;
 import com.wonders.shixi.controller.vo.Massage;
 import com.wonders.shixi.controller.vo.ReaderCondition;
 import com.wonders.shixi.controller.vo.ReaderModel;
-import com.wonders.shixi.pojo.Admin;
 import com.wonders.shixi.pojo.Reader;
 import com.wonders.shixi.service.ReaderService;
 import com.wonders.shixi.util.MassageUtil;
@@ -20,9 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +43,9 @@ public class ReaderController {
      * @return
      */
     @ApiOperation(value = "通过id获取读者信息", httpMethod = "GET")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="id",value="用户id",required=true,dataType="String",paramType = "query")
+    })
     @RequestMapping(value = "/getReaderById.do", method = RequestMethod.GET)
     @ResponseBody
     public ReaderModel getReaderById(int id) {
@@ -60,11 +59,12 @@ public class ReaderController {
      * @return Massage json
      */
     @ApiOperation(value = "通过id删除读者（改变激活状态）", httpMethod = "GET")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="id",value="用户姓名",required=true,dataType="String",paramType = "query")
+    })
     @RequestMapping(value = "/deleteReaderById.do", method = RequestMethod.GET)
     @ResponseBody
-    public Massage deleteReaderById(int id) {
-
-
+    public Massage deleteReaderById( int id) {
         return MassageUtil.boolMassage(readerService.deleteReaderById(id));
     }
 
@@ -109,7 +109,7 @@ public class ReaderController {
     @ApiOperation(value = "新建读者对象", httpMethod = "POST")
     @RequestMapping(value = "/creatReader.do", method = RequestMethod.POST)
     public @ResponseBody
-    Massage creatReader(Reader reader) {
+    Massage creatReader(@RequestBody Reader reader) {
 
         return MassageUtil.boolMassage(readerService.creatReader(reader));
     }

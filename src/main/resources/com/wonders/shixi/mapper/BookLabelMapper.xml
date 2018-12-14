@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wonders.shixi.mapper.BookLabelMapper">
+  <resultMap id="BaseResultMap" type="com.wonders.shixi.pojo.BookLabel">
+    <id column="book_label_id" jdbcType="INTEGER" property="bookLabelId" />
+    <result column="book_label" jdbcType="VARCHAR" property="bookLabel" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    book_label_id, book_label
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from book_label
+    where book_label_id = #{bookLabelId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from book_label
+    where book_label_id = #{bookLabelId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wonders.shixi.pojo.BookLabel">
+    insert into book_label (book_label_id, book_label)
+    values (#{bookLabelId,jdbcType=INTEGER}, #{bookLabel,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wonders.shixi.pojo.BookLabel">
+    insert into book_label
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bookLabelId != null">
+        book_label_id,
+      </if>
+      <if test="bookLabel != null">
+        book_label,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bookLabelId != null">
+        #{bookLabelId,jdbcType=INTEGER},
+      </if>
+      <if test="bookLabel != null">
+        #{bookLabel,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wonders.shixi.pojo.BookLabel">
+    update book_label
+    <set>
+      <if test="bookLabel != null">
+        book_label = #{bookLabel,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where book_label_id = #{bookLabelId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wonders.shixi.pojo.BookLabel">
+    update book_label
+    set book_label = #{bookLabel,jdbcType=VARCHAR}
+    where book_label_id = #{bookLabelId,jdbcType=INTEGER}
+  </update>
+
+  <!--查询所有-->
+  <select id="selectByAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from book_label
+  </select>
+
+</mapper>

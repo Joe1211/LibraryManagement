@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wonders.shixi.mapper.BookMapper">
+  <resultMap id="BaseResultMap" type="com.wonders.shixi.pojo.Book">
+    <id column="book_id" jdbcType="INTEGER" property="bookId" />
+    <result column="book_name" jdbcType="VARCHAR" property="bookName" />
+    <result column="book_periodicals" jdbcType="VARCHAR" property="bookPeriodicals" />
+    <result column="book_callnum" jdbcType="VARCHAR" property="bookCallnum" />
+    <result column="book_writer" jdbcType="VARCHAR" property="bookWriter" />
+    <result column="book_press" jdbcType="VARCHAR" property="bookPress" />
+    <result column="book_cover" jdbcType="VARCHAR" property="bookCover" />
+    <result column="book_info" jdbcType="VARCHAR" property="bookInfo" />
+    <result column="book_time" jdbcType="TIMESTAMP" property="bookTime" />
+    <result column="book_updata" jdbcType="TIMESTAMP" property="bookUpdata" />
+    <result column="type_two_id" jdbcType="INTEGER" property="typeTwoId" />
+    <result column="library_id" jdbcType="INTEGER" property="libraryId" />
+    <result column="book_state" jdbcType="VARCHAR" property="bookState" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    book_id, book_name, book_periodicals, book_callnum, book_writer, book_press, book_cover, 
+    book_info, book_time, book_updata, type_two_id, library_id, book_state
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from book
+    where book_id = #{bookId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from book
+    where book_id = #{bookId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wonders.shixi.pojo.Book">
+    insert into book (book_id, book_name, book_periodicals, 
+      book_callnum, book_writer, book_press, 
+      book_cover, book_info, book_time, 
+      book_updata, type_two_id, library_id, 
+      book_state)
+    values (#{bookId,jdbcType=INTEGER}, #{bookName,jdbcType=VARCHAR}, #{bookPeriodicals,jdbcType=VARCHAR}, 
+      #{bookCallnum,jdbcType=VARCHAR}, #{bookWriter,jdbcType=VARCHAR}, #{bookPress,jdbcType=VARCHAR}, 
+      #{bookCover,jdbcType=VARCHAR}, #{bookInfo,jdbcType=VARCHAR}, #{bookTime,jdbcType=TIMESTAMP}, 
+      #{bookUpdata,jdbcType=TIMESTAMP}, #{typeTwoId,jdbcType=INTEGER}, #{libraryId,jdbcType=INTEGER}, 
+      #{bookState,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wonders.shixi.pojo.Book">
+    insert into book
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bookId != null">
+        book_id,
+      </if>
+      <if test="bookName != null">
+        book_name,
+      </if>
+      <if test="bookPeriodicals != null">
+        book_periodicals,
+      </if>
+      <if test="bookCallnum != null">
+        book_callnum,
+      </if>
+      <if test="bookWriter != null">
+        book_writer,
+      </if>
+      <if test="bookPress != null">
+        book_press,
+      </if>
+      <if test="bookCover != null">
+        book_cover,
+      </if>
+      <if test="bookInfo != null">
+        book_info,
+      </if>
+      <if test="bookTime != null">
+        book_time,
+      </if>
+      <if test="bookUpdata != null">
+        book_updata,
+      </if>
+      <if test="typeTwoId != null">
+        type_two_id,
+      </if>
+      <if test="libraryId != null">
+        library_id,
+      </if>
+      <if test="bookState != null">
+        book_state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bookId != null">
+        #{bookId,jdbcType=INTEGER},
+      </if>
+      <if test="bookName != null">
+        #{bookName,jdbcType=VARCHAR},
+      </if>
+      <if test="bookPeriodicals != null">
+        #{bookPeriodicals,jdbcType=VARCHAR},
+      </if>
+      <if test="bookCallnum != null">
+        #{bookCallnum,jdbcType=VARCHAR},
+      </if>
+      <if test="bookWriter != null">
+        #{bookWriter,jdbcType=VARCHAR},
+      </if>
+      <if test="bookPress != null">
+        #{bookPress,jdbcType=VARCHAR},
+      </if>
+      <if test="bookCover != null">
+        #{bookCover,jdbcType=VARCHAR},
+      </if>
+      <if test="bookInfo != null">
+        #{bookInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="bookTime != null">
+        #{bookTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bookUpdata != null">
+        #{bookUpdata,jdbcType=TIMESTAMP},
+      </if>
+      <if test="typeTwoId != null">
+        #{typeTwoId,jdbcType=INTEGER},
+      </if>
+      <if test="libraryId != null">
+        #{libraryId,jdbcType=INTEGER},
+      </if>
+      <if test="bookState != null">
+        #{bookState,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wonders.shixi.pojo.Book">
+    update book
+    <set>
+      <if test="bookName != null">
+        book_name = #{bookName,jdbcType=VARCHAR},
+      </if>
+      <if test="bookPeriodicals != null">
+        book_periodicals = #{bookPeriodicals,jdbcType=VARCHAR},
+      </if>
+      <if test="bookCallnum != null">
+        book_callnum = #{bookCallnum,jdbcType=VARCHAR},
+      </if>
+      <if test="bookWriter != null">
+        book_writer = #{bookWriter,jdbcType=VARCHAR},
+      </if>
+      <if test="bookPress != null">
+        book_press = #{bookPress,jdbcType=VARCHAR},
+      </if>
+      <if test="bookCover != null">
+        book_cover = #{bookCover,jdbcType=VARCHAR},
+      </if>
+      <if test="bookInfo != null">
+        book_info = #{bookInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="bookTime != null">
+        book_time = #{bookTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bookUpdata != null">
+        book_updata = #{bookUpdata,jdbcType=TIMESTAMP},
+      </if>
+      <if test="typeTwoId != null">
+        type_two_id = #{typeTwoId,jdbcType=INTEGER},
+      </if>
+      <if test="libraryId != null">
+        library_id = #{libraryId,jdbcType=INTEGER},
+      </if>
+      <if test="bookState != null">
+        book_state = #{bookState,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where book_id = #{bookId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wonders.shixi.pojo.Book">
+    update book
+    set book_name = #{bookName,jdbcType=VARCHAR},
+      book_periodicals = #{bookPeriodicals,jdbcType=VARCHAR},
+      book_callnum = #{bookCallnum,jdbcType=VARCHAR},
+      book_writer = #{bookWriter,jdbcType=VARCHAR},
+      book_press = #{bookPress,jdbcType=VARCHAR},
+      book_cover = #{bookCover,jdbcType=VARCHAR},
+      book_info = #{bookInfo,jdbcType=VARCHAR},
+      book_time = #{bookTime,jdbcType=TIMESTAMP},
+      book_updata = #{bookUpdata,jdbcType=TIMESTAMP},
+      type_two_id = #{typeTwoId,jdbcType=INTEGER},
+      library_id = #{libraryId,jdbcType=INTEGER},
+      book_state = #{bookState,jdbcType=VARCHAR}
+    where book_id = #{bookId,jdbcType=INTEGER}
+  </update>
+
+  <!--根据书名模糊查询-->
+  <select id="selectDimBook" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from book
+        <where>
+          <if test="bookName != null">
+            book_name like '%${bookName}%'
+          </if>
+        </where>
+  </select>
+
+    <!--标签查询-->
+    <select id="selectLabelBook" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select DISTINCT
+        b.<include refid="Base_Column_List" />
+        from book b,book_label_relation blr
+        where b.book_id=blr.book_id and blr.book_label_id in
+        <foreach collection="array" item="label" index="index"
+                 open="(" close=")" separator=",">
+            '${label}'
+        </foreach>
+
+    </select>
+</mapper>

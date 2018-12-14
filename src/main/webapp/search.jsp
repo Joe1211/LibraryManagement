@@ -224,7 +224,7 @@
         })
     }
 
-    
+
     // 标签查询
     $('#labelsubmit').click(function(){
         var data = $("form").serialize(); // 表单序列化

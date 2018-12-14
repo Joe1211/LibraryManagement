@@ -15,8 +15,8 @@
         </commentGenerator>
 
         <!--数据库连接 -->
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/sakila?useSSL = false&amp;serverTimezone = UTC" userId="root" password="root">
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/librarymanagement?serverTimezone = UTC" userId="root" password="root">
         </jdbcConnection>
         <!--默认false Java type resolver will always use java.math.BigDecimal if 
             the database column is of type DECIMAL or NUMERIC. -->
@@ -49,13 +49,13 @@
 
         <!--对应数据库表 mysql可以加入主键自增 字段命名 忽略某字段等 -->
         <table tableName="reader" domainObjectName="Reader"
-               enableCountByExample="false" enableUpdateByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false" />
+               enableCountByExample="true" enableUpdateByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true"
+               selectByExampleQueryId="true" />
         <table tableName="admin" domainObjectName="Admin"
-               enableCountByExample="false" enableUpdateByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false" />
+               enableCountByExample="true" enableUpdateByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true"
+               selectByExampleQueryId="true" />
 
 
     </context>

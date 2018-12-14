@@ -1,33 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration status="OFF">
-    <appenders>
-        <Console name="Console" target="SYSTEM_OUT">
-            <ThresholdFilter level="WARN" onMatch="ACCEPT"
-                             onMismatch="DENY" />
-            <PatternLayout pattern="%date{yyyy-MM-dd HH:mm:ss.SSS} %level [%thread][%file:%line] - %msg%n" />
-        </Console>
-        <RollingFile name="dealFile" fileName="D:/clzlog/clz_oper/err/info.log"
-                     filePattern="D:/clzlog/clz_oper/err/$${date:yyyy-MM-dd}/HF-%d{MM-dd-yyyy}-%i.gz">
-            <PatternLayout pattern="[Time]\:[%d{HH:mm:ss.SSS}] [%t] %n%msg%n%n" />
-            <SizeBasedTriggeringPolicy size="5MB" />
-            <DefaultRolloverStrategy max="300" />
-        </RollingFile>
-        <RollingFile name="sqlFile" fileName="D:/clzlog/clz_oper/info/info.log"
-                     filePattern="D:/clzlog/clz_oper/info/$${date:yyyy-MM-dd}/HF-%d{MM-dd-yyyy}-%i.gz">
-            <PatternLayout pattern="[Time]\:[%d{HH:mm:ss.SSS}] [%t] %n%msg%n%n" />
-            <SizeBasedTriggeringPolicy size="5MB" />
-            <DefaultRolloverStrategy max="300" />
-        </RollingFile>
-    </appenders>
-    <loggers>
-        <AsyncLogger name="errinfo" level="info" includeLocation="false">
-            <AppenderRef ref="dealFile" />
-        </AsyncLogger>
-        <AsyncLogger name="info" level="info" includeLocation="false">
-            <AppenderRef ref="sqlFile" />
-        </AsyncLogger>
-        <root level="error">
-            <appender-ref ref="Console" />
-        </root>
-    </loggers>
-</configuration>
+<!--
+    Configuration后面的status，这个用于设置log4j2自身内部的信息输出，可以不设置，当设置成trace时，你会看到log4j2内部各种详细输出。
+-->
+<!--
+    monitorInterval：Log4j能够自动检测修改配置 文件和重新配置本身，设置间隔秒数。
+-->
+<configuration status="error" monitorInterval="30">
+        <!--先定义所有的appender-->
+<appenders>
+<!--这个输出控制台的配置-->
+<Console name="Console" target="SYSTEM_OUT">
+    <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
+    <ThresholdFilter level="trace" onMatch="ACCEPT" onMismatch="DENY"/>
+    <!--这个都知道是输出日志的格式-->
+    <PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level %class{36} %L %M - %msg%xEx%n"/>
+</Console>
+<!--文件会打印出所有信息，这个log每次运行程序会自动清空，由append属性决定，这个也挺有用的，适合临时测试用-->
+<File name="log" fileName="${web:rootDir}/logs/test.log" append="false">
+    <PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level %class{36} %L %M - %msg%xEx%n"/>
+</File>
+<!-- 这个会打印出所有的信息，每次大小超过size，则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档-->
+<RollingFile name="RollingFile" fileName="${web:rootDir}/logs/app.log"
+             filePattern="log/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
+    <PatternLayout pattern="%d{yyyy-MM-dd 'at' HH:mm:ss z} %-5level %class{36} %L %M - %msg%xEx%n"/>
+    <SizeBasedTriggeringPolicy size="50MB"/>
+    <!-- DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件，这里设置了20 -->
+    <DefaultRolloverStrategy max="20"/>
+</RollingFile>
+</appenders>
+        <!--然后定义logger，只有定义了logger并引入的appender，appender才会生效-->
+<loggers>
+<!--建立一个默认的root的logger-->
+<root level="all">
+    <appender-ref ref="RollingFile"/>
+    <appender-ref ref="Console"/>
+</root>
+</loggers>
+        </configuration>

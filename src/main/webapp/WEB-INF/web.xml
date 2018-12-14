@@ -1,37 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
+
+
+<web-app
+        version="3.0"
+        xmlns="http://java.sun.com/xml/ns/javaee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+
+
+
+
     <context-param>
-        <param-name>webAppRootKey</param-name>
-        <param-value>LibraryManagement.root</param-value>
+        <param-name>log4jConfiguration</param-name>
+        <param-value>classpath:config/log4j2.xml</param-value>
     </context-param>
+
+    <!-- log4j2-begin -->
+
+    <!--<listener>-->
+    <!--<listener-class>org.apache.logging.log4j.web.Log4jServletContextListener</listener-class>-->
+    <!--</listener>-->
+
+    <!--<filter>-->
+    <!--<filter-name>log4jServletFilter</filter-name>-->
+    <!--<filter-class>org.apache.logging.log4j.web.Log4jServletFilter</filter-class>-->
+    <!--</filter>-->
+    <!--<filter-mapping>-->
+    <!--<filter-name>log4jServletFilter</filter-name>-->
+    <!--<url-pattern>/*</url-pattern>-->
+    <!--<dispatcher>REQUEST</dispatcher>-->
+    <!--<dispatcher>FORWARD</dispatcher>-->
+    <!--<dispatcher>INCLUDE</dispatcher>-->
+    <!--<dispatcher>ERROR</dispatcher>-->
+    <!--<dispatcher>ASYNC</dispatcher>-->
+    <!--</filter-mapping>-->
+    <!-- log4j2-end -->
     <!-- 读取spring配置文件 -->
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
             classpath:config/spring.xml;
-            classpath:config/spring-mybatis.xml
+            classpath:config/spring-mybatis.xml;
         </param-value>
-    </context-param>
-    <context-param>
-        <param-name>isLog4jContextSelectorNamed</param-name>
-        <param-value>true</param-value>
-    </context-param>
-    <context-param>
-        <param-name>log4jContextName</param-name>
-        <param-value>appWithJndiSelector</param-value>
-    </context-param>
-    <context-param>
-        <param-name>log4jConfiguration</param-name>
-        <param-value>classpath:config/log4j2.xml</param-value>
     </context-param>
     <!-- 启动spring -->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener
         </listener-class>
     </listener>
-    <listener>
-        <listener-class>org.apache.logging.log4j.web.Log4jServletContextListener</listener-class>
-    </listener>
+
     <!-- Spring字符集过滤器 -->
     <filter>
         <filter-name>SpringEncodingFilter</filter-name>
@@ -49,26 +66,6 @@
         <filter-name>SpringEncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-
-    <!-- log4j2-begin -->
-
-
-
-    <filter>
-        <filter-name>log4jServletFilter</filter-name>
-        <filter-class>org.apache.logging.log4j.web.Log4jServletFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>log4jServletFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-        <dispatcher>REQUEST</dispatcher>
-        <dispatcher>FORWARD</dispatcher>
-        <dispatcher>INCLUDE</dispatcher>
-        <dispatcher>ERROR</dispatcher>
-        <dispatcher>ASYNC</dispatcher>
-    </filter-mapping>
-    <!-- log4j2-end -->
-
 
 
     <!-- spring mvc配置 -->

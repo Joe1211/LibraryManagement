@@ -2,6 +2,10 @@ package com.wonders.shixi.util;
 
 import com.wonders.shixi.controller.vo.Massage;
 
+/**
+ * 消息工具
+ * @author 吴建良
+ */
 public class MassageUtil {
     /**
      * bool类型的消息模板
@@ -32,5 +36,6 @@ public class MassageUtil {
         massage1.setMassage(massage);
         return  massage1;
     }
+
 
 }

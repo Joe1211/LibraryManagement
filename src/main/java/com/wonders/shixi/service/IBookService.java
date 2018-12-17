@@ -26,7 +26,7 @@ public interface IBookService {
 
     List<Book> findDimBook(String s);
 
-    RestMsg<Object> findLabelBook(String[] arr);
+    List<Book> findLabelBook(String[] arr);
 
     List<Book> findTypeBook(String... arr);
 }

@@ -17,7 +17,7 @@
 <!--logo-->
 <div class="navbar-header col-sm-2 ">
     <a href=" " class="navbar-header ">
-        <img src="images/logo.jpg">
+        <img src="img/logo.jpg">
     </a>
 </div>
 

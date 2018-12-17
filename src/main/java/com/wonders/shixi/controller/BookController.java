@@ -66,15 +66,23 @@ public class BookController {
     })
     @GetMapping("/label")
     @ResponseBody
-    public RestMsg<Object> findLabelBook( String lab){
-//        将前台字符串已&分开
-        String[] s = lab.split(",");
-        String[] arr = new String[s.length];
-//        取字符串中的最后一位（即标签的id）
-        for (int i=0;i<s.length;i++){
-            arr[i]=s[i].substring(s[i].length()-1,s[i].length());
+    public RestMsg<Object> findLabelBook( String lab,@RequestParam(required = false,defaultValue = "1",value = "pn")Integer pn){
+        RestMsg<Object> rm = new RestMsg<>();
+        //将前台字符串（标签id）以","分开并放入数组中
+        String[] arr = lab.split(",");
+        //在查询之前传入当前页，然后多少记录
+        PageHelper.startPage(pn,5);
+        //startPage后紧跟的这个查询就是分页查询
+        List<Book> list = bookService.findLabelBook(arr);
+        //使用PageInfo包装查询结果，只需要将pageInfo交给页面就可以
+        PageInfo pageInfo = new PageInfo<>(list,5);
+        //pageINfo封装了分页的详细信息，也可以指定连续显示的页数
+        if (pageInfo.getList().size() != 0){
+            rm.setResult(pageInfo);
+            return rm.successMsg();
+        }else {
+            return rm.errorMsg("没有该标签的图书");
         }
-        return bookService.findLabelBook(arr);
     }
 
     /**

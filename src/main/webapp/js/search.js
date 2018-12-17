@@ -18,19 +18,8 @@ window.onload=function(){
     })
 }
 
-// 根据书名模糊查询
-// 搜索框搜索
-$('#select').click(function () {
-    $.ajax({
-        type: 'get',
-        url: 'api/books/books/' +'?bookname='+$('#content').val(),
-        dataType: 'json',
-        success: function (data) {
-            loadInfo(data);
-        }
-    })
-})
-//加载图书信息
+
+//通用显示图书信息并加载分页
 function loadInfo(data){
     if(data.code == 1){
         var html = '';
@@ -95,9 +84,22 @@ function loadInfo(data){
         $("#bod").html(html);
     }else {
         data.msg();
-    }
-}
-// 加载分页
+    };
+};
+
+// 根据书名模糊查询
+// 搜索框搜索
+$('#select').click(function () {
+    $.ajax({
+        type: 'get',
+        url: 'api/books/books/' +'?bookname='+$('#content').val(),
+        dataType: 'json',
+        success: function (data) {
+            loadInfo(data);
+        }
+    });
+});
+// 模糊查询加载分页
 function loadData(page) {
     $.ajax({
         type: 'get',
@@ -113,39 +115,25 @@ function loadData(page) {
 // 标签查询
 $('#labelsubmit').click(function(){
     var data = $("form").serialize(); // 表单序列化
-    alert(data)
     $.ajax({
         type : 'get',
         url : 'api/books/label'+'?'+data,
         success : function(data) {
-            if(data.code == 1){
-                var html = '';
-                $.each(data.result,function (i,item) {
-                    html+='<div class="col-md-12 ">';
-                    html+=' <div class="panel panel-default ">';
-                    html+='<div class="panel-body ">';
-                    html+='  <div class="form-group col-md-1 ">';
-                    html+='<div class="picture box ">';
-                    html+='<img src=""/>';
-                    html+='</div>';
-                    html+='</div>';
-                    html+=' <div id="" class="col-md-8 ">';
-                    html+='<p>'+item.bookName+'</p>';
-                    html+='<p>'+item.bookWriter+'</p>';
-                    html+='<p>'+item.bookPress+'</p>';
-                    html+='<a href=" ">预约请求</a>';
-                    html+=' <a href=" ">馆藏信息</a>';
-                    html+='<a href=" ">详细信息</a>';
-                    html+='<a href=" ">评论/标签</a>';
-                    html+='</div>';
-                    html+='</div>';
-                    html+='</div> ';
-                    html+='</div>';
-                })
-                $("#bod").html(html);
-            }else {
-                alert(data.msg);
-            }
+            // 显示图书信息
+            loadInfo(data);
         }
     });
 });
+// 标签查询加载分页
+function loadData(page) {
+    var data = $("form").serialize(); // 表单序列化
+    $.ajax({
+        type: 'get',
+        url: 'api/books/label'+'?'+data + '&pn=' + page,
+        dataType: 'json',
+        success: function (data) {
+            // 显示图书信息
+            loadInfo(data);
+        }
+    })
+}

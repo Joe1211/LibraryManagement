@@ -77,15 +77,9 @@ public class BookServiceImpl implements IBookService {
      * @return
      */
     @Override
-    public RestMsg<Object> findLabelBook(String[] arr) {
+    public List<Book> findLabelBook(String[] arr) {
         RestMsg<Object> rm = new RestMsg<>();
-        List<Book> list = bookMapper.selectLabelBook(arr);
-        if (list.size() != 0){
-            rm.setResult(list);
-            return rm.successMsg();
-        }else {
-            return rm.errorMsg("图书未找到");
-        }
+        return bookMapper.selectLabelBook(arr);
     }
 
     @Override

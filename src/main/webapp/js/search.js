@@ -82,9 +82,9 @@ function loadInfo(data){
         })
 
         // 下一页
-        //是否有上一页
+        //是否有下一页
         if (test = data.result.hasNextPage) {
-            html+='<li><a href="javascript:loadData('+(data.result.pageNum+1)+')">'+"上一页"+'</a></li>';
+            html+='<li><a href="javascript:loadData('+(data.result.pageNum+1)+')">'+"下一页"+'</a></li>';
         }else{
             html+='<li><a href="avascript:void(0))">'+"下一页"+'</a></li>';
         }

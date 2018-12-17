@@ -66,9 +66,9 @@ public class BookController {
     })
     @GetMapping("/label")
     @ResponseBody
-    public RestMsg<Object> findLabelBook(String lab){
+    public RestMsg<Object> findLabelBook( String lab){
 //        将前台字符串已&分开
-        String[] s = lab.split("&");
+        String[] s = lab.split(",");
         String[] arr = new String[s.length];
 //        取字符串中的最后一位（即标签的id）
         for (int i=0;i<s.length;i++){

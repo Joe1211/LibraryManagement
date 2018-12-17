@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 /**
- * @ClassName 图书查询控制器
+ * @ClassName 图书标签控制器
  * @author 乔翰林
  * @date 2018.12.14
  */
@@ -21,10 +21,8 @@ public class BookLabelServiceImpl implements IBookLabelService {
 
     @Override
     public RestMsg<Object> findLabelAll() {
-        System.out.println("进入service");
         RestMsg<Object> rm = new RestMsg<>();
         List<BookLabel> list = bookLabelMapper.selectByAll();
-        System.out.println(list.size());
         if (list.size() != 0){
             rm.setResult(list);
             return rm.successMsg();

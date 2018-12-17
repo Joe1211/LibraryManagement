@@ -67,7 +67,7 @@
     <mvc:resources location="/html/"  mapping="/html/**" />
     <mvc:resources location="/fonts/"  mapping="/fonts/**" />
     <mvc:resources location="/uploadfiles/"  mapping="/uploadfiles/**" />
-    <mvc:resources location="/images/"  mapping="/imges/**" />
+    <mvc:resources location="/img/"  mapping="/img/**" />
     <mvc:resources location="/swagger/"  mapping="/swagger/**" />
     <mvc:resources mapping="swagger-ui.html" location="classpath:/META-INF/resources/"/>
     <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>

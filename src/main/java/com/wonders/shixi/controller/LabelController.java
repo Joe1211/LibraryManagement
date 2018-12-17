@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 /**
- * @ClassName 图书查询控制器
+ * @ClassName 图书标签控制器
  * @author 乔翰林
  * @date 2018.12.14
  */

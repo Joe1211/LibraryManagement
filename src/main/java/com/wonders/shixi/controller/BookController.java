@@ -115,49 +115,4 @@ public class BookController {
         }
     }
 
-//    /**
-//     * 图书入库
-//     */
-//    @PostMapping("/add")
-//    @ResponseBody
-//    public RestMsg<Object> addBook(HttpServletRequest request){
-//        //获取页面参数
-//        String bookName = request.getParameter("bookName");
-//        String bookPeriodicals = request.getParameter("bookPeriodicals");
-//        String bookCallnum = request.getParameter("bookCallnum");
-//        String bookWriter = request.getParameter("bookWriter");
-//        String bookPress = request.getParameter("bookPress");
-//        String bookCover = request.getParameter("bookCover");
-//        String bookInfo = request.getParameter("bookInfo");
-//        String typeTwoId = request.getParameter("typeTwoId");
-//        String libraryId = request.getParameter("libraryId");
-//        String bookState = request.getParameter("bookState");
-//
-//        //将值传入book
-//        Book b = new Book();
-//        b.setBookName(bookName);
-//        b.setBookPeriodicals(bookPeriodicals);
-//        b.setBookCallnum(bookCallnum);
-//        b.setBookWriter(bookWriter);
-//        b.setBookPress(bookPress);
-//        b.setBookCover(bookCover);
-//        b.setBookInfo(bookInfo);
-//        b.setTypeTwoId(Integer.parseInt(typeTwoId));
-//        b.setLibraryId(Integer.parseInt(libraryId));
-//        b.setBookState(bookState);
-//
-//        return bookService.addBook(b);
-//    }
-//
-//
-//    /**
-//     * 根据图书id删除图书
-//     * @param id 图书id
-//     * @return
-//     */
-//    @DeleteMapping("/delete/{id}")
-//    @ResponseBody
-//    public RestMsg<Object> deleteBook(@PathVariable("id") int id){
-//        return bookService.deleteBook(id);
-//    }
 }

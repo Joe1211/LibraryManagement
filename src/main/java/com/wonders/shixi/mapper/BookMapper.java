@@ -26,7 +26,7 @@ public interface BookMapper {
      * @param bookId
      * @return
      */
-    Book selectByPrimaryKey(Integer bookId);
+    com.wonders.shixi.pojo.Book selectByPrimaryKey(Integer bookId);
 
     int updateByPrimaryKeySelective(Book record);
 
@@ -45,4 +45,6 @@ public interface BookMapper {
      * @return
      */
     List<Book> selectLabelBook(String[] label);
+
+    List<Book> selectType(String value);
 }

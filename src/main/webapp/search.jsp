@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/custom.css"/>
-    <script src="js/pccs.js" type="text/javascript"></script>
+    <%--<script src="js/pccs.js" type="text/javascript"></script>--%>
 </head>
 <body>
 <!--导航栏-->
@@ -69,18 +69,18 @@
     <div class="row col-md-3 ">
         <h3>按类型检索</h3>
         <!--本部类-->
-        <select name="province" id="province" class="form-group form-control">
+        <select name="type0" id="type0" class="form-group form-control">
         </select>
 
         <!--一级类目-->
-        <select name="city" id="city" class="form-group form-control">
+        <select name="type1" id="type1" class="form-group form-control">
         </select>
 
         <!--二级类目-->
-        <select name="county" id="county" class="form-group form-control">
+        <select name="type2" id="type2" class="form-group form-control">
         </select>
 
-        <button class="btn btn-info col-md-12 col-xs-12">检索</button>
+        <button type="button" id="selectType" class="btn btn-info col-md-12 col-xs-12">检索</button>
 
     </div>
 
@@ -114,9 +114,6 @@
 <script src="js/bootstrap.min.js"></script>
 <script src="js/bootstrap-select.js"></script>
 <script src="js/defaults-zh_CN.min.js"></script>
-<script language="javascript">
-    setup()
-</script>
 <script src="js/search.js"></script>
 
 </body>

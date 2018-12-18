@@ -15,18 +15,9 @@ import java.util.List;
 public interface IBookService {
     Book selectByPrimaryKey(int id);
 
-    /**
-     * 图书入库
-     * @param book
-     * @return
-     */
-    RestMsg<Object> addBook(Book book);
-
-    RestMsg<Object> deleteBook(int id);
-
     List<Book> findDimBook(String s);
 
     List<Book> findLabelBook(String[] arr);
 
-    List<Book> findTypeBook(String... arr);
+    List<Book> findTypeBook(String value);
 }

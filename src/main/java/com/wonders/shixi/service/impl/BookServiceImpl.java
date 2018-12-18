@@ -27,41 +27,6 @@ public class BookServiceImpl implements IBookService {
     }
 
     /**
-     * 图书入库
-     * @param book
-     * @return
-     */
-    @Override
-    public RestMsg<Object> addBook(Book book) {
-        RestMsg<Object> rm = new RestMsg<>();
-        int i = bookMapper.insert(book);
-        if (i != 0){
-            rm.setResult(book);
-            rm.successMsg("添加图书成功");
-            return rm;
-        }else{
-            rm.errorMsg("添加图书失败");
-            return rm;
-        }
-    }
-
-    /**
-     * 图书出库
-     * @param id
-     * @return
-     */
-    @Override
-    public RestMsg<Object> deleteBook(int id) {
-        RestMsg<Object> rm = new RestMsg<>();
-        int i = bookMapper.deleteByPrimaryKey(id);
-        if(i != 0){
-            return rm.successMsg("图书删除成功");
-        }else{
-            return rm.errorMsg("图书删除失败");
-        }
-    }
-
-    /**
      * 根据图书名模糊查询图书
      * @param s
      * @return
@@ -78,13 +43,12 @@ public class BookServiceImpl implements IBookService {
      */
     @Override
     public List<Book> findLabelBook(String[] arr) {
-        RestMsg<Object> rm = new RestMsg<>();
         return bookMapper.selectLabelBook(arr);
     }
 
     @Override
-    public List<Book> findTypeBook(String... arr) {
-        return null;
+    public List<Book> findTypeBook(String value) {
+        return bookMapper.selectType(value);
     }
 
 

@@ -12,13 +12,13 @@
     <result column="book_info" jdbcType="VARCHAR" property="bookInfo" />
     <result column="book_time" jdbcType="TIMESTAMP" property="bookTime" />
     <result column="book_updata" jdbcType="TIMESTAMP" property="bookUpdata" />
-    <result column="type_two_id" jdbcType="INTEGER" property="typeTwoId" />
-    <result column="library_id" jdbcType="INTEGER" property="libraryId" />
+    <result column="type_two_value" jdbcType="VARCHAR" property="typeTwoValue" />
     <result column="book_state" jdbcType="VARCHAR" property="bookState" />
+    <result column="library_id" jdbcType="INTEGER" property="libraryId" />
   </resultMap>
   <sql id="Base_Column_List">
     book_id, book_name, book_periodicals, book_callnum, book_writer, book_press, book_cover, 
-    book_info, book_time, book_updata, type_two_id, library_id, book_state
+    book_info, book_time, book_updata, type_two_value, book_state, library_id
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -34,13 +34,13 @@
     insert into book (book_id, book_name, book_periodicals, 
       book_callnum, book_writer, book_press, 
       book_cover, book_info, book_time, 
-      book_updata, type_two_id, library_id, 
-      book_state)
+      book_updata, type_two_value, book_state, 
+      library_id)
     values (#{bookId,jdbcType=INTEGER}, #{bookName,jdbcType=VARCHAR}, #{bookPeriodicals,jdbcType=VARCHAR}, 
       #{bookCallnum,jdbcType=VARCHAR}, #{bookWriter,jdbcType=VARCHAR}, #{bookPress,jdbcType=VARCHAR}, 
       #{bookCover,jdbcType=VARCHAR}, #{bookInfo,jdbcType=VARCHAR}, #{bookTime,jdbcType=TIMESTAMP}, 
-      #{bookUpdata,jdbcType=TIMESTAMP}, #{typeTwoId,jdbcType=INTEGER}, #{libraryId,jdbcType=INTEGER}, 
-      #{bookState,jdbcType=VARCHAR})
+      #{bookUpdata,jdbcType=TIMESTAMP}, #{typeTwoValue,jdbcType=VARCHAR}, #{bookState,jdbcType=VARCHAR}, 
+      #{libraryId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.wonders.shixi.pojo.Book">
     insert into book
@@ -75,14 +75,14 @@
       <if test="bookUpdata != null">
         book_updata,
       </if>
-      <if test="typeTwoId != null">
-        type_two_id,
-      </if>
-      <if test="libraryId != null">
-        library_id,
+      <if test="typeTwoValue != null">
+        type_two_value,
       </if>
       <if test="bookState != null">
         book_state,
+      </if>
+      <if test="libraryId != null">
+        library_id,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -116,14 +116,14 @@
       <if test="bookUpdata != null">
         #{bookUpdata,jdbcType=TIMESTAMP},
       </if>
-      <if test="typeTwoId != null">
-        #{typeTwoId,jdbcType=INTEGER},
-      </if>
-      <if test="libraryId != null">
-        #{libraryId,jdbcType=INTEGER},
+      <if test="typeTwoValue != null">
+        #{typeTwoValue,jdbcType=VARCHAR},
       </if>
       <if test="bookState != null">
         #{bookState,jdbcType=VARCHAR},
+      </if>
+      <if test="libraryId != null">
+        #{libraryId,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -157,14 +157,14 @@
       <if test="bookUpdata != null">
         book_updata = #{bookUpdata,jdbcType=TIMESTAMP},
       </if>
-      <if test="typeTwoId != null">
-        type_two_id = #{typeTwoId,jdbcType=INTEGER},
-      </if>
-      <if test="libraryId != null">
-        library_id = #{libraryId,jdbcType=INTEGER},
+      <if test="typeTwoValue != null">
+        type_two_value = #{typeTwoValue,jdbcType=VARCHAR},
       </if>
       <if test="bookState != null">
         book_state = #{bookState,jdbcType=VARCHAR},
+      </if>
+      <if test="libraryId != null">
+        library_id = #{libraryId,jdbcType=INTEGER},
       </if>
     </set>
     where book_id = #{bookId,jdbcType=INTEGER}
@@ -180,9 +180,9 @@
       book_info = #{bookInfo,jdbcType=VARCHAR},
       book_time = #{bookTime,jdbcType=TIMESTAMP},
       book_updata = #{bookUpdata,jdbcType=TIMESTAMP},
-      type_two_id = #{typeTwoId,jdbcType=INTEGER},
-      library_id = #{libraryId,jdbcType=INTEGER},
-      book_state = #{bookState,jdbcType=VARCHAR}
+      type_two_value = #{typeTwoValue,jdbcType=VARCHAR},
+      book_state = #{bookState,jdbcType=VARCHAR},
+      library_id = #{libraryId,jdbcType=INTEGER}
     where book_id = #{bookId,jdbcType=INTEGER}
   </update>
 
@@ -191,23 +191,35 @@
     select
     <include refid="Base_Column_List" />
     from book
-        <where>
-          <if test="bookName != null">
-            book_name like '%${bookName}%'
-          </if>
-        </where>
+    <where>
+      <if test="bookName != null">
+        book_name like '%${bookName}%'
+      </if>
+    </where>
   </select>
 
-    <!--标签查询-->
-    <select id="selectLabelBook" parameterType="java.lang.String" resultMap="BaseResultMap">
-        select DISTINCT
-        b.<include refid="Base_Column_List" />
-        from book b,book_label_relation blr
-        where b.book_id=blr.book_id and blr.book_label_id in
-        <foreach collection="array" item="label" index="index"
-                 open="(" close=")" separator=",">
-            '${label}'
-        </foreach>
+  <!--标签查询-->
+  <select id="selectLabelBook" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select DISTINCT
+    b.<include refid="Base_Column_List" />
+    from book b,book_label_relation blr
+    where b.book_id=blr.book_id and blr.book_label_id in
+    <foreach collection="array" item="label" index="index"
+             open="(" close=")" separator=",">
+      '${label}'
+    </foreach>
+  </select>
 
-    </select>
+  <!--分类查询-->
+  <select id="selectType" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from book
+    <where>
+      <if test="value != null">
+        type_two_value like '${value}'
+      </if>
+    </where>
+  </select>
+
 </mapper>

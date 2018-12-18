@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wonders.shixi.mapper.TypeTwoMapper">
+  <resultMap id="BaseResultMap" type="com.wonders.shixi.pojo.TypeTwo">
+    <id column="type_two_id" jdbcType="INTEGER" property="typeTwoId" />
+    <result column="type_one_id" jdbcType="INTEGER" property="typeOneId" />
+    <result column="type_two_type" jdbcType="VARCHAR" property="typeTwoType" />
+    <result column="type_two_value" jdbcType="VARCHAR" property="typeTwoValue" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    type_two_id, type_one_id, type_two_type, type_two_value
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from type_two
+    where type_two_id = #{typeTwoId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from type_two
+    where type_two_id = #{typeTwoId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wonders.shixi.pojo.TypeTwo">
+    insert into type_two (type_two_id, type_one_id, type_two_type, 
+      type_two_value)
+    values (#{typeTwoId,jdbcType=INTEGER}, #{typeOneId,jdbcType=INTEGER}, #{typeTwoType,jdbcType=VARCHAR}, 
+      #{typeTwoValue,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wonders.shixi.pojo.TypeTwo">
+    insert into type_two
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="typeTwoId != null">
+        type_two_id,
+      </if>
+      <if test="typeOneId != null">
+        type_one_id,
+      </if>
+      <if test="typeTwoType != null">
+        type_two_type,
+      </if>
+      <if test="typeTwoValue != null">
+        type_two_value,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="typeTwoId != null">
+        #{typeTwoId,jdbcType=INTEGER},
+      </if>
+      <if test="typeOneId != null">
+        #{typeOneId,jdbcType=INTEGER},
+      </if>
+      <if test="typeTwoType != null">
+        #{typeTwoType,jdbcType=VARCHAR},
+      </if>
+      <if test="typeTwoValue != null">
+        #{typeTwoValue,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wonders.shixi.pojo.TypeTwo">
+    update type_two
+    <set>
+      <if test="typeOneId != null">
+        type_one_id = #{typeOneId,jdbcType=INTEGER},
+      </if>
+      <if test="typeTwoType != null">
+        type_two_type = #{typeTwoType,jdbcType=VARCHAR},
+      </if>
+      <if test="typeTwoValue != null">
+        type_two_value = #{typeTwoValue,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where type_two_id = #{typeTwoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wonders.shixi.pojo.TypeTwo">
+    update type_two
+    set type_one_id = #{typeOneId,jdbcType=INTEGER},
+      type_two_type = #{typeTwoType,jdbcType=VARCHAR},
+      type_two_value = #{typeTwoValue,jdbcType=VARCHAR}
+    where type_two_id = #{typeTwoId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByOId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from type_two
+    where type_two_value like '%${value}%'
+  </select>
+</mapper>

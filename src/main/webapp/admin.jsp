@@ -86,19 +86,19 @@
 
             <li class="sidebar-nav-link">
                 <a href="javascript:;" class="sidebar-nav-sub-title">
-                    <i class="am-icon-table sidebar-nav-link-logo"></i> 功能一
+                    <i class="am-icon-table sidebar-nav-link-logo"></i> 信息统计
                     <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
                 </a>
                 <ul class="sidebar-nav sidebar-nav-sub">
                     <li class="sidebar-nav-link">
                         <a href="table-list.html">
-                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 功能分类一
+                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 图书借阅数量
                         </a>
                     </li>
 
                     <li class="sidebar-nav-link">
                         <a href="table-list-img.html">
-                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 功能分类二
+                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 2222
                         </a>
                     </li>
                 </ul>
@@ -106,19 +106,19 @@
 
             <li class="sidebar-nav-link">
                 <a href="javascript:;" class="sidebar-nav-sub-title">
-                    <i class="am-icon-table sidebar-nav-link-logo"></i> 功能二
+                    <i class="am-icon-table sidebar-nav-link-logo"></i> 借阅管理
                     <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
                 </a>
                 <ul class="sidebar-nav sidebar-nav-sub">
                     <li class="sidebar-nav-link">
                         <a href="table-list.html">
-                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 功能分类一
+                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 以借图书
                         </a>
                     </li>
 
                     <li class="sidebar-nav-link">
                         <a href="table-list-img.html">
-                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 功能分类二
+                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 待还图书
                         </a>
                     </li>
                 </ul>
@@ -126,19 +126,19 @@
 
             <li class="sidebar-nav-link">
                 <a href="javascript:;" class="sidebar-nav-sub-title">
-                    <i class="am-icon-table sidebar-nav-link-logo"></i> 功能三
+                    <i class="am-icon-table sidebar-nav-link-logo"></i> 图书管理
                     <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
                 </a>
                 <ul class="sidebar-nav sidebar-nav-sub">
                     <li class="sidebar-nav-link">
                         <a href="table-list.html">
-                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 功能分类一
+                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 图书入库
                         </a>
                     </li>
 
                     <li class="sidebar-nav-link">
                         <a href="table-list-img.html">
-                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 功能分类二
+                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 图书出库
                         </a>
                     </li>
                 </ul>
@@ -146,19 +146,19 @@
 
             <li class="sidebar-nav-link">
                 <a href="javascript:;" class="sidebar-nav-sub-title">
-                    <i class="am-icon-table sidebar-nav-link-logo"></i> 功能四
+                    <i class="am-icon-table sidebar-nav-link-logo"></i> 标签管理
                     <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
                 </a>
                 <ul class="sidebar-nav sidebar-nav-sub">
                     <li class="sidebar-nav-link">
                         <a href="table-list.html">
-                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 功能分类一
+                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 添加标签
                         </a>
                     </li>
 
                     <li class="sidebar-nav-link">
                         <a href="table-list-img.html">
-                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 功能分类二
+                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 删除标签
                         </a>
                     </li>
                 </ul>
@@ -166,19 +166,19 @@
 
             <li class="sidebar-nav-link">
                 <a href="javascript:;" class="sidebar-nav-sub-title">
-                    <i class="am-icon-table sidebar-nav-link-logo"></i> 详情展示
+                    <i class="am-icon-table sidebar-nav-link-logo"></i> 评论管理
                     <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
                 </a>
                 <ul class="sidebar-nav sidebar-nav-sub">
                     <li class="sidebar-nav-link">
                         <a href="${pageContext.request.contextPath}/book/booklist/information">
-                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 列表展示
+                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 评论详情
                         </a>
                     </li>
 
                     <li class="sidebar-nav-link">
                         <a href="table-list-img.html">
-                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 图表展示
+                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span>
                         </a>
                     </li>
                 </ul>

@@ -4,6 +4,7 @@
   Date: 2018/12/17
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <meta charset="utf-8">
@@ -13,25 +14,25 @@
     <meta name="keywords" content="index">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="renderer" content="webkit">
-    <link rel="icon" type="image/png" href="img/favicon.png">
-    <link rel="apple-touch-icon-precomposed" href="img/app-icon72x72@2x.png">
+    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/img/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="${pageContext.request.contextPath}/img/app-icon72x72@2x.png">
     <meta name="apple-mobile-web-app-title" content="Amaze UI" />
-    <script src="js/echarts.min.js"></script>
-    <link rel="stylesheet" href="css/amazeui.min.css" />
-    <link rel="stylesheet" href="css/amazeui.datatables.min.css" />
-    <link rel="stylesheet" href="css/app.css">
-    <script src="js/jquery.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/echarts.min.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/amazeui.min.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/amazeui.datatables.min.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/app.css">
+    <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 
 </head>
 
 <body data-type="index">
-<script src="js/theme.js"></script>
+<script src="${pageContext.request.contextPath}/js/theme.js"></script>
 <div class="am-g tpl-g">
     <!-- 头部 -->
     <header>
         <!-- logo -->
         <div class="am-fl tpl-header-logo">
-            <a href="javascript:;"><img src="img/logo.jpg" alt=""></a>
+            <a href="javascript:;"><img src="${pageContext.request.contextPath}/img/logo.jpg" alt=""></a>
         </div>
         <!-- 右侧内容 -->
         <div class="tpl-header-fluid">
@@ -73,7 +74,7 @@
         <div class="tpl-sidebar-user-panel">
             <div class="tpl-user-panel-slide-toggleable">
                 <div class="tpl-user-panel-profile-picture">
-                    <img src="img/user04.png" alt="">
+                    <img src="${pageContext.request.contextPath}/img/user04.png" alt="">
                 </div>
                 <span class="user-panel-logged-in-text">
 	              			<i class="am-icon-circle-o am-text-success tpl-user-panel-status-icon"></i>禁言小张
@@ -131,7 +132,7 @@
                 </a>
                 <ul class="sidebar-nav sidebar-nav-sub">
                     <li class="sidebar-nav-link">
-                        <a href="admin_book.jsp" target="showiframe">
+                        <a href="table-list.html">
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 图书入库
                         </a>
                     </li>
@@ -183,23 +184,143 @@
                     </li>
                 </ul>
             </li>
+
         </ul>
     </div>
 
 
     <!-- 内容区域 -->
     <div class="tpl-content-wrapper">
-        <iframe src="admin_number.jsp" width="100%" height="100%" frameborder="0" name="showiframe"></iframe>
+        <div class="panel panel-default">
+            <div class="panel-heading text-center">
+                <h3 class="text-primary">图书信息</h3>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered  table-hover  table-condensed">
+                    <tr class="text-center text-primary">
+                        <td><input type="checkbox" id="checkAll" /></td>
+                        <td>图书ID</td>
+                        <td>图书名称</td>
+                        <td>作者</td>
+                        <td>出版社</td>
+                        <td>入库时间</td>
+                        <td>二级类目</td>
+                        <td>操作</td>
+                    </tr>
 
-        <%--<iframe src="admin_book.jsp" width="100%" height="100%" frameborder="0" name="showiframe"></iframe>--%>
+                    <c:forEach items="${bookList}" var="book">
+                        <tr class="text-center ">
+                            <td><input type="checkbox" id="bookId" value="${book.bookId}" /></td>
+                            <td>${book.bookId}</td>
+                            <td>${book.bookName}</td>
+                            <td>${book.bookWriter}</td>
+                            <td>${book.bookPress}</td>
+                            <td>${book.bookTime}</td>
+                            <td>${book.typeTwoValue}</td>
+                            <td><a href="#" class="btn btn-primary  btn-xs">修改</a> <a
+                                    href="#" class="btn btn-primary  btn-xs">删除</a></td>
+                        </tr>
+                    </c:forEach>
 
+                </table>
+
+                <div>
+
+                    <div class="text-center">
+                        <c:choose>
+
+                            <c:when test="${pageInfo.size > 0 }">
+
+                                <ul class="pagination">
+
+
+
+                                    <li><span>显示${pageInfo.startRow }到${pageInfo.endRow}共${pageInfo.total}条</span>
+                                    </li>
+                                    <li><a
+                                            href="${pageContext.request.contextPath}/admin/bookListFenYe?pageNum=1">首页
+                                    </a></li>
+
+                                    <c:choose>
+
+                                        <c:when test="${pageInfo.hasPreviousPage}">
+
+                                            <li><a
+                                                    href="${pageContext.request.contextPath}/admin/bookListFenYe?pageNum=${pageInfo.pageNum-1}">上一页
+                                            </a></li>
+                                        </c:when>
+
+                                        <c:otherwise>
+
+                                            <li><span>上一页</span></li>
+
+                                        </c:otherwise>
+
+                                    </c:choose>
+
+                                    <c:forEach var="item" items="${pageInfo.navigatepageNums}">
+
+                                        <c:choose>
+
+                                            <c:when test="${pageInfo.pageNum == item }">
+                                                <li class="active"><span class="current">${pageInfo.pageNum }</span>
+                                                </li>
+                                            </c:when>
+
+                                            <c:otherwise>
+                                                <li><a
+                                                        href="${pageContext.request.contextPath}/admin/bookListFenYe?pageNum=${item}">${item}</a>
+                                                </li>
+                                            </c:otherwise>
+
+                                        </c:choose>
+
+                                    </c:forEach>
+
+                                    <c:choose>
+
+                                        <c:when test="${!pageInfo.isLastPage }">
+
+                                            <li><a
+                                                    href="${pageContext.request.contextPath}/admin/bookListFenYe?pageNum=${pageInfo.pageNum+1}">下一页
+                                            </a></li>
+
+                                            <li><a
+                                                    href="${pageContext.request.contextPath}/admin/bookListFenYe?pageNum=${pageInfo.navigateLastPage}">尾页</a>
+                                            </li>
+                                        </c:when>
+
+                                        <c:otherwise>
+
+                                            <li><span>下一页</span></li>
+
+                                            <li><span>尾页</span></li>
+
+                                        </c:otherwise>
+
+                                    </c:choose>
+
+
+
+                                </ul>
+
+                            </c:when>
+
+                            <c:otherwise>
+                            </c:otherwise>
+
+                        </c:choose>
+
+                    </div>
+                </div>
+            </div>
     </div>
 </div>
 </div>
-<script src="js/amazeui.min.js"></script>
-<script src="js/amazeui.datatables.min.js"></script>
-<script src="js/dataTables.responsive.min.js"></script>
-<script src="js/app.js"></script>
+<script src="${pageContext.request.contextPath}/js/amazeui.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/amazeui.datatables.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/dataTables.responsive.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/app.js"></script>
 
 </body>
 

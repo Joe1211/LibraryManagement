@@ -14,10 +14,10 @@ public interface BookMapper {
 
     /**
      * 图书入库
-     * @param record
+     * @param book
      * @return
      */
-    int insert(Book record);
+    int insert(Book book);
 
     int insertSelective(Book record);
 

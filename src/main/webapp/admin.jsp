@@ -131,7 +131,7 @@
                 </a>
                 <ul class="sidebar-nav sidebar-nav-sub">
                     <li class="sidebar-nav-link">
-                        <a href="table-list.html">
+                        <a href="admin_book.jsp" target="showiframe">
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 图书入库
                         </a>
                     </li>
@@ -183,16 +183,15 @@
                     </li>
                 </ul>
             </li>
-
         </ul>
     </div>
 
 
     <!-- 内容区域 -->
     <div class="tpl-content-wrapper">
+        <iframe src="admin_number.jsp" width="100%" height="100%" frameborder="0" name="showiframe"></iframe>
 
-
-
+        <%--<iframe src="admin_book.jsp" width="100%" height="100%" frameborder="0" name="showiframe"></iframe>--%>
 
     </div>
 </div>

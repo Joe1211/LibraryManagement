@@ -41,6 +41,7 @@
       #{bookCover,jdbcType=VARCHAR}, #{bookInfo,jdbcType=VARCHAR}, #{bookTime,jdbcType=TIMESTAMP}, 
       #{bookUpdata,jdbcType=TIMESTAMP}, #{typeTwoValue,jdbcType=VARCHAR}, #{bookState,jdbcType=VARCHAR}, 
       #{libraryId,jdbcType=INTEGER})
+      select @@IDENTITY as id
   </insert>
   <insert id="insertSelective" parameterType="com.wonders.shixi.pojo.Book">
     insert into book

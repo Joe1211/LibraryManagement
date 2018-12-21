@@ -44,7 +44,7 @@ function loadInfo(data){
             html+='<div class="panel-body panel_2 ">';
             html+='  <div class="form-group col-md-1 ">';
             html+='<div class="picture box tupian ">';
-            html+='<img src=""/>';
+            html+='<img src="/bookCover'+item.bookCover+'"/>';
             html+='</div>';
             html+='</div>';
             html+=' <div id="" class="col-md-8 ">';

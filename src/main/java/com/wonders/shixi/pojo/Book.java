@@ -132,4 +132,23 @@ public class Book {
     public void setLibraryId(Integer libraryId) {
         this.libraryId = libraryId;
     }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "bookId=" + bookId +
+                ", bookName='" + bookName + '\'' +
+                ", bookPeriodicals='" + bookPeriodicals + '\'' +
+                ", bookCallnum='" + bookCallnum + '\'' +
+                ", bookWriter='" + bookWriter + '\'' +
+                ", bookPress='" + bookPress + '\'' +
+                ", bookCover='" + bookCover + '\'' +
+                ", bookInfo='" + bookInfo + '\'' +
+                ", bookTime=" + bookTime +
+                ", bookUpdata=" + bookUpdata +
+                ", typeTwoValue='" + typeTwoValue + '\'' +
+                ", bookState='" + bookState + '\'' +
+                ", libraryId=" + libraryId +
+                '}';
+    }
 }

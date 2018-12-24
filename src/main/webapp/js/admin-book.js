@@ -4,6 +4,7 @@ $('#submitbook').click(function(){
         type: 'post',
         url: 'api/books/add',
         data:data,
+        dataType:'json',
         contentType: false,
         processData: false,
         success: function (data) {

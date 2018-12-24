@@ -92,4 +92,19 @@ public class Reader {
     public void setReaderPassword(String readerPassword) {
         this.readerPassword = readerPassword == null ? null : readerPassword.trim();
     }
+
+    @Override
+    public String toString() {
+        return "Reader{" +
+                "readerId=" + readerId +
+                ", readerName='" + readerName + '\'' +
+                ", readerPhone='" + readerPhone + '\'' +
+                ", readerEmail='" + readerEmail + '\'' +
+                ", readerBlacklist=" + readerBlacklist +
+                ", readerUpdate=" + readerUpdate +
+                ", readerState=" + readerState +
+                ", readerBalance=" + readerBalance +
+                ", readerPassword='" + readerPassword + '\'' +
+                '}';
+    }
 }

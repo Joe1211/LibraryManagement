@@ -20,6 +20,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -35,12 +37,9 @@ public class BookController {
     @Autowired
     IBookService bookService;
 
-    Book b = new Book();
-
     @PostMapping("/add")
     @ResponseBody
     public void addBook(HttpServletRequest request, HttpServletResponse response){
-
         //检查请求是否是multipart/form-data类型
             if(!ServletFileUpload.isMultipartContent(request)){
                 //不是multipart/form-data类型
@@ -67,13 +66,11 @@ public class BookController {
             //遍历容器,处理解析的内容;封装两个方法，一个处理普通表单域，一个处理文件的表单域
             for(FileItem item : items){
                 if(item.isFormField()){
-                    handleFormField(item);
+                  handleFormField(item);
                 }else{
                     handleUploadField(item);
                 }
             }
-
-        bookService.insertBook(b);
         }
     /**
      * 处理普通表单域（FormField）
@@ -89,11 +86,11 @@ public class BookController {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-
 //        将首字母大写
         String fName = fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
         //打印到控制台
         System.out.println("fileName:"+fName+"--value:"+value);
+
     }
     /**
      * 处理文件的表单域
@@ -105,28 +102,27 @@ public class BookController {
         if(fileName!=null && !"".equals(fileName)){
             //控制只能上传图片
             if(!item.getContentType().startsWith("image")){
-                return;
+                return ;
+//                System.out.println("上传图片类型错误");
             }
             //向控制台打印文件信息
 //            System.out.println("fileName:"+fileName);
 //            System.out.println("fileSize:"+item.getSize());
-
         }
-
         //上传文件存储路径
         String path = "D:/code/bookCover";
         //创建子目录
         File childDirectory = getChildDirectory(path);
-
+        String s="";
         //写入服务器或者磁盘
         try {
             String name = UUID.randomUUID()+"_"+fileName;
             item.write(new File(childDirectory.toString(), name));
-            System.out.println("数据库相对路径"+"\\"+time()+"\\"+name);
+            s = "\\"+time()+"\\"+name;
+            System.out.println("数据库相对路径"+s);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
     /**
      * 按照时间创建子目录，防止一个目录中文件过多，不利于以后遍历查找

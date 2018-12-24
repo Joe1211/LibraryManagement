@@ -8,6 +8,7 @@ import com.wonders.shixi.pojo.Admin;
 import com.wonders.shixi.pojo.Reader;
 import com.wonders.shixi.pojo.ReaderExample;
 import com.wonders.shixi.service.ReaderService;
+import com.wonders.shixi.util.RestMsg;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -164,7 +165,37 @@ public class ReaderServiceImpl implements ReaderService {
 
     }
 
+    /**
+     * 用户登陆
+     * @param phone
+     * @param password
+     * @return
+     */
+    @Override
+    public RestMsg<Object> login(String phone, String password) {
+        Reader reader = readerMapper.login(phone);
+        RestMsg<Object> rm = new RestMsg<>();
+        if ((reader.getReaderPassword()).equals(password)){
+            rm.setResult(reader);
+            return rm.successMsg("登陆成功");
+        }
+        return rm.errorMsg("登陆失败");
+    }
 
+    /**
+     * 修改密码
+     * @param phone
+     * @param password
+     * @return
+     */
+    @Override
+    public boolean updataByPassword(String phone, String password) {
+        int i = readerMapper.updateBypassword(phone,password);
+        if(i != 0){
+            return true;
+        }
+        return false;
+    }
 
 
 }

@@ -6,6 +6,7 @@ import com.wonders.shixi.controller.vo.ReaderModel;
 import com.wonders.shixi.pojo.Reader;
 import com.wonders.shixi.service.ReaderService;
 import com.wonders.shixi.util.MassageUtil;
+import com.wonders.shixi.util.RestMsg;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -14,11 +15,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -129,9 +129,41 @@ public class ReaderController {
         }else {
             log.info("失败");
         }
-
         return readers;
     }
 
+    /**
+     * 读者登陆
+     * @param request
+     * @return
+     */
+    @GetMapping("/login")
+    @ResponseBody
+    public RestMsg<Object> login(HttpServletRequest request){
+        String phone = request.getParameter("readerPhone");
+        String password = request.getParameter("readerPassword");
+        RestMsg<Object> rm = readerService.login(phone,password);
+        request.getSession().setAttribute("reader",rm.getResult());
+        return rm;
+    }
 
+    @GetMapping("/upPassword")
+    @ResponseBody
+    public String updataPassword(HttpServletRequest request){
+        String phone = request.getParameter("readerPhone");
+        String pwd = request.getParameter("readerPassword");
+        String newPwd = request.getParameter("readerPassword1");
+        RestMsg<Object> rm = readerService.login(phone,pwd);
+//        原始密码为真
+        if(rm.getCode()==1){
+           boolean b = readerService.updataByPassword(phone,newPwd);
+           if(b){
+               return "修改密码成功";
+           }else {
+               return "修改密码失败";
+           }
+        }else {
+            return "原始密码错误";
+        }
+    }
 }

@@ -349,3 +349,49 @@ function loadTypeInfo(data){
         alert(data.msg);
     };
 };
+
+// 用户登陆
+$("#readerLogin").click(function () {
+    $.ajax({
+        type:'get',
+        url:'api/readermanagement/login',
+        data:$("#readerLog").serialize(),
+        dataType:'json',
+        success:function(data){
+            if(data.code ==1 ){
+                alert(data.msg);
+                var html = '';
+                html+='<div class="dropdown ">';
+                html+='<span data-toggle="dropdown">';
+                html+=''+data.result.readerName+'';
+                html+='<span class="caret"></span>';
+                html+='</span>';
+                html+='<ul class="dropdown-menu">';
+                html+='<li><a href="" data-toggle="modal" data-target="#info">个人信息</a></li>'
+                html+='<li><a href="" data-toggle="modal" data-target="#upPassword">修改密码</a></li>'
+                html+='<li class="divider"></li>';
+                html+='<li><a href=" ">注销账户</a></li>';
+                html+='</ul>';
+                html+='</div>';
+                $("#login").html(html);
+            }else{
+                alert(data.msg);
+            }
+        },
+    })
+})
+// 密码修改
+$("#upPwd").click(function () {
+    // alert("111111")
+    $.ajax({
+        type:'get',
+        url:'api/readermanagement/upPassword',
+        data:$("#pass").serialize(),
+        dataType:'json',
+        success:function (data) {
+            alert(data)
+        }
+    })
+})
+
+

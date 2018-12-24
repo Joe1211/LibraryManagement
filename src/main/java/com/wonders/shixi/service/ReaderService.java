@@ -3,6 +3,7 @@ package com.wonders.shixi.service;
 import com.wonders.shixi.controller.vo.ReaderCondition;
 import com.wonders.shixi.pojo.Admin;
 import com.wonders.shixi.pojo.Reader;
+import com.wonders.shixi.util.RestMsg;
 
 import java.util.List;
 
@@ -50,5 +51,9 @@ public interface ReaderService {
    boolean creatReader(Reader reader);
 
    List<Reader> selectReadersByCondition(ReaderCondition readerCondition);
+
+   RestMsg<Object> login(String phone, String password);
+
+   boolean updataByPassword(String phone,String password);
 
 }

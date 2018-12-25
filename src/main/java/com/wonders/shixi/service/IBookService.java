@@ -20,4 +20,6 @@ public interface IBookService {
     List<Book> findLabelBook(String[] arr);
 
     List<Book> findTypeBook(String value);
+
+    int findStateById(int bookId);
 }

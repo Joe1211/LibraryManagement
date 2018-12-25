@@ -47,4 +47,6 @@ public interface BookMapper {
     List<Book> selectLabelBook(String[] label);
 
     List<Book> selectType(String value);
+
+    int selectStateById(int Bookid);
 }

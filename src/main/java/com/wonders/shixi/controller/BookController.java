@@ -13,6 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -113,6 +116,27 @@ public class BookController {
         }else {
             return rm.errorMsg("没有该类型的图书");
         }
+    }
+
+    /**
+     * 根据书id查询
+     * 查询一本书的详细内容
+     * @param
+     * @return
+     */
+    @RequestMapping("/selectById")
+    @ResponseBody
+    public void selcetById(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String id=request.getParameter("bookId");
+        int bookId=Integer.parseInt(id);
+        Book book=bookService.selectByPrimaryKey(bookId);
+        System.out.println(book);
+        request.getSession().setAttribute("msg",book);
+        response.sendRedirect("../../bookdetail.jsp");
+    }
+
+    public void selectLocation(HttpServletResponse response,HttpServletRequest request) {
+
     }
 
 }

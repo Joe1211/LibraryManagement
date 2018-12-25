@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="LibraryManagement" />
         <module name="LibraryManagement_02" />
+        <module name="LibraryManagementsys4" />
       </profile>
     </annotationProcessing>
   </component>

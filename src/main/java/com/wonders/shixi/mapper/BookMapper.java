@@ -60,7 +60,7 @@ public interface BookMapper {
      * @param bookId
      * @return
      */
-    int updateByNumber(int bookId);
+    int updateByNumber(@Param("bookId")int bookId);
 
     /**
      * 以借图书表
@@ -68,5 +68,5 @@ public interface BookMapper {
      * @param readerId
      * @return
      */
-    int addBookRecord(int bookId,int readerId);
+    int addBookRecord(@Param("bookId") int bookId,@Param("readerId")int readerId);
 }

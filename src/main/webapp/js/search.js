@@ -414,9 +414,7 @@ function loadBorrow(bookId) {
         type:'get',
         url:'api/books/borrow'+'?bookId='+bookId+'&readerId='+$("#readerId").val(),
         success:function (data) {
-            if(data.code == 1){
-                alert(data.msg)
-            }
+            alert(data.msg)
         }
     })
 }

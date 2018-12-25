@@ -78,8 +78,7 @@ public class BookServiceImpl implements IBookService {
      */
     @Override
     public int selectNum(int bookId) {
-        int n = bookMapper.selectNum(bookId);
-        return n;
+        return bookMapper.selectNum(bookId);
     }
 
     /**

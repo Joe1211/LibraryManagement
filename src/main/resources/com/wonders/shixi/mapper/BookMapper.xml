@@ -224,18 +224,18 @@
   </select>
 
   <!--查询图书数量-->
-  <select id="selectNum" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectNum" parameterType="java.lang.Integer" resultType="java.lang.Integer">
     select bp.book_number from book_periodicals bp where bp.book_periodicals in (
       select b.book_periodicals from book b where b.book_id = #{bookId}
     )
   </select>
-
+  <!--借阅一个图书数量减1-->
   <update id="updateByNumber" parameterType="java.lang.Integer">
     update book_periodicals set book_number = book_number-1 where book_periodicals in (
       select book_periodicals from book where book_id = #{bookId}
       )
   </update>
-
+  <!--添加借阅记录-->
   <insert id="addBookRecord" parameterType="java.lang.Integer">
     insert into book_reader_record(book_id,reader_id) values (#{bookId},#{readerId})
   </insert>

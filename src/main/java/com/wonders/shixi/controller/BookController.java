@@ -262,12 +262,15 @@ public class BookController {
         int id = Integer.parseInt(bookId);
         int rid = Integer.parseInt(readerId);
         int num = bookService.selectNum(id);
+        System.out.println("图书数量为："+num);
 //        图书可借数量>=1为可借
         if(num>=1){
             //根据图书id获取书刊号，再将书刊信息表(book_periodicals)里可借图书数量减1
             int n = bookService.updataByNumber(id);
+            System.out.println("图书减1：");
             //将减借书记录存放到以借书目表中(book_reader_record)
             int m = bookService.addBookRecord(id,rid);
+            System.out.println("成功");
             if(m>=1){
                 timer();
                 return rm.successMsg("借书成功，免费借书时间为一个月，请按时归还！");

@@ -51,10 +51,10 @@ function loadInfo(data){
             html+='<p>'+item.bookName+'</p>';
             html+='<p>'+item.bookWriter+'</p>';
             html+='<p>'+item.bookPress+'</p>';
-            html+='<a href=" ">预约请求</a>';
-            html+=' <a href=" ">馆藏信息</a>';
-            html+='<a href=" ">详细信息</a>';
-            html+='<a href=" ">评论/标签</a>';
+            html+='<a href="javascript:loadBorrow('+item.bookId+')">借阅&nbsp&nbsp</a>';
+            html+=' <a href=" ">馆藏信息&nbsp&nbsp</a>';
+            html+='<a href=" ">详细信息&nbsp&nbsp</a>';
+            html+='<a href=" ">评论/标签&nbsp&nbsp</a>';
             html+='</div>';
             html+='</div>';
             html+='</div> ';
@@ -145,10 +145,10 @@ function loadLabelInfo(data){
             html+='<p>'+item.bookName+'</p>';
             html+='<p>'+item.bookWriter+'</p>';
             html+='<p>'+item.bookPress+'</p>';
-            html+='<a href=" ">预约请求</a>';
-            html+=' <a href=" ">馆藏信息</a>';
-            html+='<a href=" ">详细信息</a>';
-            html+='<a href=" ">评论/标签</a>';
+            html+='<a href="javascript:loadBorrow('+item.bookId+')">借阅&nbsp&nbsp</a>';
+            html+=' <a href=" ">馆藏信息&nbsp&nbsp</a>';
+            html+='<a href=" ">详细信息&nbsp&nbsp</a>';
+            html+='<a href=" ">评论/标签&nbsp&nbsp</a>';
             html+='</div>';
             html+='</div>';
             html+='</div> ';
@@ -298,10 +298,10 @@ function loadTypeInfo(data){
             html+='<p>'+item.bookName+'</p>';
             html+='<p>'+item.bookWriter+'</p>';
             html+='<p>'+item.bookPress+'</p>';
-            html+='<a href=" ">预约请求</a>';
-            html+=' <a href=" ">馆藏信息</a>';
-            html+='<a href=" ">详细信息</a>';
-            html+='<a href=" ">评论/标签</a>';
+            html+='<a href="javascript:loadBorrow('+item.bookId+')">借阅&nbsp&nbsp</a>';
+            html+=' <a href=" ">馆藏信息&nbsp&nbsp</a>';
+            html+='<a href=" ">详细信息&nbsp&nbsp</a>';
+            html+='<a href=" ">评论/标签&nbsp&nbsp</a>';
             html+='</div>';
             html+='</div>';
             html+='</div> ';
@@ -398,12 +398,29 @@ $("#upPwd").click(function () {
     })
 })
 
+// 注销
 $("#outReader").click(function () {
     $.ajax({
         type:'get',
         url:'api/readermanagement/outReader',
     })
 })
+
+// 借阅
+function loadBorrow(bookId) {
+    alert("借阅")
+    alert(bookId)
+    $.ajax({
+        type:'get',
+        url:'api/books/borrow'+'?bookId='+bookId+'&readerId='+$("#readerId").val(),
+        success:function (data) {
+            if(data.code == 1){
+                alert(data.msg)
+            }
+        }
+    })
+}
+
 
 
 

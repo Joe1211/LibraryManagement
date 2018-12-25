@@ -22,4 +22,10 @@ public interface IBookService {
     List<Book> findLabelBook(String[] arr);
 
     List<Book> findTypeBook(String value);
+
+    int selectNum(int bookId);
+
+    int updataByNumber(int bookId);
+
+    int addBookRecord(int bookId,int readerId);
 }

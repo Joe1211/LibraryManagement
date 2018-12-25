@@ -47,4 +47,26 @@ public interface BookMapper {
     List<Book> selectLabelBook(String[] label);
 
     List<Book> selectType(String value);
+
+    /**
+     * 查询还有几本书可借
+     * @param bookId
+     * @return
+     */
+    int selectNum(int bookId);
+
+    /**
+     * 借阅，图书数量减一
+     * @param bookId
+     * @return
+     */
+    int updateByNumber(int bookId);
+
+    /**
+     * 以借图书表
+     * @param bookId
+     * @param readerId
+     * @return
+     */
+    int addBookRecord(int bookId,int readerId);
 }

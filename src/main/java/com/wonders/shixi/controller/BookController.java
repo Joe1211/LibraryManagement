@@ -13,17 +13,24 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @ClassName 图书查询控制器
@@ -37,6 +44,11 @@ public class BookController {
     @Autowired
     IBookService bookService;
 
+    /**
+     * 图书添加
+     * @param request
+     * @param response
+     */
     @PostMapping("/add")
     @ResponseBody
     public void addBook(HttpServletRequest request, HttpServletResponse response){
@@ -234,6 +246,52 @@ public class BookController {
         }else {
             return rm.errorMsg("没有该类型的图书");
         }
+    }
+
+    /**
+     * 图书借阅
+     * @param bookId
+     * @param readerId
+     * @return
+     */
+    @GetMapping("/borrow")
+    @ResponseBody
+    public RestMsg<Object> borrowBook(String bookId,String readerId){
+        RestMsg<Object> rm = new RestMsg<>();
+        System.out.println(bookId+"--->"+readerId);
+        int id = Integer.parseInt(bookId);
+        int rid = Integer.parseInt(readerId);
+        int num = bookService.selectNum(id);
+//        图书可借数量>=1为可借
+        if(num>=1){
+            //根据图书id获取书刊号，再将书刊信息表(book_periodicals)里可借图书数量减1
+            int n = bookService.updataByNumber(id);
+            //将减借书记录存放到以借书目表中(book_reader_record)
+            int m = bookService.addBookRecord(id,rid);
+            if(m>=1){
+                timer();
+                return rm.successMsg("借书成功，免费借书时间为一个月，请按时归还！");
+            }else{
+                return rm.errorMsg("借书失败！");
+            }
+        }else{
+            return rm.errorMsg("该图书以借完");
+        }
+    }
+
+
+
+    public void timer() {
+        //线程池中初始化只放了2个线程去执行任务
+        ScheduledThreadPoolExecutor scheduled = new ScheduledThreadPoolExecutor(2);
+        scheduled.scheduleAtFixedRate(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("发送消息");
+            }
+        }, 2, 2, TimeUnit.SECONDS);
+        //initialDelay表示首次执行任务的延迟时间，period表示每次执行任务的间隔时间，TimeUnit.DAYS执行的时间间隔数值单位
+
     }
 
 }

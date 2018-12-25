@@ -223,4 +223,20 @@
     </where>
   </select>
 
+  <!--查询图书数量-->
+  <select id="selectNum" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select bp.book_number from book_periodicals bp where bp.book_periodicals in (
+      select b.book_periodicals from book b where b.book_id = #{bookId}
+    )
+  </select>
+
+  <update id="updateByNumber" parameterType="java.lang.Integer">
+    update book_periodicals set book_number = book_number-1 where book_periodicals in (
+      select book_periodicals from book where book_id = #{bookId}
+      )
+  </update>
+
+  <insert id="addBookRecord" parameterType="java.lang.Integer">
+    insert into book_reader_record(book_id,reader_id) values (#{bookId},#{readerId})
+  </insert>
 </mapper>

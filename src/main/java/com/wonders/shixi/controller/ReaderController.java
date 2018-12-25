@@ -181,6 +181,13 @@ public class ReaderController {
         }
     }
 
+    /**
+     * 注销登陆并跳回登陆页面
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     @GetMapping("/outReader")
     public void outReader(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -189,5 +196,4 @@ public class ReaderController {
         session.removeAttribute("reader");
         response.sendRedirect("../../login.jsp");
     }
-
 }

@@ -21,6 +21,11 @@ public class BookServiceImpl implements IBookService {
     @Autowired
     BookMapper bookMapper;
 
+    /**
+     * 根据id查询图书
+     * @param id
+     * @return
+     */
     @Override
     public Book selectByPrimaryKey(int id) {
         return bookMapper.selectByPrimaryKey(id);
@@ -56,9 +61,46 @@ public class BookServiceImpl implements IBookService {
         return bookMapper.selectLabelBook(arr);
     }
 
+    /**
+     * 根据图书类型查询图书
+     * @param value
+     * @return
+     */
     @Override
     public List<Book> findTypeBook(String value) {
         return bookMapper.selectType(value);
+    }
+
+    /**
+     * 根据bookId查询还有多少图书可借
+     * @param bookId
+     * @return
+     */
+    @Override
+    public int selectNum(int bookId) {
+        int n = bookMapper.selectNum(bookId);
+        return n;
+    }
+
+    /**
+     * 根据图书id获取索书号，再将图书可借数量减一
+     * @param bookId
+     * @return
+     */
+    @Override
+    public int updataByNumber(int bookId) {
+        return bookMapper.updateByNumber(bookId);
+    }
+
+    /**
+     * 以借图书记录表
+     * @param bookId
+     * @param readerId
+     * @return
+     */
+    @Override
+    public int addBookRecord(int bookId, int readerId) {
+        return bookMapper.addBookRecord(bookId,readerId);
     }
 
 

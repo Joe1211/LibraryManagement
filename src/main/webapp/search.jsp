@@ -174,6 +174,7 @@
         <li class="ver1 ">
             <div class="dropdown ">
 							<span data-toggle="dropdown">
+                                <input type="hidden" id="readerId" value="${reader.readerId}">
 								${reader.readerName}
 								<span class="caret"></span>
 							</span>

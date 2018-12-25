@@ -28,4 +28,8 @@ public interface ReaderMapper {
     int updateByPrimaryKeySelective(Reader record);
 
     int updateByPrimaryKey(Reader record);
+
+    Reader login(String phone);
+
+    int updateBypassword(@Param("readerPhone")String readerPhone,@Param("readerPassword")String readerPassword);
 }

@@ -27,6 +27,16 @@ public class BookServiceImpl implements IBookService {
     }
 
     /**
+     * 图书入库
+     * @param book
+     * @return
+     */
+    @Override
+    public int insertBook(Book book) {
+        return bookMapper.insert(book);
+    }
+
+    /**
      * 根据图书名模糊查询图书
      * @param s
      * @return

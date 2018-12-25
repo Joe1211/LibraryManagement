@@ -15,6 +15,8 @@ import java.util.List;
 public interface IBookService {
     Book selectByPrimaryKey(int id);
 
+    int insertBook(Book book);
+
     List<Book> findDimBook(String s);
 
     List<Book> findLabelBook(String[] arr);

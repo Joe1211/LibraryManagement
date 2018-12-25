@@ -274,4 +274,18 @@
       reader_password = #{readerPassword,jdbcType=VARCHAR}
     where reader_id = #{readerId,jdbcType=INTEGER}
   </update>
+  <select id="login" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from reader
+    where reader_phone = #{readerPhone,jdbcType=VARCHAR}
+  </select>
+
+  <update id="updateBypassword" parameterType="java.lang.String">
+    update reader
+      set
+      reader_password = #{readerPassword,jdbcType=VARCHAR}
+      where reader_phone=#{readerPhone};
+  </update>
+
 </mapper>

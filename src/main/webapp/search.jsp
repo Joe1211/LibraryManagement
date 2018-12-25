@@ -11,6 +11,136 @@
     <%--<script src="js/pccs.js" type="text/javascript"></script>--%>
 </head>
 <body>
+<!-- 读者登陆模态框 -->
+<div class="modal animated fadeInUp" id="gAdd">
+    <form class="form-horizontal" id="readerLog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" data-dismiss="modal">&times;</button>
+                    <h4>读者登陆</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">手机号</label>
+                        <div class="col-sm-9">
+                            <input name="readerPhone" class="form-control" id="phone" required>
+                            <span id="d1"></span>
+                        </div>
+                    </div>
+                </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label  class="control-label col-sm-2">密码</label>
+                            <div class="col-sm-9">
+                                <input name="readerPassword" type="password" id="password" class="form-control" required>
+                                <span id="d2"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button class="btn btn-primary" data-dismiss="modal" id="readerLogin" >登陆</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<!-- 读者登陆模态框 -->
+
+<!-- 修改信息模态框 -->
+<div class="modal animated fadeInUp" id="info">
+    <form class="form-horizontal" id="readerInfo">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" data-dismiss="modal">&times;</button>
+                    <h4>读者信息</h4>
+                </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">姓名</label>
+                        <div class="col-sm-9">
+                            <input name="readerName" disabled="disabled" class="form-control" value="${reader.readerName}">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label  class="control-label col-sm-2">手机号</label>
+                        <div class="col-sm-9">
+                            <input name="readerPhone" disabled="disabled" class="form-control" value="${reader.readerPhone}">
+                        </div>
+                    </div>
+                <div class="form-group">
+                    <label  class="control-label col-sm-2">邮箱</label>
+                    <div class="col-sm-9">
+                        <input name="readerEmail" disabled="disabled" class="form-control" value="${reader.readerEmail}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label  class="control-label col-sm-2">账户余额</label>
+                    <div class="col-sm-9">
+                        <input name="readerBalance" disabled="disabled" class="form-control" value="${reader.readerBalance}">
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button class="btn btn-primary" data-dismiss="modal" id="readerInf" >修改</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<!-- 修改信息模态框 -->
+
+<!-- 修改密码模态框 -->
+<div class="modal animated fadeInUp" id="upPassword">
+    <form class="form-horizontal" id="pass">
+        <input type="hidden" name="readerPhone" value="${reader.readerPhone}"/>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" data-dismiss="modal">&times;</button>
+                    <h4>修改密码</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">原密码</label>
+                        <div class="col-sm-9">
+                            <input name="readerPassword" type="password" class="form-control" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label  class="control-label col-sm-2">新密码</label>
+                        <div class="col-sm-9">
+                            <input name="readerPassword1" type="password" class="form-control" >
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label  class="control-label col-sm-2">请再次输入新密码</label>
+                        <div class="col-sm-9">
+                            <input name="readerPassword2" id="rPwd" type="password" class="form-control" >
+                            <span id="d3"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button class="btn btn-primary" data-dismiss="modal" id="upPwd" >确认修改</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<!-- 读者登陆模态框 -->
+
 <!--导航栏-->
 <nav class="navbar navbar-default col-md-12" style="background: none">
         <div class="container-fluid">
@@ -43,19 +173,12 @@
 							<span class="badge">18</span>
 						</span>
         </li>
-        <li class="ver1 ">
+        <li class="ver1 " id="login">
+
             <div class="dropdown ">
-							<span data-toggle="dropdown">
-								用户
-								<span class="caret"></span>
-							</span>
-                <ul class="dropdown-menu">
-                    <li><a href=" ">个人资料</a></li>
-                    <li><a href=" ">修改密码</a></li>
-                    <li><a href=" ">清除缓存</a></li>
-                    <li class="divider"></li>
-                    <li><a href=" ">注销账户</a></li>
-                </ul>
+                <span data-toggle="dropdown">
+                    <a href="" data-toggle="modal" data-target="#gAdd">登陆</a>
+                </span>
             </div>
         </li>
     </ul>
@@ -115,6 +238,40 @@
 <script src="js/bootstrap-select.js"></script>
 <script src="js/defaults-zh_CN.min.js"></script>
 <script src="js/search.js"></script>
+<script>
+    //手机号验证
+    $('#phone').on('blur',function(){
+        var html;
+        if(!(( /^1[34578]\d{9}$/).test(this.value))){
+            $('#d1').html('电话号码格式输入错误');
+            return false;
+        }else{
+            $('#d1').remove();
+        }
+    })
+    //密码验证
+    $('#password').on('blur',function(){
+        var html;
+        if(!((/^[a-z0-9]{6,18}$/).test(this.value))){
+            $('#d2').html('密码为6~18位字母或数字');
+            return false;
+        }else{
+            $('#d2').remove();
+        }
+    })
+    $('#rPwd').on('blur',function(){
+        var html;
+        var pwd = $("input[name='readerPassword1']").val();
+        var cpwd = $("input[name='readerPassword2']").val();
+        if (pwd != cpwd) {
+            $("#d3").html("两次密码不一致");
+            $("#upPwd").attr("disabled", true);
+        }else {
+            $('#d2').remove();
+            $("#upPwd").attr("disabled", false);
+        }
+    })
+</script>
 
 </body>
 </html>

@@ -1,5 +1,6 @@
 package com.wonders.shixi.controller;
 
+import com.sun.deploy.net.HttpResponse;
 import com.wonders.shixi.controller.vo.Massage;
 import com.wonders.shixi.controller.vo.ReaderCondition;
 import com.wonders.shixi.controller.vo.ReaderModel;
@@ -17,8 +18,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,8 +31,8 @@ import java.util.List;
  *
  * @author 吴建良
  */
-@Api(value = "/api/readermanagement")
-@RequestMapping(value = "/api/readermanagement")
+@Api(value = "api/readermanagement")
+@RequestMapping(value = "api/readermanagement")
 @Controller
 public class ReaderController {
     @Autowired
@@ -139,31 +143,51 @@ public class ReaderController {
      */
     @GetMapping("/login")
     @ResponseBody
-    public RestMsg<Object> login(HttpServletRequest request){
+    public void login(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String phone = request.getParameter("readerPhone");
         String password = request.getParameter("readerPassword");
         RestMsg<Object> rm = readerService.login(phone,password);
         request.getSession().setAttribute("reader",rm.getResult());
-        return rm;
+        System.out.println(rm.getCode());
+        if(rm.getCode()==1){
+            response.sendRedirect("../../search.jsp");
+        }
     }
 
+    /**
+     * 修改密码
+     * @param request
+     * @return
+     */
     @GetMapping("/upPassword")
     @ResponseBody
-    public String updataPassword(HttpServletRequest request){
+    public RestMsg<Object> updataPassword(HttpServletRequest request){
+        RestMsg<Object> rm = new RestMsg<>();
         String phone = request.getParameter("readerPhone");
         String pwd = request.getParameter("readerPassword");
         String newPwd = request.getParameter("readerPassword1");
-        RestMsg<Object> rm = readerService.login(phone,pwd);
+        rm = readerService.login(phone,pwd);
 //        原始密码为真
         if(rm.getCode()==1){
+//           修改密码是否成功
            boolean b = readerService.updataByPassword(phone,newPwd);
            if(b){
-               return "修改密码成功";
+               return rm.successMsg("修改密码成功，请重新登陆！");
            }else {
-               return "修改密码失败";
+               return rm.errorMsg("修改密码失败");
            }
         }else {
-            return "原始密码错误";
+            return rm.errorMsg("原始密码错误");
         }
     }
+
+    @GetMapping("/outReader")
+    public void outReader(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        //防止创建Session
+        HttpSession session = request.getSession(false);
+        session.removeAttribute("reader");
+        response.sendRedirect("../../login.jsp");
+    }
+
 }

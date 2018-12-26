@@ -4,6 +4,7 @@ package com.wonders.shixi.service.impl;
 
 import com.wonders.shixi.mapper.BookMapper;
 import com.wonders.shixi.pojo.Book;
+import com.wonders.shixi.pojo.BookRecordModel;
 import com.wonders.shixi.util.RestMsg;
 import com.wonders.shixi.service.IBookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,7 +93,7 @@ public class BookServiceImpl implements IBookService {
     }
 
     /**
-     * 以借图书记录表
+     * 以借图书记录表,添加以借图书记录
      * @param bookId
      * @param readerId
      * @return
@@ -100,6 +101,58 @@ public class BookServiceImpl implements IBookService {
     @Override
     public int addBookRecord(int bookId, int readerId) {
         return bookMapper.addBookRecord(bookId,readerId);
+    }
+
+    /**
+     * 以借阅图书
+     * @param bookId
+     * @return
+     */
+    @Override
+    public RestMsg<Object> selectByRecord(int bookId) {
+        RestMsg<Object> rm = new RestMsg<>();
+        List<BookRecordModel> brm = bookMapper.selectByBorrow(bookId);
+        if (brm != null){
+            rm.setResult(brm);
+            return rm.successMsg("已借阅的图书");
+        }else {
+            return rm.errorMsg("没有已借阅的图书");
+        }
+    }
+
+    /**
+     * 以归还图书
+     * @param bookId
+     * @return
+     */
+    @Override
+    public RestMsg<Object> selectByRepay(int bookId) {
+        RestMsg<Object> rm = new RestMsg<>();
+        List<BookRecordModel> brm = bookMapper.selectByRepay(bookId);
+        if (brm != null){
+            rm.setResult(brm);
+            return rm.successMsg("已归还的图书");
+        }else {
+            return rm.errorMsg("没有已归还的图书");
+        }
+    }
+
+    @Override
+    public boolean updateByAddNumber(int bookId) {
+        int i = bookMapper.updateByAddNumber(bookId);
+        if (i>=1){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean updateByState(int bookId, int readerId) {
+        int i = bookMapper.updateByState(bookId,readerId);
+        if (i>=1){
+            return true;
+        }
+        return false;
     }
 
 

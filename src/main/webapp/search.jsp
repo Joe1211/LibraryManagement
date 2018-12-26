@@ -164,8 +164,20 @@
 <!--用户信息-->
 <form class="btn-group col-md-4 col-sm-4 ver col-md-offset-1 ">
     <ul class="nav navbar-nav navbar-right ">
-        <li><a href=" ">图书标签</a></li>
-        <li><a href=" ">我的借阅</a></li>
+        <%--<li><a href=" " id="borrowBook">我的借阅</a></li>--%>
+        <li class="ver1 ">
+        <div class="dropdown">
+							<span data-toggle="dropdown">
+                                我的借阅
+								<span class="caret"></span>
+							</span>
+            <ul class="dropdown-menu">
+                <li><a href="#" id="borrowBook">已借阅</a></li>
+                <li><a href="#" id="repayBook">已归还</a></li>
+            </ul>
+        </div>
+        </li>
+
         <li class="ver1 ">
 						<span id=" ">
 							消息

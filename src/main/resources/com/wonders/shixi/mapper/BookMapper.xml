@@ -16,6 +16,22 @@
     <result column="book_state" jdbcType="VARCHAR" property="bookState" />
     <result column="library_id" jdbcType="INTEGER" property="libraryId" />
   </resultMap>
+  <resultMap id="BaseResultMap2" type="com.wonders.shixi.pojo.BookRecordModel">
+    <id column="book_id" jdbcType="INTEGER" property="bookId" />
+    <result column="book_name" jdbcType="VARCHAR" property="bookName" />
+    <result column="book_periodicals" jdbcType="VARCHAR" property="bookPeriodicals" />
+    <result column="book_callnum" jdbcType="VARCHAR" property="bookCallnum" />
+    <result column="book_writer" jdbcType="VARCHAR" property="bookWriter" />
+    <result column="book_press" jdbcType="VARCHAR" property="bookPress" />
+    <result column="book_cover" jdbcType="VARCHAR" property="bookCover" />
+    <result column="book_info" jdbcType="VARCHAR" property="bookInfo" />
+    <result column="book_time" jdbcType="TIMESTAMP" property="bookTime" />
+    <result column="book_updata" jdbcType="TIMESTAMP" property="bookUpdata" />
+    <result column="type_two_value" jdbcType="VARCHAR" property="typeTwoValue" />
+    <result column="book_state" jdbcType="VARCHAR" property="bookState" />
+    <result column="library_id" jdbcType="INTEGER" property="libraryId" />
+    <result column="book_record_time" jdbcType="TIMESTAMP" property="bookRecordTime" />
+  </resultMap>
   <sql id="Base_Column_List">
     book_id, book_name, book_periodicals, book_callnum, book_writer, book_press, book_cover, 
     book_info, book_time, book_updata, type_two_value, book_state, library_id
@@ -239,4 +255,40 @@
   <insert id="addBookRecord" parameterType="java.lang.Integer">
     insert into book_reader_record(book_id,reader_id) values (#{bookId},#{readerId})
   </insert>
+
+  <!--归还一个图书数量加1-->
+  <update id="updateByAddNumber" parameterType="java.lang.Integer">
+    update
+      book_periodicals
+      set book_number = book_number+1
+      where book_periodicals in (
+      select book_periodicals from book where book_id = #{bookId}
+    )
+  </update>
+
+  <!--归还后借阅状态为1-->
+  <update id="updateByState" parameterType="java.lang.Integer">
+    UPDATE book_reader_record
+    set book_reader_record_state = 1
+    where book_id = #{bookId} and reader_id = #{readerId}
+  </update>
+
+  <!--未还图书(以借阅)-->
+  <select id="selectByBorrow" parameterType="java.lang.Integer" resultMap="BaseResultMap2">
+    select b.<include refid="Base_Column_List" />,brr.book_record_time
+    from book b,book_reader_record brr
+    where
+      b.book_id = brr.book_id
+      and brr.reader_id = #{readerId}
+      and brr.book_reader_record_state=0
+  </select>
+  <!--以还图书-->
+  <select id="selectByRepay" parameterType="java.lang.Integer" resultMap="BaseResultMap2">
+    select b.<include refid="Base_Column_List" />,brr.book_record_time
+    from book b,book_reader_record brr
+    where
+    b.book_id = brr.book_id
+    and brr.reader_id =  #{readerId}
+    and brr.book_reader_record_state=1
+  </select>
 </mapper>

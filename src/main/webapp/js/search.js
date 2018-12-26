@@ -408,8 +408,6 @@ $("#outReader").click(function () {
 
 // 借阅
 function loadBorrow(bookId) {
-    alert("借阅")
-    alert(bookId)
     $.ajax({
         type:'get',
         url:'api/books/borrow'+'?bookId='+bookId+'&readerId='+$("#readerId").val(),
@@ -419,6 +417,65 @@ function loadBorrow(bookId) {
     })
 }
 
+
+
+// 我的借阅记录
+$("#borrowBook").click(function () {
+    alert("借阅记录")
+    $.ajax({
+        type:'get',
+        url:'api/books/record/borrow'+'?bookId='+$("#readerId").val(),
+        success:function (data) {
+            alert(data)
+            loadRecordInfo(data)
+        }
+    })
+})
+// 我的已还记录
+$("#repayBook").click(function () {
+    alert("归还记录")
+    $.ajax({
+        type:'get',
+        url:'api/books/record/repay'+'?bookId='+$("#readerId").val(),
+        success:function (data) {
+            alert(data)
+            loadRecordInfo(data)
+        }
+    })
+})
+
+function loadRecordInfo(data){
+    if(data.code == 1){
+        var html = '';
+        $.each(data.result,function (i,item) {
+            html+='<div class="col-md-12 ">';
+            html+=' <div class="panel panel-default panel_1">';
+            html+='<div class="panel-body panel_2 ">';
+            html+='  <div class="form-group col-md-1 ">';
+            html+='<div class="picture box tupian ">';
+            html+='<img src=""/>';
+            html+='</div>';
+            html+='</div>';
+            html+=' <div id="" class="col-md-8 ">';
+            html+='<p>'+item.bookName+'</p>';
+            html+='<p>'+item.bookWriter+'</p>';
+            html+='<p>'+item.bookPress+'</p>';
+            html+='<p>'+item.bookRecordTime+'</p>';
+            // html+='<a href="javascript:loadBorrow('+item.bookId+')">借阅&nbsp&nbsp</a>';
+            html+=' <a href=" ">馆藏信息&nbsp&nbsp</a>';
+            html+='<a href=" ">详细信息&nbsp&nbsp</a>';
+            html+='<a href=" ">评论/标签&nbsp&nbsp</a>';
+            html+='</div>';
+            html+='</div>';
+            html+='</div> ';
+            html+='</div>';
+        })
+        $("#bod").html(html);
+        alert(data.msg);
+    }else {
+        alert(data.msg);
+    };
+};
 
 
 

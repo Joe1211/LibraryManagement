@@ -4,6 +4,7 @@ package com.wonders.shixi.service;
 
 
 import com.wonders.shixi.pojo.Book;
+import com.wonders.shixi.pojo.BookRecordModel;
 import com.wonders.shixi.util.RestMsg;
 
 import java.util.List;
@@ -28,4 +29,32 @@ public interface IBookService {
     int updataByNumber(int bookId);
 
     int addBookRecord(int bookId,int readerId);
+
+    /**
+     * 以借阅图书
+     * @param bookId
+     * @return
+     */
+    RestMsg<Object> selectByRecord(int bookId);
+
+    /**
+     * 以归还图书
+     * @param bookId
+     * @return
+     */
+    RestMsg<Object> selectByRepay(int bookId);
+    /**
+     * 归还，图书数量加1
+     * @param bookId
+     * @return
+     */
+    boolean updateByAddNumber(int bookId);
+
+    /**
+     * 根据读者id和图书id修改图书状态为已还（1）
+     * @param bookId
+     * @param readerId
+     * @return
+     */
+    boolean updateByState(int bookId,int readerId);
 }

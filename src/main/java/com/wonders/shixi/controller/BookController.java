@@ -259,6 +259,9 @@ public class BookController {
     public RestMsg<Object> borrowBook(String bookId,String readerId){
         RestMsg<Object> rm = new RestMsg<>();
         System.out.println(bookId+"--->"+readerId);
+        if(bookId==null){
+            System.out.println("没登陆");
+        }
         int id = Integer.parseInt(bookId);
         int rid = Integer.parseInt(readerId);
         int num = bookService.selectNum(id);
@@ -283,7 +286,6 @@ public class BookController {
     }
 
 
-
     public void timer() {
         //线程池中初始化只放了2个线程去执行任务
         ScheduledThreadPoolExecutor scheduled = new ScheduledThreadPoolExecutor(2);
@@ -295,6 +297,50 @@ public class BookController {
         }, 2, 2, TimeUnit.SECONDS);
         //initialDelay表示首次执行任务的延迟时间，period表示每次执行任务的间隔时间，TimeUnit.DAYS执行的时间间隔数值单位
 
+    }
+
+    /**
+     * 图书归还
+     * @param bookId
+     * @param readerId
+     * @return
+     */
+    @GetMapping("/repay")
+    @ResponseBody
+    public RestMsg<Object> repayBook(String bookId,String readerId){
+        RestMsg<Object> rm = new RestMsg<>();
+        int id = Integer.parseInt(bookId);
+        int rid = Integer.parseInt(readerId);
+        //图书归还，将可借图书数量加1
+        boolean b = bookService.updateByAddNumber(id);
+        //图书归还，根据读者id和图书id修改图书状态为已还（1）
+        boolean b1 = bookService.updateByState(id,rid);
+        if(b&&b1){
+            return rm.successMsg("还书成功！");
+        }
+        return rm.errorMsg("还书失败");
+    }
+
+    /**
+     * 根据用户id查询以借图书
+     * @param bookId
+     * @return
+     */
+    @GetMapping("/record/borrow")
+    @ResponseBody
+    public RestMsg<Object> selectByRecord(String bookId){
+        return bookService.selectByRecord(Integer.parseInt(bookId));
+    }
+
+    /**
+     * 根据用户id查询以还图书
+     * @param bookId
+     * @return
+     */
+    @GetMapping("/record/repay")
+    @ResponseBody
+    public RestMsg<Object> selectByRepay(String bookId){
+        return bookService.selectByRepay(Integer.parseInt(bookId));
     }
 
 }

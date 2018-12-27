@@ -51,8 +51,8 @@ function loadInfo(data){
             html+='<p>'+item.bookName+'</p>';
             html+='<p>'+item.bookWriter+'</p>';
             html+='<p>'+item.bookPress+'</p>';
-            html+='<a href=" ">预约请求</a>';
-            html+=' <a href=" ">馆藏信息</a>';
+            html+='<a href="javascript:load('+item.bookId+') ">预约请求</a>';
+            html+=' <a href=" javascript:load('+item.bookId+')">馆藏信息</a>';
             html+='<a href="javascript:load('+item.bookId+')">详细信息</a>';
             html+='<a href=" ">评论/标签</a>';
             html+='</div>';

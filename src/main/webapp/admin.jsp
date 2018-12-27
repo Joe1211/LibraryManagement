@@ -189,13 +189,14 @@
 
     <!-- 内容区域 -->
     <div class="tpl-content-wrapper">
-        <iframe src="admin_number.jsp" width="100%" height="100%" frameborder="0" name="showiframe"></iframe>
 
-        <%--<iframe src="admin_book.jsp" width="100%" height="100%" frameborder="0" name="showiframe"></iframe>--%>
+
+
 
     </div>
 </div>
 </div>
+
 <script src="js/amazeui.min.js"></script>
 <script src="js/amazeui.datatables.min.js"></script>
 <script src="js/dataTables.responsive.min.js"></script>

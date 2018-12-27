@@ -44,17 +44,23 @@ function loadInfo(data){
             html+='<div class="panel-body panel_2 ">';
             html+='  <div class="form-group col-md-1 ">';
             html+='<div class="picture box tupian ">';
-            html+='<img src="/bookCover'+item.bookCover+'"/>';
+            html+='<img class="tupian1" src="/bookCover'+item.bookCover+'"/>';
             html+='</div>';
             html+='</div>';
             html+=' <div id="" class="col-md-8 ">';
             html+='<p>'+item.bookName+'</p>';
             html+='<p>'+item.bookWriter+'</p>';
             html+='<p>'+item.bookPress+'</p>';
+
             html+='<a href="javascript:load('+item.bookId+') ">预约请求</a>';
             html+=' <a href=" javascript:load('+item.bookId+')">馆藏信息</a>';
             html+='<a href="javascript:load('+item.bookId+')">详细信息</a>';
             html+='<a href=" ">评论/标签</a>';
+
+            html+='<a href="javascript:loadBorrow('+item.bookId+')">借阅&nbsp&nbsp</a>';
+            html+=' <a href=" ">馆藏信息&nbsp&nbsp</a>';
+            html+='<a href=" ">详细信息&nbsp&nbsp</a>';
+            html+='<a href=" ">评论/标签&nbsp&nbsp</a>';
             html+='</div>';
             html+='</div>';
             html+='</div> ';
@@ -138,17 +144,23 @@ function loadLabelInfo(data){
             html+='<div class="panel-body panel_2 ">';
             html+='  <div class="form-group col-md-1 ">';
             html+='<div class="picture box tupian ">';
-            html+='<img src=""/>';
+            html+='<img class="tupian1" src="/bookCover'+item.bookCover+'"/>';
             html+='</div>';
             html+='</div>';
             html+=' <div id="" class="col-md-8 ">';
             html+='<p>'+item.bookName+'</p>';
             html+='<p>'+item.bookWriter+'</p>';
             html+='<p>'+item.bookPress+'</p>';
+
             html+='<a href="">预约请求</a>';
             html+=' <a href=" ">馆藏信息</a>';
             html+='<a href=" ">详细信息</a>';
             html+='<a href=" ">评论/标签</a>';
+
+            html+='<a href="javascript:loadBorrow('+item.bookId+')">借阅&nbsp&nbsp</a>';
+            html+=' <a href=" ">馆藏信息&nbsp&nbsp</a>';
+            html+='<a href=" ">详细信息&nbsp&nbsp</a>';
+            html+='<a href=" ">评论/标签&nbsp&nbsp</a>';
             html+='</div>';
             html+='</div>';
             html+='</div> ';
@@ -186,7 +198,6 @@ function loadLabelInfo(data){
         }else{
             html+='<li><a href="javascript:void(0))">'+"下一页"+'</a></li>';
         }
-
         html+='  </ul>';
         html+='   </nav>';
         html+='  </div>';
@@ -292,17 +303,17 @@ function loadTypeInfo(data){
             html+='<div class="panel-body panel_2 ">';
             html+='  <div class="form-group col-md-1 ">';
             html+='<div class="picture box tupian ">';
-            html+='<img src=""/>';
+            html+='<img class="tupian1" src="/bookCover'+item.bookCover+'"/>';
             html+='</div>';
             html+='</div>';
             html+=' <div id="" class="col-md-8 ">';
             html+='<p>'+item.bookName+'</p>';
             html+='<p>'+item.bookWriter+'</p>';
             html+='<p>'+item.bookPress+'</p>';
-            html+='<a href=" ">预约请求</a>';
-            html+=' <a href=" ">馆藏信息</a>';
-            html+='<a href=" ">详细信息</a>';
-            html+='<a href=" ">评论/标签</a>';
+            html+='<a href="javascript:loadBorrow('+item.bookId+')">借阅&nbsp&nbsp</a>';
+            html+=' <a href=" ">馆藏信息&nbsp&nbsp</a>';
+            html+='<a href=" ">详细信息&nbsp&nbsp</a>';
+            html+='<a href=" ">评论/标签&nbsp&nbsp</a>';
             html+='</div>';
             html+='</div>';
             html+='</div> ';
@@ -350,36 +361,6 @@ function loadTypeInfo(data){
     };
 };
 
-// 用户登陆
-$("#readerLogin").click(function () {
-    $.ajax({
-        type:'get',
-        url:'api/readermanagement/login',
-        data:$("#readerLog").serialize(),
-        dataType:'json',
-        success:function(data){
-            if(data.code ==1 ){
-                alert(data.msg);
-                var html = '';
-                html+='<div class="dropdown ">';
-                html+='<span data-toggle="dropdown">';
-                html+=''+data.result.readerName+'';
-                html+='<span class="caret"></span>';
-                html+='</span>';
-                html+='<ul class="dropdown-menu">';
-                html+='<li><a href="" data-toggle="modal" data-target="#info">个人信息</a></li>'
-                html+='<li><a href="" data-toggle="modal" data-target="#upPassword">修改密码</a></li>'
-                html+='<li class="divider"></li>';
-                html+='<li><a href=" ">注销账户</a></li>';
-                html+='</ul>';
-                html+='</div>';
-                $("#login").html(html);
-            }else{
-                alert(data.msg);
-            }
-        },
-    })
-})
 // 密码修改
 $("#upPwd").click(function () {
     // alert("111111")
@@ -389,10 +370,95 @@ $("#upPwd").click(function () {
         data:$("#pass").serialize(),
         dataType:'json',
         success:function (data) {
-            alert(data)
+            if(data.code==1){
+                alert(data.msg)
+                window.location.href="login.jsp";
+            }else {
+                alert(data.msg)
+            }
         }
     })
 })
+
+// 注销
+$("#outReader").click(function () {
+    $.ajax({
+        type:'get',
+        url:'api/readermanagement/outReader',
+    })
+})
+
+// 借阅
+function loadBorrow(bookId) {
+    $.ajax({
+        type:'get',
+        url:'api/books/borrow'+'?bookId='+bookId+'&readerId='+$("#readerId").val(),
+        success:function (data) {
+            alert(data.msg)
+        }
+    })
+}
+
+
+
+// 我的借阅记录
+$("#borrowBook").click(function () {
+    alert("借阅记录")
+    $.ajax({
+        type:'get',
+        url:'api/books/record/borrow'+'?bookId='+$("#readerId").val(),
+        success:function (data) {
+            alert(data)
+            loadRecordInfo(data)
+        }
+    })
+})
+// 我的已还记录
+$("#repayBook").click(function () {
+    alert("归还记录")
+    $.ajax({
+        type:'get',
+        url:'api/books/record/repay'+'?bookId='+$("#readerId").val(),
+        success:function (data) {
+            alert(data)
+            loadRecordInfo(data)
+        }
+    })
+})
+
+function loadRecordInfo(data){
+    if(data.code == 1){
+        var html = '';
+        $.each(data.result,function (i,item) {
+            html+='<div class="col-md-12 ">';
+            html+=' <div class="panel panel-default panel_1">';
+            html+='<div class="panel-body panel_2 ">';
+            html+='  <div class="form-group col-md-1 ">';
+            html+='<div class="picture box tupian ">';
+            html+='<img class="tupian1" src="/bookCover'+item.bookCover+'"/>';
+            html+='</div>';
+            html+='</div>';
+            html+=' <div id="" class="col-md-8 ">';
+            html+='<p>'+item.bookName+'</p>';
+            html+='<p>'+item.bookWriter+'</p>';
+            html+='<p>'+item.bookPress+'</p>';
+            html+='<p>'+item.bookRecordTime+'</p>';
+            // html+='<a href="javascript:loadBorrow('+item.bookId+')">借阅&nbsp&nbsp</a>';
+            html+=' <a href=" ">馆藏信息&nbsp&nbsp</a>';
+            html+='<a href=" ">详细信息&nbsp&nbsp</a>';
+            html+='<a href=" ">评论/标签&nbsp&nbsp</a>';
+            html+='</div>';
+            html+='</div>';
+            html+='</div> ';
+            html+='</div>';
+        })
+        $("#bod").html(html);
+        alert(data.msg);
+    }else {
+        alert(data.msg);
+    };
+};
+
 
 function load(bookId) {
         location.href="/api/books/selectById?bookId="+bookId;

@@ -14,10 +14,13 @@
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/img/favicon.png">
     <link rel="apple-touch-icon-precomposed" href="${pageContext.request.contextPath}/img/app-icon72x72@2x.png">
     <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <script src="${pageContext.request.contextPath}/js/echarts.min.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/amazeui.min.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/amazeui.datatables.min.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/app.css">
+    <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
+
 
 
 </head>
@@ -26,6 +29,7 @@
 
 <div class="am-g tpl-g">
     <!-- 头部 -->
+    <script src="${pageContext.request.contextPath}/js/theme.js"></script>
     <header>
         <!-- logo -->
         <div class="am-fl tpl-header-logo">
@@ -187,126 +191,107 @@
 
     <!-- 内容区域 -->
     <div class="tpl-content-wrapper">
-        <div class="panel panel-default">
-            <div class="panel-heading text-center">
-                <h3 class="text-primary">图书信息</h3>
-            </div>
-            <div class="table-responsive">
-                <table class="table table-bordered  table-hover  table-condensed" >
-                    <tr class="text-center text-primary">
-                        <td>图书ID</td>
-                        <td>图书名称</td>
-                        <td>书刊号</td>
-                        <td>索书号</td>
-                        <td>作者</td>
-                        <td>出版社</td>
-                        <td>封面</td>
-                        <td>入库时间</td>
-                        <td>二级类目</td>
-                        <td>图书馆ID</td>
-                        <td>操作</td>
-                    </tr>
-
-                    <c:forEach items="${pageinfo.list}" var="book">
-                        <tr class="text-center ">
-                            <td>${book.bookId}</td>
-                            <td>${book.bookName}</td>
-                            <td>${book.bookPeriodicals}</td>
-                            <td>${book.bookCallnum}</td>
-                            <td>${book.bookWriter}</td>
-                            <td>${book.bookPress}</td>
-                            <td><img  src="${book.bookCover}"></td>
-                            <td>${book.bookTime}</td>
-                            <td>${book.typeTwoValue}</td>
-                            <td>${book.libraryId}</td>
-                            <td><a href="${pageContext.request.contextPath}/admin/findbookbyid?bookId=${book.bookId}" class="btn btn-primary  btn-xs"
-                                   data-toggle="modal" data-target="#myModal">修改</a>
-                                <a href="${pageContext.request.contextPath}/admin/delete?bookId=${book.bookId}"
-                                   class="btn btn-primary  btn-xs" onclick="javascript:return confirm('是否确定删除')">删除</a></td>
-                        </tr>
-                    </c:forEach>
-                </table>
-
-                <div>
-
-                    <div class="text-center">
-                        <c:choose>
-                            <c:when test="${pageinfo.size > 0 }">
-                                <ul class="pagination">
-                                    <li><span>显示${pageinfo.startRow }到${pageinfo.endRow}共${pageinfo.total}条</span>
-                                    </li>
-                                    <li><a
-                                            href="${pageContext.request.contextPath}/admin/bookListFenYe?pageNum=1">首页
-                                    </a></li>
-                                    <c:choose>
-                                        <c:when test="${pageinfo.hasPreviousPage}">
-                                            <li><a
-                                                    href="${pageContext.request.contextPath}/admin/bookListFenYe?pageNum=${pageinfo.pageNum-1}">上一页
-                                            </a></li>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <li><span>上一页</span></li>
-                                        </c:otherwise>
-                                    </c:choose>
-                                    <c:forEach var="item" items="${pageinfo.navigatepageNums}">
-                                        <c:choose>
-                                            <c:when test="${pageinfo.pageNum == item }">
-                                                <li class="active"><span class="current">${pageinfo.pageNum }</span>
-                                                </li>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <li><a
-                                                        href="${pageContext.request.contextPath}/admin/bookListFenYe?pageNum=${item}">${item}</a>
-                                                </li>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </c:forEach>
-                                    <c:choose>
-                                        <c:when test="${!pageinfo.isLastPage }">
-                                            <li><a
-                                                    href="${pageContext.request.contextPath}/admin/bookListFenYe?pageNum=${pageinfo.pageNum+1}">下一页
-                                            </a></li>
-                                            <li><a
-                                                    href="${pageContext.request.contextPath}/admin/bookListFenYe?pageNum=${pageinfo.lastPage}">尾页</a>
-                                            </li>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <li><span>下一页</span></li>
-                                            <li><span>尾页</span></li>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </ul>
-                            </c:when>
-                            <c:otherwise>
-                            </c:otherwise>
-                        </c:choose>
-
-                    </div>
+        <div class="container-fluid am-cf">
+            <div class="row">
+                <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
+                    <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span> 图表 <small>LibraryManagement</small></div>
+                    <p class="page-header-description">图表组件使用的是 <a href="http://echarts.baidu.com">echarts</a>。</p>
                 </div>
             </div>
-            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
+        </div>
 
-                    </div>
-                </div>
-            </div>
+
+
+        <div id="main1" style="width: 600px;height:400px;">
+
+        </div>
+
+        <div id="main2" style="width: 600px;height:400px;">
+
+        </div>
+
     </div>
-
-
-
 </div>
-</div>
-<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/theme.js"></script>
 <script src="${pageContext.request.contextPath}/js/amazeui.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/amazeui.datatables.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/dataTables.responsive.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/app.js"></script>
 
+<script type="text/javascript">
+
+    $.post('${pageContext.request.contextPath}/admin/findhostbook',function(data) {
+        console.info(data[0]);
+        var xA = [];
+        var yA = [];
+        for (var i = 0; i < data.length; i++) {
+            xA.push(data[i].bookName);
+            yA.push(data[i].bookBorrow);
+        }
+        var myChart = echarts.init(document.getElementById('main1'));
+        var option = {
+            title: {
+                text: '被借阅图书排名'
+            },
+            tooltip: {},
+            legend: {
+                data: ['被借阅次数']
+            },
+            xAxis: {
+                data: xA,
+                axisLabel: {
+                    interval: 0,
+                    rotate: -25
+                }
+            },
+            yAxis: {},
+            series: [{
+                name: '次数',
+                type: 'bar',
+                data: yA
+            }]
+        };
+        myChart.setOption(option);
+    });
+
+    $.post('${pageContext.request.contextPath}/admin/findclickbook',function(data) {
+        console.info(data[0]);
+        var xA = [];
+        var yA = [];
+        for (var i = 0; i < data.length; i++) {
+            xA.push(data[i].bookName);
+            yA.push(data[i].bookClick);
+        }
+        var myChart = echarts.init(document.getElementById('main2'));
+        var option = {
+            title: {
+                text: '点击图书排名榜'
+            },
+            tooltip: {},
+            legend: {
+                data: ['被点击次数']
+            },
+            xAxis: {
+                data: xA,
+                axisLabel: {
+                    interval: 0,
+                    rotate: -25
+                }
+            },
+            yAxis: {},
+            series: [{
+                name: '次数',
+                type: 'bar',
+                data: yA
+            }]
+        };
+        myChart.setOption(option);
+    });
 
 
+
+</script>
 </body>
 
 </html>

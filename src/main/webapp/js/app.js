@@ -46,7 +46,7 @@ var pageData = {
         // 百度图表A http://echarts.baidu.com/
         // ==========================
 
-        var echartsA = echarts.init(document.getElementById('tpl-echarts'));
+
         option = {
             tooltip: {
                 trigger: 'axis'
@@ -90,7 +90,7 @@ var pageData = {
             }]
         };
 
-        echartsA.setOption(option);
+
     },
     // ===============================================
     // 图表页

@@ -10,43 +10,6 @@
     <link rel="stylesheet" type="text/css" href="css/custom.css"/>
 </head>
 <body>
-<!-- 读者登陆模态框 -->
-<div class="modal animated fadeInUp" id="gAdd">
-    <form class="form-horizontal" id="readerLog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button class="close" data-dismiss="modal">&times;</button>
-                    <h4>读者登陆</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label class="control-label col-sm-2">手机号</label>
-                        <div class="col-sm-9">
-                            <input name="readerPhone" class="form-control" id="phone" required>
-                            <span id="d1"></span>
-                        </div>
-                    </div>
-                </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label  class="control-label col-sm-2">密码</label>
-                            <div class="col-sm-9">
-                                <input name="readerPassword" type="password" id="password" class="form-control" required>
-                                <span id="d2"></span>
-                            </div>
-                        </div>
-                    </div>
-
-                <div class="modal-footer">
-                    <button class="btn btn-default" data-dismiss="modal">取消</button>
-                    <button class="btn btn-primary" data-dismiss="modal" id="readerLogin" >登陆</button>
-                </div>
-            </div>
-        </div>
-    </form>
-</div>
-<!-- 读者登陆模态框 -->
 
 <!-- 修改信息模态框 -->
 <div class="modal animated fadeInUp" id="info">
@@ -85,14 +48,13 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button class="btn btn-default" data-dismiss="modal">取消</button>
-                    <button class="btn btn-primary" data-dismiss="modal" id="readerInf" >修改</button>
+                    <button class="btn btn-primary" data-dismiss="modal" id="readerInf" >确认</button>
                 </div>
             </div>
         </div>
     </form>
 </div>
-<!-- 修改信息模态框 -->
+<!-- 信息模态框 -->
 
 <!-- 修改密码模态框 -->
 <div class="modal animated fadeInUp" id="upPassword">
@@ -138,11 +100,15 @@
         </div>
     </form>
 </div>
+
 <!-- 读者登陆模态框 -->
 <%--<form action="api/books/selectById">--%>
     <%--<input type="text" name="bookId" placeholder="请输入bookid"><br>--%>
     <%--<button type="submit">查询</button>--%>
 <%--</form>--%>
+
+<!-- 修改密码模态框 -->
+
 <!--导航栏-->
 <nav class="navbar navbar-default col-md-12" style="background: none">
         <div class="container-fluid">
@@ -167,20 +133,39 @@
 <!--用户信息-->
 <form class="btn-group col-md-4 col-sm-4 ver col-md-offset-1 ">
     <ul class="nav navbar-nav navbar-right ">
-        <li><a href=" ">图书标签</a></li>
-        <li><a href=" ">我的借阅</a></li>
+        <%--<li><a href=" " id="borrowBook">我的借阅</a></li>--%>
+        <li class="ver1 ">
+        <div class="dropdown">
+							<span data-toggle="dropdown">
+                                我的借阅
+								<span class="caret"></span>
+							</span>
+            <ul class="dropdown-menu">
+                <li><a href="#" id="borrowBook">已借阅</a></li>
+                <li><a href="#" id="repayBook">已归还</a></li>
+            </ul>
+        </div>
+        </li>
+
         <li class="ver1 ">
 						<span id=" ">
 							消息
 							<span class="badge">18</span>
 						</span>
-        </li>
-        <li class="ver1 " id="login">
-
+        <li class="ver1 ">
             <div class="dropdown ">
-                <span data-toggle="dropdown">
-                    <a href="" data-toggle="modal" data-target="#gAdd">登陆</a>
-                </span>
+							<span data-toggle="dropdown">
+                                <input type="hidden" id="readerId" value="${reader.readerId}">
+								${reader.readerName}
+								<span class="caret"></span>
+							</span>
+                <ul class="dropdown-menu">
+                    <li><a href="person.jsp">个人中心</a></li>
+                    <li><a href="" data-toggle="modal" data-target="#info">个人资料</a></li>
+                    <li><a href="" data-toggle="modal" data-target="#upPassword">修改密码</a></li>
+                    <li class="divider"></li>
+                    <li><a href="../../login.jsp" id="outReader">注销账户</a></li>
+                </ul>
             </div>
         </li>
     </ul>
@@ -269,7 +254,7 @@
             $("#d3").html("两次密码不一致");
             $("#upPwd").attr("disabled", true);
         }else {
-            $('#d2').remove();
+            $('#d3').remove();
             $("#upPwd").attr("disabled", false);
         }
     })

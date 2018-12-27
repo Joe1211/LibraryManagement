@@ -29,7 +29,7 @@ public interface ReaderMapper {
 
     int updateByPrimaryKey(Reader record);
 
-    Reader login(String phone);
+    Reader login(String readerPhone);
 
     int updateBypassword(@Param("readerPhone")String readerPhone,@Param("readerPassword")String readerPassword);
 }

@@ -11,43 +11,6 @@
     <%--<script src="js/pccs.js" type="text/javascript"></script>--%>
 </head>
 <body>
-<!-- 读者登陆模态框 -->
-<%--<div class="modal animated fadeInUp" id="gAdd">--%>
-    <%--<form class="form-horizontal" id="readerLog">--%>
-        <%--<div class="modal-dialog">--%>
-            <%--<div class="modal-content">--%>
-                <%--<div class="modal-header">--%>
-                    <%--<button class="close" data-dismiss="modal">&times;</button>--%>
-                    <%--<h4>读者登陆</h4>--%>
-                <%--</div>--%>
-                <%--<div class="modal-body">--%>
-                    <%--<div class="form-group">--%>
-                        <%--<label class="control-label col-sm-2">手机号</label>--%>
-                        <%--<div class="col-sm-9">--%>
-                            <%--<input name="readerPhone" class="form-control" id="phone" required>--%>
-                            <%--<span id="d1"></span>--%>
-                        <%--</div>--%>
-                    <%--</div>--%>
-                <%--</div>--%>
-                    <%--<div class="modal-body">--%>
-                        <%--<div class="form-group">--%>
-                            <%--<label  class="control-label col-sm-2">密码</label>--%>
-                            <%--<div class="col-sm-9">--%>
-                                <%--<input name="readerPassword" type="password" id="password" class="form-control" required>--%>
-                                <%--<span id="d2"></span>--%>
-                            <%--</div>--%>
-                        <%--</div>--%>
-                    <%--</div>--%>
-
-                <%--<div class="modal-footer">--%>
-                    <%--<button class="btn btn-default" data-dismiss="modal">取消</button>--%>
-                    <%--<button class="btn btn-primary" data-dismiss="modal" id="readerLogin" >登陆</button>--%>
-                <%--</div>--%>
-            <%--</div>--%>
-        <%--</div>--%>
-    <%--</form>--%>
-<%--</div>--%>
-<!-- 读者登陆模态框 -->
 
 <!-- 修改信息模态框 -->
 <div class="modal animated fadeInUp" id="info">
@@ -191,6 +154,7 @@
 								<span class="caret"></span>
 							</span>
                 <ul class="dropdown-menu">
+                    <li><a href="person.jsp">个人中心</a></li>
                     <li><a href="" data-toggle="modal" data-target="#info">个人资料</a></li>
                     <li><a href="" data-toggle="modal" data-target="#upPassword">修改密码</a></li>
                     <li class="divider"></li>

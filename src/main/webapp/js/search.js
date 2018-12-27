@@ -44,7 +44,7 @@ function loadInfo(data){
             html+='<div class="panel-body panel_2 ">';
             html+='  <div class="form-group col-md-1 ">';
             html+='<div class="picture box tupian ">';
-            html+='<img src="/bookCover'+item.bookCover+'"/>';
+            html+='<img class="tupian1" src="/bookCover'+item.bookCover+'"/>';
             html+='</div>';
             html+='</div>';
             html+=' <div id="" class="col-md-8 ">';
@@ -138,7 +138,7 @@ function loadLabelInfo(data){
             html+='<div class="panel-body panel_2 ">';
             html+='  <div class="form-group col-md-1 ">';
             html+='<div class="picture box tupian ">';
-            html+='<img src=""/>';
+            html+='<img class="tupian1" src="/bookCover'+item.bookCover+'"/>';
             html+='</div>';
             html+='</div>';
             html+=' <div id="" class="col-md-8 ">';
@@ -291,7 +291,7 @@ function loadTypeInfo(data){
             html+='<div class="panel-body panel_2 ">';
             html+='  <div class="form-group col-md-1 ">';
             html+='<div class="picture box tupian ">';
-            html+='<img src=""/>';
+            html+='<img class="tupian1" src="/bookCover'+item.bookCover+'"/>';
             html+='</div>';
             html+='</div>';
             html+=' <div id="" class="col-md-8 ">';
@@ -349,36 +349,6 @@ function loadTypeInfo(data){
     };
 };
 
-// 用户登陆
-// $("#readerLogin").click(function () {
-//     $.ajax({
-//         type:'get',
-//         url:'api/readermanagement/login',
-//         data:$("#readerLog").serialize(),
-//         dataType:'json',
-//         success:function(data){
-//             if(data.code ==1 ){
-//                 alert(data.msg);
-//                 var html = '';
-//                 html+='<div class="dropdown ">';
-//                 html+='<span data-toggle="dropdown">';
-//                 html+=''+data.result.readerName+'';
-//                 html+='<span class="caret"></span>';
-//                 html+='</span>';
-//                 html+='<ul class="dropdown-menu">';
-//                 html+='<li><a href="" data-toggle="modal" data-target="#info">个人信息</a></li>'
-//                 html+='<li><a href="" data-toggle="modal" data-target="#upPassword">修改密码</a></li>'
-//                 html+='<li class="divider"></li>';
-//                 html+='<li><a href=" ">注销账户</a></li>';
-//                 html+='</ul>';
-//                 html+='</div>';
-//                 $("#login").html(html);
-//             }else{
-//                 alert(data.msg);
-//             }
-//         },
-//     })
-// })
 // 密码修改
 $("#upPwd").click(function () {
     // alert("111111")
@@ -453,7 +423,7 @@ function loadRecordInfo(data){
             html+='<div class="panel-body panel_2 ">';
             html+='  <div class="form-group col-md-1 ">';
             html+='<div class="picture box tupian ">';
-            html+='<img src=""/>';
+            html+='<img class="tupian1" src="/bookCover'+item.bookCover+'"/>';
             html+='</div>';
             html+='</div>';
             html+=' <div id="" class="col-md-8 ">';

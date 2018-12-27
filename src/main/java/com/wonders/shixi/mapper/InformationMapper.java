@@ -4,6 +4,7 @@ package com.wonders.shixi.mapper;/*
 */
 
 import com.wonders.shixi.pojo.Book;
+import com.wonders.shixi.pojo.InformationDemo;
 import com.wonders.shixi.pojo.TypeTwo;
 import org.apache.ibatis.annotations.*;
 
@@ -39,4 +40,14 @@ public interface InformationMapper {
             @Result(property = "typeTwoType", column = "type_two_type"),
             @Result(property = "typeTwoValue", column = "type_two_value")})
     public List<TypeTwo> findbooktype();
+
+    @Select("SELECT b.book_name,p.book_borrow FROM book_periodicals p,book b where p.book_periodicals=b.book_periodicals ORDER BY book_borrow desc limit 5")
+    @Results(value = {@Result(property = "bookName",column = "book_name"),
+            @Result(property = "bookBorrow",column = "book_borrow")})
+    public List<InformationDemo> findhostbook();
+
+    @Select("SELECT b.book_name,p.book_click FROM book_periodicals p,book b where p.book_periodicals=b.book_periodicals ORDER BY book_click desc limit 5")
+    @Results(value = {@Result(property = "bookName",column = "book_name"),
+            @Result(property = "bookClick",column = "book_click")})
+    public List<InformationDemo> findclickbook();
 }

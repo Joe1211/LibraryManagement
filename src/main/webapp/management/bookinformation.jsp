@@ -90,12 +90,12 @@
                 <ul class="sidebar-nav sidebar-nav-sub">
                     <li class="sidebar-nav-link">
                         <a href="${pageContext.request.contextPath}/admin/bookListFenYe">
-                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 图书详情信息
+                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 图书借阅数量
                         </a>
                     </li>
 
                     <li class="sidebar-nav-link">
-                        <a href="table-list-img.html">
+                        <a href="${pageContext.request.contextPath}/management/bookchart.jsp">
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 图表统计
                         </a>
                     </li>
@@ -109,13 +109,13 @@
                 </a>
                 <ul class="sidebar-nav sidebar-nav-sub">
                     <li class="sidebar-nav-link">
-                        <a href="table-list.html">
+                        <a href="">
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 以借图书
                         </a>
                     </li>
 
                     <li class="sidebar-nav-link">
-                        <a href="table-list-img.html">
+                        <a href="">
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 待还图书
                         </a>
                     </li>
@@ -129,13 +129,13 @@
                 </a>
                 <ul class="sidebar-nav sidebar-nav-sub">
                     <li class="sidebar-nav-link">
-                        <a href="table-list.html">
+                        <a href="${pageContext.request.contextPath}/admin_book.jsp" target="showiframe">
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 图书入库
                         </a>
                     </li>
 
                     <li class="sidebar-nav-link">
-                        <a href="table-list-img.html">
+                        <a href="">
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 图书出库
                         </a>
                     </li>
@@ -149,13 +149,13 @@
                 </a>
                 <ul class="sidebar-nav sidebar-nav-sub">
                     <li class="sidebar-nav-link">
-                        <a href="table-list.html">
+                        <a href="">
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 添加标签
                         </a>
                     </li>
 
                     <li class="sidebar-nav-link">
-                        <a href="table-list-img.html">
+                        <a href="">
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 删除标签
                         </a>
                     </li>
@@ -169,19 +169,18 @@
                 </a>
                 <ul class="sidebar-nav sidebar-nav-sub">
                     <li class="sidebar-nav-link">
-                        <a href="${pageContext.request.contextPath}/book/booklist/information">
-                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 评论详情
+                        <a href="">
+                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 评论管理
                         </a>
                     </li>
 
                     <li class="sidebar-nav-link">
-                        <a href="table-list-img.html">
-                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span>
+                        <a href="${pageContext.request.contextPath}/book/booklist/information">
+                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span>评论详情
                         </a>
                     </li>
                 </ul>
             </li>
-
         </ul>
     </div>
 
@@ -216,7 +215,7 @@
                             <td>${book.bookCallnum}</td>
                             <td>${book.bookWriter}</td>
                             <td>${book.bookPress}</td>
-                            <td></td>
+                            <td><img  src="${book.bookCover}"></td>
                             <td>${book.bookTime}</td>
                             <td>${book.typeTwoValue}</td>
                             <td>${book.libraryId}</td>

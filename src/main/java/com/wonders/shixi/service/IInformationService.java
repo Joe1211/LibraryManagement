@@ -4,6 +4,7 @@ package com.wonders.shixi.service;/*
 */
 
 import com.wonders.shixi.pojo.Book;
+import com.wonders.shixi.pojo.InformationDemo;
 import com.wonders.shixi.pojo.TypeTwo;
 
 import java.util.List;
@@ -17,4 +18,8 @@ public interface IInformationService {
     public int updatebook(Book book);
 
     public List<TypeTwo> typetwolist();
+
+    public List<InformationDemo> findhostbook();
+
+    public List<InformationDemo> findclickbook();
 }

@@ -91,7 +91,7 @@
                 </a>
                 <ul class="sidebar-nav sidebar-nav-sub">
                     <li class="sidebar-nav-link">
-                        <a href="${pageContext.request.contextPath}/admin/bookListFenYe">
+                        <a href="">
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 图书借阅数量
                         </a>
                     </li>

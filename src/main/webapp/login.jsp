@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>用户登录</title>
 <link rel="stylesheet" href="css/amazeui.min.css" />
-<link rel="stylesheet" href="css/app.css" />
+<link rel="stylesheet" href="css/app1.css" />
 <style>
 	.log{
 			top: 100px;

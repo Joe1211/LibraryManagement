@@ -4,6 +4,7 @@ package com.wonders.shixi.service.impl;
 
 import com.wonders.shixi.mapper.BookMapper;
 import com.wonders.shixi.pojo.Book;
+import com.wonders.shixi.pojo.BookBorrowModel;
 import com.wonders.shixi.pojo.BookRecordModel;
 import com.wonders.shixi.util.RestMsg;
 import com.wonders.shixi.service.IBookService;
@@ -153,6 +154,11 @@ public class BookServiceImpl implements IBookService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<BookBorrowModel> selectByBorrowAll() {
+        return bookMapper.selectByBorrowAll();
     }
 
 

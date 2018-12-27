@@ -25,14 +25,13 @@
         <!--搜索框-->
 
         <!--用户信息-->
-        <form class="btn-group col-md-4 col-sm-4 ver col-md-offset-1 ">
-            <ul class="nav navbar-nav navbar-right ">
+        <form class="btn-group col-md-6 col-sm-6 ver col-md-offset-3 ">
+            <ul class="nav navbar-nav navbar-right">
                 <li class="ver1 ">
                     <div class="dropdown ">
-							<span data-toggle="dropdown">
+							<span>
                                 <input type="hidden" id="readerId" value="${reader.readerId}">
-								欢迎你，${reader.readerName}
-								<span class="caret"></span>
+								欢迎，${reader.readerName}
 							</span>
                     </div>
                 </li>

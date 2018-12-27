@@ -1,6 +1,7 @@
 package com.wonders.shixi.mapper;
 
 import com.wonders.shixi.pojo.Book;
+import com.wonders.shixi.pojo.BookBorrowModel;
 import com.wonders.shixi.pojo.BookRecordModel;
 import org.apache.ibatis.annotations.Param;
 
@@ -99,4 +100,10 @@ public interface BookMapper {
      * @return
      */
     List<BookRecordModel> selectByRepay(int bookId);
+
+    /**
+     * 查询所有待还图书
+     * @return
+     */
+    List<BookBorrowModel> selectByBorrowAll();
 }

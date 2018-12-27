@@ -4,6 +4,7 @@ package com.wonders.shixi.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.wonders.shixi.pojo.Book;
+import com.wonders.shixi.pojo.BookBorrowModel;
 import com.wonders.shixi.util.RestMsg;
 import com.wonders.shixi.service.IBookService;
 import io.swagger.annotations.ApiImplicitParam;
@@ -341,6 +342,30 @@ public class BookController {
     @ResponseBody
     public RestMsg<Object> selectByRepay(String bookId){
         return bookService.selectByRepay(Integer.parseInt(bookId));
+    }
+
+    /**
+     * 查询所有待还图书
+     * @return
+     */
+    @GetMapping("/borrowall")
+    @ResponseBody
+    public RestMsg<Object> selectByborrowAll(@RequestParam(required = false,defaultValue = "1",value = "pn")Integer pn){
+        RestMsg<Object> rm = new RestMsg<>();
+        //引入分页查询，使用PageHelper分页功能
+        //在查询之前传入当前页，然后多少记录
+        PageHelper.startPage(pn,5);
+        //startPage后紧跟的这个查询就是分页查询
+        List<BookBorrowModel> list = bookService.selectByBorrowAll();
+        //使用PageInfo包装查询结果，只需要将pageInfo交给页面就可以
+        PageInfo pageInfo = new PageInfo<>(list,5);
+        //pageINfo封装了分页的详细信息，也可以指定连续显示的页数
+        if (pageInfo.getList().size() != 0){
+            rm.setResult(pageInfo);
+            return rm.successMsg();
+        }else {
+            return rm.errorMsg("没有待还的图书");
+        }
     }
 
 }

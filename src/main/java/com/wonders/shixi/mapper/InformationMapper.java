@@ -4,10 +4,8 @@ package com.wonders.shixi.mapper;/*
 */
 
 import com.wonders.shixi.pojo.Book;
-import org.apache.ibatis.annotations.One;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
+import com.wonders.shixi.pojo.TypeTwo;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -16,6 +14,7 @@ public interface InformationMapper {
     @Select("select * from book")
     @Results(value= {@Result(id = true,property = "bookId",column = "book_id"),
                 @Result(property = "bookPeriodicals", column = "book_periodicals"),
+                @Result(property = "bookName", column = "book_name"),
                 @Result(property = "bookCallnum", column = "book_callnum"),
                 @Result(property = "bookWriter", column = "book_writer"),
                 @Result(property = "bookPress", column = "book_press"),
@@ -27,4 +26,17 @@ public interface InformationMapper {
                 @Result(property = "bookState", column = "book_state"),
                 @Result(property = "libraryId", column = "library_id")})
     public List<Book> findAll();
+
+    @Delete("delete from book where book_id=#{bookId}")
+    public void deletebook(@Param("bookId") int bookId);
+
+    @Update("update book set book_name=#{bookName},book_periodicals=#{bookPeriodicals}, book_callnum=#{bookCallnum},book_writer=#{bookWriter},book_press=#{bookPress},book_cover=#{bookCover},book_info=#{bookInfo},book_updata=#{bookUpdata},library_id=#{libraryId} where book_id=#{bookId}")
+    public int updatebook(Book book);//type_two_value=#{typeTwoValue},book_state=#{bookState},
+
+    @Select("select type_two_id,type_one_id,type_two_type,type_two_value from type_two")
+    @Results(value = {@Result(id = true,property = "typeTwoId",column = "type_two_id"),
+            @Result(property = "typeOneId", column = "type_one_id"),
+            @Result(property = "typeTwoType", column = "type_two_type"),
+            @Result(property = "typeTwoValue", column = "type_two_value")})
+    public List<TypeTwo> findbooktype();
 }

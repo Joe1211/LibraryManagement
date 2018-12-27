@@ -4,10 +4,17 @@ package com.wonders.shixi.service;/*
 */
 
 import com.wonders.shixi.pojo.Book;
+import com.wonders.shixi.pojo.TypeTwo;
 
 import java.util.List;
 
 public interface IInformationService {
 
     public List<Book> bookList();
+
+    public void deletebook(int bookId);
+
+    public int updatebook(Book book);
+
+    public List<TypeTwo> typetwolist();
 }

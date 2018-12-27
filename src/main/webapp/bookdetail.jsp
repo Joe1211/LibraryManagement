@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>`
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -68,7 +69,6 @@
         var pinglun=$("textarea[name='say']").val();
         var data = "readerId="+1+"&say="+pinglun+ "&bookId="+${msg.bookId};
         $.ajax({
-
             "url":'api/bookcomment/insert',
             "data":data,
             "type":'post',
@@ -102,14 +102,13 @@
             var html='';
             $.each(data,function (i, item) {
                 // html+='<p>'+item.readerName+':'+item.comment+'</p>';
-                html+='<label>'+item.readerName+':</label>'+item.comment+item.updateTime+'</br>';
+                html+='<label>'+item.readerName+':</label>'+item.comment+item.updateTime +'</br>';
                 html+='<hr>';
                 // html+='<p>'+item.updateTime+'</p>';
             })
         }
         $("#bod").html(html);
     }
-
 
 
 

@@ -101,8 +101,10 @@
         if (data!=null) {
             var html='';
             $.each(data,function (i, item) {
-                html+='<p>'+item.readerName+':'+item.comment+'</p>';
-                html+='<p>'+item.updateTime+'</p>';
+                // html+='<p>'+item.readerName+':'+item.comment+'</p>';
+                html+='<label>'+item.readerName+':</label>'+item.comment+item.updateTime+'</br>';
+                html+='<hr>';
+                // html+='<p>'+item.updateTime+'</p>';
             })
         }
         $("#bod").html(html);

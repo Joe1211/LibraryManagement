@@ -41,7 +41,7 @@ public class BookCommentController {
     @RequestMapping(value="/insert",method= RequestMethod.POST)
     @ResponseBody
     public int insertComment(Integer bookId, Integer readerId,String say){
-        System.out.println(bookId+" "+readerId+" "+say);
+//        System.out.println(bookId+" "+readerId+" "+say);
         BookComment record=new BookComment();
         record.setBookId(bookId);
         record.setReaderId(readerId);

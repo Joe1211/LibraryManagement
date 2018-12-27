@@ -31,7 +31,7 @@ public class ReserveController {
             msg="预约成功，请在6个小时之内取走书籍！";
             str=daoShu(6,request,response);
         }else {
-            msg="预约失败,图书已借出，请过明日再来！";
+            msg="预约失败,图书已借出，请明日再来！";
         }
         request.getSession().setAttribute("reser",msg);
         response.sendRedirect("../../bookdetail.jsp");

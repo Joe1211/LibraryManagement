@@ -7,6 +7,7 @@ package com.wonders.shixi.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.wonders.shixi.pojo.Book;
+import com.wonders.shixi.pojo.InformationDemo;
 import com.wonders.shixi.pojo.TypeTwo;
 import com.wonders.shixi.service.IBookService;
 import com.wonders.shixi.service.IInformationService;
@@ -42,7 +43,6 @@ public class InformationController {
         List<Book> bookList=informationService.bookList();
 
         PageInfo pageInfo=new PageInfo<>(bookList);
-        System.out.println(pageInfo.toString());
 
         model.addAttribute("pageinfo",pageInfo);
         return "forward:/management/bookinformation.jsp";
@@ -69,9 +69,9 @@ public class InformationController {
         MultipartFile file=bimg;
         try {
             //将图片保存在磁盘目录
-            file.transferTo(new File("D:\\code\\bookCover\\"+file.getOriginalFilename()));
+            file.transferTo(new File("D:/code/bookCover/"+file.getOriginalFilename()));
             //设置值，将路径存入数据库
-            book.setBookCover("\\bookCover\\"+file.getOriginalFilename());
+            book.setBookCover("bookCover/"+file.getOriginalFilename());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -89,5 +89,18 @@ public class InformationController {
         List<TypeTwo> list=informationService.typetwolist();
         System.out.println(list);
         return list;
+    }
+
+    @RequestMapping(value = "/findhostbook",method = {RequestMethod.POST,RequestMethod.GET})
+    @ResponseBody
+    public List<InformationDemo> findhostbook(){
+        System.out.println(informationService.findhostbook().toString());
+        return informationService.findhostbook();
+    }
+
+    @RequestMapping(value = "/findclickbook",method = {RequestMethod.POST,RequestMethod.GET})
+    @ResponseBody
+    public  List<InformationDemo> findclickbook(){
+        return informationService.findclickbook();
     }
 }

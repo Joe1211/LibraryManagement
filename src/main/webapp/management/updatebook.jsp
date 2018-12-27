@@ -130,7 +130,7 @@
             <div id="preview">
                 <img id="imghead" border="0"
                      src="${book.bookCover}"
-                     width="50" height="50" onclick="$('#bookCover').click();">
+                     width="50" height="50" onclick="$('#bimg').click();">
             </div>
             <input type="file" name="bimg" onchange="bimg(this)"
                    style="display: none;" id="bimg"

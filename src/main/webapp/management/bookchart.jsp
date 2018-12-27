@@ -94,12 +94,12 @@
                 <ul class="sidebar-nav sidebar-nav-sub">
                     <li class="sidebar-nav-link">
                         <a href="${pageContext.request.contextPath}/admin/bookListFenYe">
-                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 图书详情信息
+                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 图书借阅数量
                         </a>
                     </li>
 
                     <li class="sidebar-nav-link">
-                        <a href="table-list-img.html">
+                        <a href="${pageContext.request.contextPath}/management/bookchart.jsp">
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 图表统计
                         </a>
                     </li>
@@ -113,13 +113,13 @@
                 </a>
                 <ul class="sidebar-nav sidebar-nav-sub">
                     <li class="sidebar-nav-link">
-                        <a href="table-list.html">
+                        <a href="">
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 以借图书
                         </a>
                     </li>
 
                     <li class="sidebar-nav-link">
-                        <a href="table-list-img.html">
+                        <a href="">
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 待还图书
                         </a>
                     </li>
@@ -133,13 +133,13 @@
                 </a>
                 <ul class="sidebar-nav sidebar-nav-sub">
                     <li class="sidebar-nav-link">
-                        <a href="table-list.html">
+                        <a href="${pageContext.request.contextPath}/admin_book.jsp" target="showiframe">
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 图书入库
                         </a>
                     </li>
 
                     <li class="sidebar-nav-link">
-                        <a href="table-list-img.html">
+                        <a href="">
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 图书出库
                         </a>
                     </li>
@@ -153,13 +153,13 @@
                 </a>
                 <ul class="sidebar-nav sidebar-nav-sub">
                     <li class="sidebar-nav-link">
-                        <a href="table-list.html">
+                        <a href="">
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 添加标签
                         </a>
                     </li>
 
                     <li class="sidebar-nav-link">
-                        <a href="table-list-img.html">
+                        <a href="">
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 删除标签
                         </a>
                     </li>
@@ -173,19 +173,18 @@
                 </a>
                 <ul class="sidebar-nav sidebar-nav-sub">
                     <li class="sidebar-nav-link">
-                        <a href="${pageContext.request.contextPath}/book/booklist/information">
-                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 评论详情
+                        <a href="">
+                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 评论管理
                         </a>
                     </li>
 
                     <li class="sidebar-nav-link">
-                        <a href="table-list-img.html">
-                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span>
+                        <a href="${pageContext.request.contextPath}/book/booklist/information">
+                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span>评论详情
                         </a>
                     </li>
                 </ul>
             </li>
-
         </ul>
     </div>
 
@@ -195,16 +194,21 @@
         <div class="container-fluid am-cf">
             <div class="row">
                 <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
-                    <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span> 图表 <small>Amaze UI</small></div>
-                    <p class="page-header-description">图表组件使用的是 <a href="http://echarts.baidu.com">百度图表echarts</a>。</p>
-                </div>
-                <div class="am-u-lg-3 tpl-index-settings-button">
-                    <button type="button" class="page-header-button"><span class="am-icon-paint-brush"></span> 设置</button>
+                    <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span> 图表 <small>LibraryManagement</small></div>
+                    <p class="page-header-description">图表组件使用的是 <a href="http://echarts.baidu.com">echarts</a>。</p>
                 </div>
             </div>
+        </div>
+
+
+
+        <div id="main1" style="width: 600px;height:400px;">
 
         </div>
 
+        <div id="main2" style="width: 600px;height:400px;">
+
+        </div>
 
     </div>
 </div>
@@ -215,8 +219,79 @@
 <script src="${pageContext.request.contextPath}/js/dataTables.responsive.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/app.js"></script>
 
+<script type="text/javascript">
+
+    $.post('${pageContext.request.contextPath}/admin/findhostbook',function(data) {
+        console.info(data[0]);
+        var xA = [];
+        var yA = [];
+        for (var i = 0; i < data.length; i++) {
+            xA.push(data[i].bookName);
+            yA.push(data[i].bookBorrow);
+        }
+        var myChart = echarts.init(document.getElementById('main1'));
+        var option = {
+            title: {
+                text: '被借阅图书排名'
+            },
+            tooltip: {},
+            legend: {
+                data: ['被借阅次数']
+            },
+            xAxis: {
+                data: xA,
+                axisLabel: {
+                    interval: 0,
+                    rotate: -25
+                }
+            },
+            yAxis: {},
+            series: [{
+                name: '次数',
+                type: 'bar',
+                data: yA
+            }]
+        };
+        myChart.setOption(option);
+    });
+
+    $.post('${pageContext.request.contextPath}/admin/findclickbook',function(data) {
+        console.info(data[0]);
+        var xA = [];
+        var yA = [];
+        for (var i = 0; i < data.length; i++) {
+            xA.push(data[i].bookName);
+            yA.push(data[i].bookClick);
+        }
+        var myChart = echarts.init(document.getElementById('main2'));
+        var option = {
+            title: {
+                text: '点击图书排名榜'
+            },
+            tooltip: {},
+            legend: {
+                data: ['被点击次数']
+            },
+            xAxis: {
+                data: xA,
+                axisLabel: {
+                    interval: 0,
+                    rotate: -25
+                }
+            },
+            yAxis: {},
+            series: [{
+                name: '次数',
+                type: 'bar',
+                data: yA
+            }]
+        };
+        myChart.setOption(option);
+    });
 
 
+
+</script>
 </body>
 
 </html>

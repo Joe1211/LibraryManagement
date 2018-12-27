@@ -5,6 +5,7 @@ package com.wonders.shixi.service.impl;/*
 
 import com.wonders.shixi.mapper.InformationMapper;
 import com.wonders.shixi.pojo.Book;
+import com.wonders.shixi.pojo.InformationDemo;
 import com.wonders.shixi.pojo.TypeTwo;
 import com.wonders.shixi.service.IInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,5 +36,15 @@ public class InformationServiceimpl implements IInformationService {
     @Override
     public List<TypeTwo> typetwolist() {
         return informationMapper.findbooktype();
+    }
+
+    @Override
+    public List<InformationDemo> findhostbook() {
+        return informationMapper.findhostbook();
+    }
+
+    @Override
+    public List<InformationDemo> findclickbook() {
+        return informationMapper.findclickbook();
     }
 }

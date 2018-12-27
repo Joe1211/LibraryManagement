@@ -8,7 +8,6 @@
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/custom.css"/>
-    <%--<script src="js/pccs.js" type="text/javascript"></script>--%>
 </head>
 <body>
 <!-- 读者登陆模态框 -->
@@ -140,7 +139,10 @@
     </form>
 </div>
 <!-- 读者登陆模态框 -->
-
+<%--<form action="api/books/selectById">--%>
+    <%--<input type="text" name="bookId" placeholder="请输入bookid"><br>--%>
+    <%--<button type="submit">查询</button>--%>
+<%--</form>--%>
 <!--导航栏-->
 <nav class="navbar navbar-default col-md-12" style="background: none">
         <div class="container-fluid">

@@ -19,7 +19,7 @@ public interface ReaderMapper {
 
     List<Reader> selectByExample(ReaderExample example);
 
-    Reader selectByPrimaryKey(Integer readerId);
+    List<Reader> selectByPrimaryKey(Integer readerId);
 
     int updateByExampleSelective(@Param("record") Reader record, @Param("example") ReaderExample example);
 

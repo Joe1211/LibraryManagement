@@ -40,8 +40,8 @@ public class ReaderServiceImpl implements ReaderService {
      */
     @Override
     public Reader getReaderById(int id) {
-       Reader reader= readerMapper.selectByPrimaryKey(id);
-        return reader;
+//       Reader reader= readerMapper.selectByPrimaryKey(id);
+        return null;
     }
 
     /**
@@ -180,6 +180,11 @@ public class ReaderServiceImpl implements ReaderService {
             return rm.successMsg("登陆成功");
         }
         return rm.errorMsg("登陆失败");
+    }
+    @Override
+    public List<Reader>selectReaderByReaderId(int readerId){
+        List<Reader>list=readerMapper.selectByPrimaryKey(readerId);
+        return list;
     }
 
     /**

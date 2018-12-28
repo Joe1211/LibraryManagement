@@ -4,6 +4,7 @@ package com.wonders.shixi.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.wonders.shixi.pojo.Book;
+import com.wonders.shixi.pojo.BookBorrowModel;
 import com.wonders.shixi.util.RestMsg;
 import com.wonders.shixi.service.IBookService;
 import io.swagger.annotations.ApiImplicitParam;
@@ -13,22 +14,18 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.File;
 import java.io.IOException;
+import java.util.List;
+import java.io.File;
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -43,7 +40,6 @@ public class BookController {
 
     @Autowired
     IBookService bookService;
-
     /**
      * 图书添加
      * @param request
@@ -158,8 +154,6 @@ public class BookController {
         return time;
     }
 
-
-
     /**
      * 模糊搜索(根据图书名查找图书)
      * @param bookname 书名
@@ -247,6 +241,23 @@ public class BookController {
             return rm.errorMsg("没有该类型的图书");
         }
     }
+    /**
+     * 根据书id查询
+     * 查询一本书的详细内容
+     * @param
+     * @return
+     */
+    @RequestMapping("/selectById")
+    @ResponseBody
+    public void selcetById(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String id=request.getParameter("bookId");
+        int bookId=Integer.parseInt(id);
+        Book book=bookService.selectByPrimaryKey(bookId);
+        System.out.println(book);
+        request.getSession().setAttribute("msg",book);
+        response.sendRedirect("../../bookdetail.jsp");
+    }
+
 
     /**
      * 图书借阅
@@ -341,6 +352,30 @@ public class BookController {
     @ResponseBody
     public RestMsg<Object> selectByRepay(String bookId){
         return bookService.selectByRepay(Integer.parseInt(bookId));
+    }
+
+    /**
+     * 查询所有待还图书
+     * @return
+     */
+    @GetMapping("/borrowall")
+    @ResponseBody
+    public RestMsg<Object> selectByborrowAll(@RequestParam(required = false,defaultValue = "1",value = "pn")Integer pn){
+        RestMsg<Object> rm = new RestMsg<>();
+        //引入分页查询，使用PageHelper分页功能
+        //在查询之前传入当前页，然后多少记录
+        PageHelper.startPage(pn,5);
+        //startPage后紧跟的这个查询就是分页查询
+        List<BookBorrowModel> list = bookService.selectByBorrowAll();
+        //使用PageInfo包装查询结果，只需要将pageInfo交给页面就可以
+        PageInfo pageInfo = new PageInfo<>(list,5);
+        //pageINfo封装了分页的详细信息，也可以指定连续显示的页数
+        if (pageInfo.getList().size() != 0){
+            rm.setResult(pageInfo);
+            return rm.successMsg();
+        }else {
+            return rm.errorMsg("没有待还的图书");
+        }
     }
 
 }

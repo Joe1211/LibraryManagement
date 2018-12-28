@@ -53,7 +53,7 @@ function loadInfo(data){
             html+='<p>'+item.bookPress+'</p>';
             html+='<a href="javascript:loadBorrow('+item.bookId+')">借阅&nbsp&nbsp</a>';
             html+=' <a href=" ">馆藏信息&nbsp&nbsp</a>';
-            html+='<a href=" ">详细信息&nbsp&nbsp</a>';
+            html+='<a href="javascript:load('+item.bookId+')">详细信息&nbsp&nbsp</a>';
             html+='<a href=" ">评论/标签&nbsp&nbsp</a>';
             html+='</div>';
             html+='</div>';
@@ -71,7 +71,7 @@ function loadInfo(data){
         if (test = data.result.hasPreviousPage) {
             html+='<li><a href="javascript:loadData('+(data.result.pageNum-1)+')">'+"上一页"+'</a></li>';
         }else{
-            html+='<li><a href="avascript:void(0))">'+"上一页"+'</a></li>';
+            html+='<li><a href="javascript:void(0))">'+"上一页"+'</a></li>';
         }
 
         <!--循环遍历连续显示的页面，若是当前页就高亮显示，并且没有链接-->
@@ -79,7 +79,7 @@ function loadInfo(data){
         // pageNum 当前页
         $.each(data.result.navigatepageNums,function (i,n) {
             if (data.result.pageNum == n){
-                html+='<li class="active"><a href="avascript:void(0))">'+n+'</a></li> ';
+                html+='<li class="active"><a href="javascript:void(0))">'+n+'</a></li> ';
             } else {
                 html+='<li><a href="javascript:loadData('+n+')">'+n+'</a></li> ';
             }
@@ -90,7 +90,7 @@ function loadInfo(data){
         if (test = data.result.hasNextPage) {
             html+='<li><a href="javascript:loadData('+(data.result.pageNum+1)+')">'+"下一页"+'</a></li>';
         }else{
-            html+='<li><a href="avascript:void(0))">'+"下一页"+'</a></li>';
+            html+='<li><a href="javascript:void(0))">'+"下一页"+'</a></li>';
         }
 
         html+='  </ul>';
@@ -147,7 +147,7 @@ function loadLabelInfo(data){
             html+='<p>'+item.bookPress+'</p>';
             html+='<a href="javascript:loadBorrow('+item.bookId+')">借阅&nbsp&nbsp</a>';
             html+=' <a href=" ">馆藏信息&nbsp&nbsp</a>';
-            html+='<a href=" ">详细信息&nbsp&nbsp</a>';
+            html+='<a href="javascript:load('+item.bookId+')">详细信息&nbsp&nbsp</a>';
             html+='<a href=" ">评论/标签&nbsp&nbsp</a>';
             html+='</div>';
             html+='</div>';
@@ -165,7 +165,7 @@ function loadLabelInfo(data){
         if (test = data.result.hasPreviousPage) {
             html+='<li><a href="javascript:loadLabelData('+(data.result.pageNum-1)+')">'+"上一页"+'</a></li>';
         }else{
-            html+='<li><a href="avascript:void(0))">'+"上一页"+'</a></li>';
+            html+='<li><a href="javascript:void(0))">'+"上一页"+'</a></li>';
         }
 
         <!--循环遍历连续显示的页面，若是当前页就高亮显示，并且没有链接-->
@@ -173,7 +173,7 @@ function loadLabelInfo(data){
         // pageNum 当前页
         $.each(data.result.navigatepageNums,function (i,n) {
             if (data.result.pageNum == n){
-                html+='<li class="active"><a href="avascript:void(0))">'+n+'</a></li> ';
+                html+='<li class="active"><a href="javascript:void(0))">'+n+'</a></li> ';
             } else {
                 html+='<li><a href="javascript:loadLabelData('+n+')">'+n+'</a></li> ';
             }
@@ -184,7 +184,7 @@ function loadLabelInfo(data){
         if (test = data.result.hasNextPage) {
             html+='<li><a href="javascript:loadLabelData('+(data.result.pageNum+1)+')">'+"下一页"+'</a></li>';
         }else{
-            html+='<li><a href="avascript:void(0))">'+"下一页"+'</a></li>';
+            html+='<li><a href="javascript:void(0))">'+"下一页"+'</a></li>';
         }
         html+='  </ul>';
         html+='   </nav>';
@@ -300,7 +300,7 @@ function loadTypeInfo(data){
             html+='<p>'+item.bookPress+'</p>';
             html+='<a href="javascript:loadBorrow('+item.bookId+')">借阅&nbsp&nbsp</a>';
             html+=' <a href=" ">馆藏信息&nbsp&nbsp</a>';
-            html+='<a href=" ">详细信息&nbsp&nbsp</a>';
+            html+='<a href="javascript:load('+item.bookId+')">详细信息&nbsp&nbsp</a>';
             html+='<a href=" ">评论/标签&nbsp&nbsp</a>';
             html+='</div>';
             html+='</div>';
@@ -337,7 +337,7 @@ function loadTypeInfo(data){
         if (test = data.result.hasNextPage) {
             html+='<li><a href="javascript:loadTypeData('+(data.result.pageNum+1)+')">'+"下一页"+'</a></li>';
         }else{
-            html+='<li><a href="avascript:void(0))">'+"下一页"+'</a></li>';
+            html+='<li><a href="javascript:void(0))">'+"下一页"+'</a></li>';
         }
 
         html+='  </ul>';
@@ -433,7 +433,7 @@ function loadRecordInfo(data){
             html+='<p>'+item.bookRecordTime+'</p>';
             // html+='<a href="javascript:loadBorrow('+item.bookId+')">借阅&nbsp&nbsp</a>';
             html+=' <a href=" ">馆藏信息&nbsp&nbsp</a>';
-            html+='<a href=" ">详细信息&nbsp&nbsp</a>';
+            html+='<a href="javascript:load(\'+item.bookId+\')">详细信息&nbsp&nbsp</a>';
             html+='<a href=" ">评论/标签&nbsp&nbsp</a>';
             html+='</div>';
             html+='</div>';
@@ -448,4 +448,6 @@ function loadRecordInfo(data){
 };
 
 
-
+function load(bookId) {
+        location.href="/api/books/selectById?bookId="+bookId;
+}

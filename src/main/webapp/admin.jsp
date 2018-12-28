@@ -111,13 +111,7 @@
                 </a>
                 <ul class="sidebar-nav sidebar-nav-sub">
                     <li class="sidebar-nav-link">
-                        <a href="">
-                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 以借图书
-                        </a>
-                    </li>
-
-                    <li class="sidebar-nav-link">
-                        <a href="">
+                        <a href="admin_repay.jsp" target="showiframe" >
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 待还图书
                         </a>
                     </li>
@@ -131,7 +125,7 @@
                 </a>
                 <ul class="sidebar-nav sidebar-nav-sub">
                     <li class="sidebar-nav-link">
-                        <a href="${pageContext.request.contextPath}/admin_book.jsp" target="showiframe">
+                        <a href="admin_book.jsp" target="showiframe">
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 图书入库
                         </a>
                     </li>
@@ -189,10 +183,7 @@
 
     <!-- 内容区域 -->
     <div class="tpl-content-wrapper">
-
-
-
-
+        <iframe src="xinxi.jsp" width="100%" height="600px" frameborder="0" name="showiframe"></iframe>
     </div>
 </div>
 </div>

@@ -32,6 +32,25 @@
     <result column="library_id" jdbcType="INTEGER" property="libraryId" />
     <result column="book_record_time" jdbcType="TIMESTAMP" property="bookRecordTime" />
   </resultMap>
+  <resultMap id="BaseResultMap3" type="com.wonders.shixi.pojo.BookBorrowModel">
+    <id column="book_id" jdbcType="INTEGER" property="bookId" />
+    <result column="book_name" jdbcType="VARCHAR" property="bookName" />
+    <result column="book_periodicals" jdbcType="VARCHAR" property="bookPeriodicals" />
+    <result column="book_callnum" jdbcType="VARCHAR" property="bookCallnum" />
+    <result column="book_writer" jdbcType="VARCHAR" property="bookWriter" />
+    <result column="book_press" jdbcType="VARCHAR" property="bookPress" />
+    <result column="book_cover" jdbcType="VARCHAR" property="bookCover" />
+    <result column="book_info" jdbcType="VARCHAR" property="bookInfo" />
+    <result column="book_time" jdbcType="TIMESTAMP" property="bookTime" />
+    <result column="book_updata" jdbcType="TIMESTAMP" property="bookUpdata" />
+    <result column="type_two_value" jdbcType="VARCHAR" property="typeTwoValue" />
+    <result column="book_state" jdbcType="VARCHAR" property="bookState" />
+    <result column="library_id" jdbcType="INTEGER" property="libraryId" />
+    <result column="book_record_time" jdbcType="TIMESTAMP" property="bookRecordTime" />
+    <result column="reader_name" jdbcType="VARCHAR" property="readerName" />
+    <result column="reader_phone" jdbcType="VARCHAR" property="readerPhone" />
+    <result column="reader_id" jdbcType="INTEGER" property="readerId" />
+  </resultMap>
   <sql id="Base_Column_List">
     book_id, book_name, book_periodicals, book_callnum, book_writer, book_press, book_cover, 
     book_info, book_time, book_updata, type_two_value, book_state, library_id
@@ -239,6 +258,13 @@
     </where>
   </select>
 
+
+<select id="selectStateById" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+select book_state
+from book
+where book_id = #{bookId,jdbcType=INTEGER}
+</select>
+
   <!--查询图书数量-->
   <select id="selectNum" parameterType="java.lang.Integer" resultType="java.lang.Integer">
     select bp.book_number from book_periodicals bp where bp.book_periodicals in (
@@ -290,5 +316,15 @@
     b.book_id = brr.book_id
     and brr.reader_id =  #{readerId}
     and brr.book_reader_record_state=1
+  </select>
+
+  <!--所有待还图书（管理员）-->
+  <select id="selectByBorrowAll" resultMap="BaseResultMap3">
+    select b.<include refid="Base_Column_List" />,brr.book_record_time,r.reader_name,r.reader_id,r.reader_phone
+      from book b,book_reader_record brr,reader r
+      where
+      b.book_id = brr.book_id
+      and brr.reader_id = r.reader_id
+      and brr.book_reader_record_state=0
   </select>
 </mapper>

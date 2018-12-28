@@ -55,5 +55,7 @@ public interface ReaderService {
    RestMsg<Object> login(String phone, String password);
 
    boolean updataByPassword(String phone,String password);
+   List<Reader> selectReaderByReaderId(int readerId);
+
 
 }

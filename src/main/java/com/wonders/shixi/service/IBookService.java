@@ -4,6 +4,7 @@ package com.wonders.shixi.service;
 
 
 import com.wonders.shixi.pojo.Book;
+import com.wonders.shixi.pojo.BookBorrowModel;
 import com.wonders.shixi.pojo.BookRecordModel;
 import com.wonders.shixi.util.RestMsg;
 
@@ -24,6 +25,8 @@ public interface IBookService {
 
     List<Book> findTypeBook(String value);
 
+
+//    int findStateById(int bookId);
     int selectNum(int bookId);
 
     int updataByNumber(int bookId);
@@ -57,4 +60,10 @@ public interface IBookService {
      * @return
      */
     boolean updateByState(int bookId,int readerId);
+
+    /**
+     * 查询所有待还图书
+     * @return
+     */
+    List<BookBorrowModel> selectByBorrowAll();
 }

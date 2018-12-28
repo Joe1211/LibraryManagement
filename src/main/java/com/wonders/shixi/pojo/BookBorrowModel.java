@@ -1,8 +1,17 @@
-package com.wonders.shixi.pojo;
+package com.wonders.shixi.pojo;/**
+ * @Auther: qiaohanlin
+ * @Date: 2018/12/27 14:28
+ * @Description:
+ */
 
 import java.util.Date;
 
-public class Book {
+/**
+ *@ClassName BookBorrowModel
+ *@Author 乔翰林
+ *@Date 2018/12/27
+ **/
+public class BookBorrowModel {
     private Integer bookId;
 
     private String bookName;
@@ -29,7 +38,13 @@ public class Book {
 
     private Integer libraryId;
 
+    private Date bookRecordTime;
 
+    private String readerName;
+
+    private String readerPhone;
+
+    private Integer readerId;
 
     public Integer getBookId() {
         return bookId;
@@ -44,7 +59,7 @@ public class Book {
     }
 
     public void setBookName(String bookName) {
-        this.bookName = bookName == null ? null : bookName.trim();
+        this.bookName = bookName;
     }
 
     public String getBookPeriodicals() {
@@ -52,7 +67,7 @@ public class Book {
     }
 
     public void setBookPeriodicals(String bookPeriodicals) {
-        this.bookPeriodicals = bookPeriodicals == null ? null : bookPeriodicals.trim();
+        this.bookPeriodicals = bookPeriodicals;
     }
 
     public String getBookCallnum() {
@@ -60,7 +75,7 @@ public class Book {
     }
 
     public void setBookCallnum(String bookCallnum) {
-        this.bookCallnum = bookCallnum == null ? null : bookCallnum.trim();
+        this.bookCallnum = bookCallnum;
     }
 
     public String getBookWriter() {
@@ -68,7 +83,7 @@ public class Book {
     }
 
     public void setBookWriter(String bookWriter) {
-        this.bookWriter = bookWriter == null ? null : bookWriter.trim();
+        this.bookWriter = bookWriter;
     }
 
     public String getBookPress() {
@@ -76,7 +91,7 @@ public class Book {
     }
 
     public void setBookPress(String bookPress) {
-        this.bookPress = bookPress == null ? null : bookPress.trim();
+        this.bookPress = bookPress;
     }
 
     public String getBookCover() {
@@ -84,7 +99,7 @@ public class Book {
     }
 
     public void setBookCover(String bookCover) {
-        this.bookCover = bookCover == null ? null : bookCover.trim();
+        this.bookCover = bookCover;
     }
 
     public String getBookInfo() {
@@ -92,7 +107,7 @@ public class Book {
     }
 
     public void setBookInfo(String bookInfo) {
-        this.bookInfo = bookInfo == null ? null : bookInfo.trim();
+        this.bookInfo = bookInfo;
     }
 
     public Date getBookTime() {
@@ -116,7 +131,7 @@ public class Book {
     }
 
     public void setTypeTwoValue(String typeTwoValue) {
-        this.typeTwoValue = typeTwoValue == null ? null : typeTwoValue.trim();
+        this.typeTwoValue = typeTwoValue;
     }
 
     public String getBookState() {
@@ -124,7 +139,7 @@ public class Book {
     }
 
     public void setBookState(String bookState) {
-        this.bookState = bookState == null ? null : bookState.trim();
+        this.bookState = bookState;
     }
 
     public Integer getLibraryId() {
@@ -135,22 +150,35 @@ public class Book {
         this.libraryId = libraryId;
     }
 
-    @Override
-    public String toString() {
-        return "Book{" +
-                "bookId=" + bookId +
-                ", bookName='" + bookName + '\'' +
-                ", bookPeriodicals='" + bookPeriodicals + '\'' +
-                ", bookCallnum='" + bookCallnum + '\'' +
-                ", bookWriter='" + bookWriter + '\'' +
-                ", bookPress='" + bookPress + '\'' +
-                ", bookCover='" + bookCover + '\'' +
-                ", bookInfo='" + bookInfo + '\'' +
-                ", bookTime=" + bookTime +
-                ", bookUpdata=" + bookUpdata +
-                ", typeTwoValue='" + typeTwoValue + '\'' +
-                ", bookState='" + bookState + '\'' +
-                ", libraryId=" + libraryId +
-                '}';
+    public Date getBookRecordTime() {
+        return bookRecordTime;
+    }
+
+    public void setBookRecordTime(Date bookRecordTime) {
+        this.bookRecordTime = bookRecordTime;
+    }
+
+    public String getReaderName() {
+        return readerName;
+    }
+
+    public void setReaderName(String readerName) {
+        this.readerName = readerName;
+    }
+
+    public String getReaderPhone() {
+        return readerPhone;
+    }
+
+    public void setReaderPhone(String readerPhone) {
+        this.readerPhone = readerPhone;
+    }
+
+    public Integer getReaderId() {
+        return readerId;
+    }
+
+    public void setReaderId(Integer readerId) {
+        this.readerId = readerId;
     }
 }

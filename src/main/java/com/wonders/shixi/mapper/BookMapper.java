@@ -1,6 +1,7 @@
 package com.wonders.shixi.mapper;
 
 import com.wonders.shixi.pojo.Book;
+import com.wonders.shixi.pojo.BookBorrowModel;
 import com.wonders.shixi.pojo.BookRecordModel;
 import org.apache.ibatis.annotations.Param;
 
@@ -27,7 +28,7 @@ public interface BookMapper {
      * @param bookId
      * @return
      */
-    com.wonders.shixi.pojo.Book selectByPrimaryKey(Integer bookId);
+    Book selectByPrimaryKey(Integer bookId);
 
     int updateByPrimaryKeySelective(Book record);
 
@@ -61,14 +62,14 @@ public interface BookMapper {
      * @param bookId
      * @return
      */
-    int updateByNumber(@Param("bookId")int bookId);
+    int updateByNumber(@Param("bookId") int bookId);
 
     /**
      * 归还，图书数量加1
      * @param bookId
      * @return
      */
-    int updateByAddNumber(@Param("bookId")int bookId);
+    int updateByAddNumber(@Param("bookId") int bookId);
 
     /**
      * 根据读者id和图书id修改图书状态为已还（1）
@@ -76,7 +77,7 @@ public interface BookMapper {
      * @param readerId
      * @return
      */
-    int updateByState(@Param("bookId")int bookId,@Param("readerId")int readerId);
+    int updateByState(@Param("bookId") int bookId, @Param("readerId") int readerId);
 
     /**
      * 以借图书表
@@ -84,7 +85,7 @@ public interface BookMapper {
      * @param readerId
      * @return
      */
-    int addBookRecord(@Param("bookId") int bookId,@Param("readerId")int readerId);
+    int addBookRecord(@Param("bookId") int bookId, @Param("readerId") int readerId);
 
     /**
      * 以借图书（待归还）
@@ -99,4 +100,10 @@ public interface BookMapper {
      * @return
      */
     List<BookRecordModel> selectByRepay(int bookId);
+
+    /**
+     * 查询所有待还图书
+     * @return
+     */
+    List<BookBorrowModel> selectByBorrowAll();
 }

@@ -73,12 +73,11 @@ public class BookServiceImpl implements IBookService {
         return bookMapper.selectType(value);
     }
 
-
-    @Override
-    public int findStateById(int bookId) {
-
-        return bookMapper.selectStateById(bookId);
-    }
+//
+//    @Override
+//    public int findStateById(int bookId) {
+//        return bookMapper.selectStateById(bookId);
+//    }
 
     /**
      * 根据bookId查询还有多少图书可借

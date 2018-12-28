@@ -26,7 +26,7 @@ public interface IBookService {
     List<Book> findTypeBook(String value);
 
 
-    int findStateById(int bookId);
+//    int findStateById(int bookId);
     int selectNum(int bookId);
 
     int updataByNumber(int bookId);

@@ -5,6 +5,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <html>
 <head>
     <meta charset="utf-8">
@@ -216,7 +217,7 @@
                             <td>${book.bookWriter}</td>
                             <td>${book.bookPress}</td>
                             <td><img  src="${book.bookCover}"></td>
-                            <td>${book.bookTime}</td>
+                            <td><fmt:formatDate value="${book.bookTime}" pattern="yyyy-MM-dd HH:mm:ss"/> </td>
                             <td>${book.typeTwoValue}</td>
                             <td>${book.libraryId}</td>
                             <td><a href="${pageContext.request.contextPath}/admin/findbookbyid?bookId=${book.bookId}" class="btn btn-primary  btn-xs"

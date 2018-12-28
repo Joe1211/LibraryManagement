@@ -93,7 +93,7 @@
                 </a>
                 <ul class="sidebar-nav sidebar-nav-sub">
                     <li class="sidebar-nav-link">
-                        <a href="${pageContext.request.contextPath}/admin/bookListFenYe">
+                        <a href="${pageContext.request.contextPath}/admin/bookListFenYe" >
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 图书借阅数量
                         </a>
                     </li>
@@ -113,13 +113,7 @@
                 </a>
                 <ul class="sidebar-nav sidebar-nav-sub">
                     <li class="sidebar-nav-link">
-                        <a href="">
-                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 以借图书
-                        </a>
-                    </li>
-
-                    <li class="sidebar-nav-link">
-                        <a href="">
+                        <a href="../admin_repay.jsp" target="showiframe" >
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 待还图书
                         </a>
                     </li>
@@ -133,7 +127,7 @@
                 </a>
                 <ul class="sidebar-nav sidebar-nav-sub">
                     <li class="sidebar-nav-link">
-                        <a href="${pageContext.request.contextPath}/admin_book.jsp" target="showiframe">
+                        <a href="../admin_book.jsp" target="showiframe">
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 图书入库
                         </a>
                     </li>

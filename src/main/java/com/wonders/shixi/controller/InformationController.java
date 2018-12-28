@@ -69,9 +69,9 @@ public class InformationController {
         MultipartFile file=bimg;
         try {
             //将图片保存在磁盘目录
-            file.transferTo(new File("D:/code/bookCover/"+file.getOriginalFilename()));
+            file.transferTo(new File("D:/code/"+file.getOriginalFilename()));
             //设置值，将路径存入数据库
-            book.setBookCover("bookCover/"+file.getOriginalFilename());
+            book.setBookCover("/bookCover/"+file.getOriginalFilename());
         } catch (IOException e) {
             e.printStackTrace();
         }

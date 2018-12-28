@@ -1,5 +1,7 @@
 package com.wonders.shixi.pojo;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class Book {
@@ -19,6 +21,7 @@ public class Book {
 
     private String bookInfo;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date bookTime;
 
     private Date bookUpdata;

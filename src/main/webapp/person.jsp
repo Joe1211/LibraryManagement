@@ -50,7 +50,6 @@
             <tr><td><a href="borrow.jsp" target="showiframe">我的借阅</a></td></tr>
             <tr><td><a href="repay.jsp" target="showiframe">已还图书</a></td></tr>
         </table>
-
     </div>
 
     <!--右侧区域-->

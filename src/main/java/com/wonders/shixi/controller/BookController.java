@@ -5,6 +5,9 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.wonders.shixi.pojo.Book;
 import com.wonders.shixi.pojo.BookBorrowModel;
+import com.wonders.shixi.pojo.Reader;
+import com.wonders.shixi.service.ReaderService;
+import com.wonders.shixi.util.MailUtil;
 import com.wonders.shixi.util.RestMsg;
 import com.wonders.shixi.service.IBookService;
 import io.swagger.annotations.ApiImplicitParam;
@@ -29,6 +32,8 @@ import java.util.*;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import static com.wonders.shixi.util.MailUtil.*;
+
 /**
  * @ClassName 图书查询控制器
  * @author 乔翰林
@@ -40,6 +45,9 @@ public class BookController {
 
     @Autowired
     IBookService bookService;
+
+    @Autowired
+    ReaderService readerService;
     /**
      * 图书添加
      * @param request
@@ -286,7 +294,14 @@ public class BookController {
             int m = bookService.addBookRecord(id,rid);
             System.out.println("成功");
             if(m>=1){
-                timer();
+                //查询借图书的书名
+                Book book = bookService.selectByPrimaryKey(id);
+                String bookName = book.getBookName();
+                //查询用户邮箱，用于发邮件
+                Reader reader = readerService.getReaderById(rid);
+                String email = reader.getReaderEmail();
+//              调用定时任务
+                timer(bookName,email);
                 return rm.successMsg("借书成功，免费借书时间为一个月，请按时归还！");
             }else{
                 return rm.errorMsg("借书失败！");
@@ -297,17 +312,17 @@ public class BookController {
     }
 
 
-    public void timer() {
+    public void timer(String bookName,String emailAddress) {
         //线程池中初始化只放了2个线程去执行任务
         ScheduledThreadPoolExecutor scheduled = new ScheduledThreadPoolExecutor(2);
         scheduled.scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {
                 System.out.println("发送消息");
+                MailUtil.sendEmail(bookName,30,emailAddress);
             }
-        }, 2, 2, TimeUnit.SECONDS);
+        }, 2, 10000, TimeUnit.SECONDS);
         //initialDelay表示首次执行任务的延迟时间，period表示每次执行任务的间隔时间，TimeUnit.DAYS执行的时间间隔数值单位
-
     }
 
     /**

@@ -183,7 +183,7 @@
 
     <!-- 内容区域 -->
     <div class="tpl-content-wrapper">
-        <iframe src="xinxi.jsp" width="100%" height="600px" frameborder="0" name="showiframe"></iframe>
+        <iframe src="hello.jsp" width="100%" height="600px" frameborder="0" name="showiframe"></iframe>
     </div>
 </div>
 </div>

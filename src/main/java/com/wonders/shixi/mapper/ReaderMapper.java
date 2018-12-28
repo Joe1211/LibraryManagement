@@ -21,6 +21,8 @@ public interface ReaderMapper {
 
     List<Reader> selectByPrimaryKey(Integer readerId);
 
+    Reader selectById(Integer readerId);
+
     int updateByExampleSelective(@Param("record") Reader record, @Param("example") ReaderExample example);
 
     int updateByExample(@Param("record") Reader record, @Param("example") ReaderExample example);

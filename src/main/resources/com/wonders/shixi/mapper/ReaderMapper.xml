@@ -95,6 +95,15 @@
     from reader
     where reader_id = #{readerId,jdbcType=INTEGER}
   </select>
+
+
+  <select id="selectById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from reader
+    where reader_id = #{readerId,jdbcType=INTEGER}
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from reader
     where reader_id = #{readerId,jdbcType=INTEGER}

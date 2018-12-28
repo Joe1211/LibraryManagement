@@ -10,6 +10,7 @@
         <module name="LibraryManagement_02" />
         <module name="LibraryManagementsys4" />
         <module name="LibraryManagementsys5" />
+        <module name="LibraryManagementsys6" />
       </profile>
     </annotationProcessing>
   </component>

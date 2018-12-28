@@ -1,6 +1,6 @@
 package com.wonders.shixi.controller;
 
-import com.sun.deploy.net.HttpResponse;
+
 import com.wonders.shixi.controller.vo.Massage;
 import com.wonders.shixi.controller.vo.ReaderCondition;
 import com.wonders.shixi.controller.vo.ReaderModel;
@@ -152,6 +152,7 @@ public class ReaderController {
         if(rm.getCode()==1){
             response.sendRedirect("../../search.jsp");
         }
+
     }
 
     /**
@@ -195,5 +196,6 @@ public class ReaderController {
         HttpSession session = request.getSession(false);
         session.removeAttribute("reader");
         response.sendRedirect("../../login.jsp");
+
     }
 }

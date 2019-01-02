@@ -4,6 +4,8 @@ package com.wonders.shixi.pojo;/**
  * @Description:
  */
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 /**
@@ -143,7 +145,7 @@ public class BookRecordModel {
     public void setLibraryId(Integer libraryId) {
         this.libraryId = libraryId;
     }
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
     public Date getBookRecordTime() {
         return bookRecordTime;
     }

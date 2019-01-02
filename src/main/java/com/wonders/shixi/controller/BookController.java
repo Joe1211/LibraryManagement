@@ -20,6 +20,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -191,7 +192,6 @@ public class BookController {
             return rm.errorMsg("图书未找到");
         }
     }
-
     /**
      * 根据标签搜索
      * @param   lab 标签字符串
@@ -321,7 +321,7 @@ public class BookController {
                 System.out.println("发送消息");
                 MailUtil.sendEmail(bookName,30,emailAddress);
             }
-        }, 2, 10000, TimeUnit.SECONDS);
+        }, 1, 10000, TimeUnit.SECONDS);
         //initialDelay表示首次执行任务的延迟时间，period表示每次执行任务的间隔时间，TimeUnit.DAYS执行的时间间隔数值单位
     }
 

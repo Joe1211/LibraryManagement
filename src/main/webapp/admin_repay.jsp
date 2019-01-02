@@ -52,7 +52,7 @@
                             html+='<td id="readerId">'+item.readerId+'</td>';
                             html+='<td>'+item.readerName+'</td>';
                             html+='<td>'+item.readerPhone+'</td>';
-                            <%--html+='<td><fmt:formatDate value="item.bookRecordTime" pattern="yyyy-MM-dd HH:mm:ss"/></td>';--%>
+                            html+='<td>'+item.bookRecordTime+'</td>';
                             html+='<td><button type="button" class="btn btn-info btn-sm" id="repay">还书</button></td>';
                             html+='</tr>';
                         })

@@ -150,7 +150,7 @@ public class ReaderController {
         request.getSession().setAttribute("reader",rm.getResult());
         System.out.println(rm.getCode());
         if(rm.getCode()==1){
-            response.sendRedirect("../../search.jsp");
+            response.sendRedirect("../../index.jsp");
         }
 
     }

@@ -55,7 +55,7 @@ public class MailUtil {
 
             // 设置邮件的内容体
             message.setContent("您所借阅的"+"《"+bookname+"》"+"还剩"+time+"天的借读时间,请您注意及时还书", "text/html;charset=UTF-8");
-//            message.setContent("天的借读时间,请您注意及时还书", "text/html;charset=UTF-8");
+//            message.setContent("猜猜我是谁！", "text/html;charset=UTF-8");
 
             // 最后当然就是发送邮件啦
             Transport.send(message);

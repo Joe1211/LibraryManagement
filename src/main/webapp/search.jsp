@@ -174,7 +174,7 @@
 </nav>
 
 
-<div class="container-fluid ">
+<div class="container-fluid">
     <!--左侧区域 -->
     <div class="row col-md-3 ">
         <h3>按类型检索</h3>

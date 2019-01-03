@@ -421,7 +421,6 @@
             <a href="search.jsp"><button class="btn-info">查看更多---></button></a>
         </h3>
     </div>
-
 </div>
 <!--关于我们-->
 <div class="col-md-12 dibu">

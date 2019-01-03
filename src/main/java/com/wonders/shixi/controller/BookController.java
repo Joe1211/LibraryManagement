@@ -22,8 +22,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import java.io.IOException;
 import java.util.List;
 import java.io.File;
@@ -49,98 +51,179 @@ public class BookController {
 
     @Autowired
     ReaderService readerService;
-    /**
-     * 图书添加
+//    /**
+//     * 图书添加（基于文件的ajax上传）
+//     * @param request
+//     * @param response
+//     */
+//    @PostMapping("/add")
+//    @ResponseBody
+//    public void addBook(HttpServletRequest request, HttpServletResponse response){
+//        //检查请求是否是multipart/form-data类型
+//            if(!ServletFileUpload.isMultipartContent(request)){
+//                //不是multipart/form-data类型
+//                throw new RuntimeException("表单的enctype属性不是multipart/form-data类型！！");
+//            }
+//
+//            //创建上传所需要的两个对象
+//            DiskFileItemFactory factory = new DiskFileItemFactory();
+//            factory.setSizeThreshold(1024*1024*5);
+//            //解析器依赖于工厂
+//            ServletFileUpload upload = new ServletFileUpload(factory);
+//
+//
+//            //创建容器来接受解析的内容
+//            List<FileItem> items = new ArrayList<>();
+//
+//            //将上传的文件信息放入容器中
+//            try {
+//                items = upload.parseRequest(request);
+//            } catch (FileUploadException e) {
+//                e.printStackTrace();
+//            }
+//
+//            //遍历容器,处理解析的内容;封装两个方法，一个处理普通表单域，一个处理文件的表单域
+//            for(FileItem item : items){
+//                if(item.isFormField()){
+//                  handleFormField(item);
+//                }else{
+//                    handleUploadField(item);
+//                }
+//            }
+//        }
+//    /**
+//     * 处理普通表单域（FormField）
+//     * @param item
+//     */
+//    private void handleFormField(FileItem item) {
+//        //得到表单域的name的值
+//        String fieldName = item.getFieldName();
+//        String value = "";
+//        try {
+//            //得到普通表单域中所输入的值
+//            value = item.getString("utf-8");
+//        } catch (UnsupportedEncodingException e) {
+//            e.printStackTrace();
+//        }
+////        将首字母大写
+//        String fName = fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
+//        //打印到控制台
+//        System.out.println("fileName:"+fName+"--value:"+value);
+//
+//    }
+//    /**
+//     * 处理文件的表单域
+//     * @param item
+//     */
+//    private void handleUploadField(FileItem item) {
+//        //得到上传文件的文件名
+//        String fileName = item.getName();
+//        if(fileName!=null && !"".equals(fileName)){
+//            //控制只能上传图片
+//            if(!item.getContentType().startsWith("image")){
+//                return ;
+////                System.out.println("上传图片类型错误");
+//            }
+//            //向控制台打印文件信息
+////            System.out.println("fileName:"+fileName);
+////            System.out.println("fileSize:"+item.getSize());
+//        }
+//        //上传文件存储路径
+//        String path = "D:/code/bookCover";
+//        //创建子目录
+//        File childDirectory = getChildDirectory(path);
+//        String s="";
+//        //写入服务器或者磁盘
+//        try {
+//            String name = UUID.randomUUID()+"_"+fileName;
+//            item.write(new File(childDirectory.toString(), name));
+//            s = "\\"+time()+"\\"+name;
+//            System.out.println("数据库相对路径"+s);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+        /**
+     * 图书添加（基于form表单上传）
      * @param request
-     * @param response
+     * @param
      */
-    @PostMapping("/add")
-    @ResponseBody
-    public void addBook(HttpServletRequest request, HttpServletResponse response){
-        //检查请求是否是multipart/form-data类型
-            if(!ServletFileUpload.isMultipartContent(request)){
-                //不是multipart/form-data类型
-                throw new RuntimeException("表单的enctype属性不是multipart/form-data类型！！");
-            }
+        @PostMapping("/add")
+        @ResponseBody
+        public RestMsg<Object> addBook(HttpServletRequest request){
+            RestMsg<Object> rm = new RestMsg<>();
+            //获取页面参数
+            String bookName = request.getParameter("bookName");
+            String bookPeriodicals = request.getParameter("bookPeriodicals");
+            String bookCallnum = request.getParameter("bookCallnum");
+            String bookWriter = request.getParameter("bookWriter");
+            String bookPress = request.getParameter("bookPress");
+            String bookInfo = request.getParameter("bookInfo");
+            String typeTwoValue = request.getParameter("typeTwoValue");
+            String libraryId = request.getParameter("libraryId");
+            String bookState = request.getParameter("bookState");
 
-            //创建上传所需要的两个对象
-            DiskFileItemFactory factory = new DiskFileItemFactory();
-            factory.setSizeThreshold(1024*1024*5);
-            //解析器依赖于工厂
-            ServletFileUpload upload = new ServletFileUpload(factory);
+            //将值传入book
+            Book b = new Book();
+            b.setBookName(bookName);
+            b.setBookPeriodicals(bookPeriodicals);
+            b.setBookCallnum(bookCallnum);
+            b.setBookWriter(bookWriter);
+            b.setBookPress(bookPress);
+            b.setBookInfo(bookInfo);
+            b.setTypeTwoValue(typeTwoValue);
+            b.setLibraryId(Integer.parseInt(libraryId));
+            b.setBookState(bookState);
 
-
-            //创建容器来接受解析的内容
-            List<FileItem> items = new ArrayList<>();
-
-            //将上传的文件信息放入容器中
+            /**
+             * 商品图片表
+             */
+            //获取表单中的附件部分
+            Part part = null;
             try {
-                items = upload.parseRequest(request);
-            } catch (FileUploadException e) {
+
+                part = request.getPart("bookCover");
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ServletException e) {
                 e.printStackTrace();
             }
-
-            //遍历容器,处理解析的内容;封装两个方法，一个处理普通表单域，一个处理文件的表单域
-            for(FileItem item : items){
-                if(item.isFormField()){
-                  handleFormField(item);
-                }else{
-                    handleUploadField(item);
-                }
+            //获取提交的文件名称
+            String iname =UUID.randomUUID()+part.getSubmittedFileName();
+            //目录
+            String base = "D:/code/bookCover";
+            //根据当前日期创建目录
+            File dir = new File(time()+"\\"+iname);
+            //当目录不存在时，创建
+            if(!dir.exists()){
+                dir.mkdirs();
             }
-        }
-    /**
-     * 处理普通表单域（FormField）
-     * @param item
-     */
-    private void handleFormField(FileItem item) {
-        //得到表单域的name的值
-        String fieldName = item.getFieldName();
-        String value = "";
-        try {
-            //得到普通表单域中所输入的值
-            value = item.getString("utf-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-//        将首字母大写
-        String fName = fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
-        //打印到控制台
-        System.out.println("fileName:"+fName+"--value:"+value);
+            //写入到服务器中
+//            part.write(dir+File.separator+iname);
 
-    }
-    /**
-     * 处理文件的表单域
-     * @param item
-     */
-    private void handleUploadField(FileItem item) {
-        //得到上传文件的文件名
-        String fileName = item.getName();
-        if(fileName!=null && !"".equals(fileName)){
-            //控制只能上传图片
-            if(!item.getContentType().startsWith("image")){
-                return ;
-//                System.out.println("上传图片类型错误");
-            }
-            //向控制台打印文件信息
-//            System.out.println("fileName:"+fileName);
-//            System.out.println("fileSize:"+item.getSize());
+            b.setBookCover(dir.toString());
+//            //创建img对象
+//            Img i = new Img();
+//            //model.getDate是商品表的gid
+//            i.setGid((int)model.getData());
+//            i.setImg((int)model.getData()+File.separator+iname);
+//
+//            //将数据传送到service中
+//            model = service.insertimg(i);
+
+//            if(model.getCode() == 1){
+//                //发布成功
+//                request.setAttribute("msg", model.getMessage());
+//                return "redirect:goods?method=findGoodsAll";
+//            }else{
+//                //注册失败，请求转发
+//                return "main.jsp";
+//            }
+
+            System.out.println(b);
+            return rm;
         }
-        //上传文件存储路径
-        String path = "D:/code/bookCover";
-        //创建子目录
-        File childDirectory = getChildDirectory(path);
-        String s="";
-        //写入服务器或者磁盘
-        try {
-            String name = UUID.randomUUID()+"_"+fileName;
-            item.write(new File(childDirectory.toString(), name));
-            s = "\\"+time()+"\\"+name;
-            System.out.println("数据库相对路径"+s);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+
     /**
      * 按照时间创建子目录，防止一个目录中文件过多，不利于以后遍历查找
      * @param path

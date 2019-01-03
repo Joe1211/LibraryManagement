@@ -16,7 +16,7 @@
 <body>
 <div class="container">
         <h1>图书入库</h1>
-        <form class="form-horizontal" method="post" enctype ="multipart/form-data" id="subbook">
+        <form class="form-horizontal" action="api/books/add" method="post" enctype ="multipart/form-data" id="subbook">
             <div class="form-group">
                 <label class="col-sm-2 control-label" for="bookName">图书名称：</label>
                 <div class="col-sm-5">
@@ -98,7 +98,7 @@
                     </select>
                 </div>
             </div>
-            <button type="button" class="btn btn-info" id="submitbook">提交</button>
+            <button type="submit" class="btn btn-info" id="submitbook">提交</button>
         </form>
     </div>
 

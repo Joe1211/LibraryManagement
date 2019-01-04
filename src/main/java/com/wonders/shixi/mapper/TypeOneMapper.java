@@ -18,5 +18,5 @@ public interface TypeOneMapper {
 
     int updateByPrimaryKey(TypeOne record);
 
-    List<BookType> selectByBId(int bid);
+    List<TypeOne> selectByBId(int bid);
 }

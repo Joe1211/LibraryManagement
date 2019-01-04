@@ -18,6 +18,6 @@ public interface TypeTwoMapper {
 
     int updateByPrimaryKey(TypeTwo record);
 
-    List<BookType> selectByOId(String value);
+    List<TypeTwo> selectByOId(String value);
 
 }

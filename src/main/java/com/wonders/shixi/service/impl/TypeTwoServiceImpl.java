@@ -6,6 +6,7 @@ package com.wonders.shixi.service.impl;/**
 
 import com.wonders.shixi.mapper.TypeTwoMapper;
 import com.wonders.shixi.pojo.BookType;
+import com.wonders.shixi.pojo.TypeTwo;
 import com.wonders.shixi.service.ITypeTwoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,7 @@ public class TypeTwoServiceImpl implements ITypeTwoService {
     TypeTwoMapper typeTwoMapper;
 
     @Override
-    public List<BookType> selectByOId(String value) {
+    public List<TypeTwo> selectByOId(String value) {
         return typeTwoMapper.selectByOId(value);
     }
 }

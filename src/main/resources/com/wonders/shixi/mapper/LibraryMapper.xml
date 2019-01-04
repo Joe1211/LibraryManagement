@@ -79,4 +79,8 @@
       library_location = #{libraryLocation,jdbcType=VARCHAR}
     where library_id = #{libraryId,jdbcType=INTEGER}
   </update>
+  <!--查询所有图书馆-->
+  <select id="selectAll" resultMap="BaseResultMap">
+    SELECT library.library_id,library.library_name,library.library_update,library.library_location FROM library
+  </select>
 </mapper>

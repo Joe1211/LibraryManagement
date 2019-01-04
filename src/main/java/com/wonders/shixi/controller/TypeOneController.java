@@ -5,6 +5,7 @@ package com.wonders.shixi.controller;/**
  */
 
 import com.wonders.shixi.pojo.BookType;
+import com.wonders.shixi.pojo.TypeOne;
 import com.wonders.shixi.service.IBookTypeService;
 import com.wonders.shixi.service.ITypeOneService;
 import com.wonders.shixi.service.ITypeTwoService;
@@ -33,7 +34,7 @@ public class TypeOneController {
     @ApiOperation(value = "查找所有中图法一级分类", httpMethod = "GET")
     @GetMapping("/{bid}")
     @ResponseBody
-    public List<BookType> selectAll(@PathVariable("bid")int bid){
+    public List<TypeOne> selectAll(@PathVariable("bid")int bid){
         return typeOneService.selectByBId(bid);
     }
 

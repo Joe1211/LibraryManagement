@@ -9,6 +9,7 @@ import com.wonders.shixi.pojo.Model;
 import com.wonders.shixi.pojo.Reader;
 import com.wonders.shixi.service.ReaderService;
 import com.wonders.shixi.service.impl.BookCommentServiceImpl;
+import com.wonders.shixi.util.IC;
 import com.wonders.shixi.util.MailUtil;
 import com.wonders.shixi.util.RestMsg;
 import com.wonders.shixi.service.IBookService;
@@ -19,9 +20,11 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletException;
@@ -155,8 +158,7 @@ public class BookController {
      */
         @PostMapping("/add")
         @ResponseBody
-        public RestMsg<Object> addBook(HttpServletRequest request){
-            RestMsg<Object> rm = new RestMsg<>();
+        public RestMsg<Object> addBook(HttpServletRequest request, @RequestParam("bookCover") CommonsMultipartFile bookCover){
             //获取页面参数
             String bookName = request.getParameter("bookName");
             String bookPeriodicals = request.getParameter("bookPeriodicals");
@@ -184,29 +186,29 @@ public class BookController {
              * 商品图片表
              */
             //获取表单中的附件部分
-            Part part = null;
-            try {
-
-                part = request.getPart("bookCover");
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ServletException e) {
-                e.printStackTrace();
-            }
+//            Part part = null;
+//            try {
+//
+//                part = request.getPart("bookCover");
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            } catch (ServletException e) {
+//                e.printStackTrace();
+//            }
             //获取提交的文件名称
-            String iname =UUID.randomUUID()+part.getSubmittedFileName();
+//            String iname =UUID.randomUUID()+part.getSubmittedFileName();
             //目录
-            String base = "D:/code/bookCover";
+//            String base = "D:/code/bookCover";
             //根据当前日期创建目录
-            File dir = new File(time()+"\\"+iname);
+//            File dir = new File(time()+"\\"+iname);
             //当目录不存在时，创建
-            if(!dir.exists()){
-                dir.mkdirs();
-            }
+//            if(!dir.exists()){
+//                dir.mkdirs();
+//            }
             //写入到服务器中
 //            part.write(dir+File.separator+iname);
 
-            b.setBookCover(dir.toString());
+//            b.setBookCover(dir.toString());
 //            //创建img对象
 //            Img i = new Img();
 //            //model.getDate是商品表的gid
@@ -224,8 +226,30 @@ public class BookController {
 //                //注册失败，请求转发
 //                return "main.jsp";
 //            }
-
-            System.out.println(b);
+            if(!bookCover.isEmpty()){
+                //封面不为空
+                String iname=UUID.randomUUID()+bookCover.getOriginalFilename();
+                File file=new File(IC.BOOK_COVER_BASE+File.separator+time()+File.separator+iname);
+                if(!file.getParentFile().exists()){
+                    file.getParentFile().mkdirs();
+                }
+                try {
+                    //传输封面到本地
+                    FileUtils.copyInputStreamToFile(bookCover.getInputStream(),file);
+                    b.setBookCover(file.getPath());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            int insertNum=bookService.insertBook(b);
+            RestMsg<Object> rm =new RestMsg<Object>();
+            if(insertNum>0){
+                rm.successMsg("图书上传成功,可以继续上传");
+            }else{
+                rm.errorMsg("图书上传失败,请检查图书信息");
+            }
+//            response.setContentType("application/json");
+//            System.out.println(JSON.toJSONString(rm));
             return rm;
         }
 

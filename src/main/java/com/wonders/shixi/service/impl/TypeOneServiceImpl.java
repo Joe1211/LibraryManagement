@@ -2,6 +2,7 @@ package com.wonders.shixi.service.impl;
 
 import com.wonders.shixi.mapper.TypeOneMapper;
 import com.wonders.shixi.pojo.BookType;
+import com.wonders.shixi.pojo.TypeOne;
 import com.wonders.shixi.service.ITypeOneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ public class TypeOneServiceImpl implements ITypeOneService {
 
 
     @Override
-    public List<BookType> selectByBId(int bid) {
+    public List<TypeOne> selectByBId(int bid) {
         return typeOneMapper.selectByBId(bid);
     }
 }

@@ -1,6 +1,7 @@
 package com.wonders.shixi.service;
 
 import com.wonders.shixi.pojo.BookType;
+import com.wonders.shixi.pojo.TypeOne;
 
 import java.util.List;
 
@@ -14,5 +15,5 @@ public interface ITypeOneService {
      * 根据部类id查找所有中图法一级分类
      * @return
      */
-    List<BookType> selectByBId(int bid);
+    List<TypeOne> selectByBId(int bid);
 }

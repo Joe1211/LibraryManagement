@@ -67,17 +67,16 @@
     where book_id = #{bookId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.wonders.shixi.pojo.Book">
-    insert into book (book_id, book_name, book_periodicals, 
+    insert into book (book_name, book_periodicals,
       book_callnum, book_writer, book_press, 
       book_cover, book_info, book_time, 
       book_updata, type_two_value, book_state, 
       library_id)
-    values (#{bookId,jdbcType=INTEGER}, #{bookName,jdbcType=VARCHAR}, #{bookPeriodicals,jdbcType=VARCHAR}, 
+    values (#{bookName,jdbcType=VARCHAR}, #{bookPeriodicals,jdbcType=VARCHAR},
       #{bookCallnum,jdbcType=VARCHAR}, #{bookWriter,jdbcType=VARCHAR}, #{bookPress,jdbcType=VARCHAR}, 
       #{bookCover,jdbcType=VARCHAR}, #{bookInfo,jdbcType=VARCHAR}, #{bookTime,jdbcType=TIMESTAMP}, 
       #{bookUpdata,jdbcType=TIMESTAMP}, #{typeTwoValue,jdbcType=VARCHAR}, #{bookState,jdbcType=VARCHAR}, 
       #{libraryId,jdbcType=INTEGER})
-      select @@IDENTITY as id
   </insert>
   <insert id="insertSelective" parameterType="com.wonders.shixi.pojo.Book">
     insert into book

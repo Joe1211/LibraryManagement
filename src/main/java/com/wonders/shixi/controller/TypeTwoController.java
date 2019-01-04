@@ -5,6 +5,7 @@ package com.wonders.shixi.controller;/**
  */
 
 import com.wonders.shixi.pojo.BookType;
+import com.wonders.shixi.pojo.TypeTwo;
 import com.wonders.shixi.service.IBookTypeService;
 import com.wonders.shixi.service.ITypeTwoService;
 import io.swagger.annotations.ApiOperation;
@@ -31,7 +32,7 @@ public class TypeTwoController {
     @ApiOperation(value = "查找所有中图法二级分类", httpMethod = "GET")
     @GetMapping("/{ovalue}")
     @ResponseBody
-    public List<BookType> selectAll(@PathVariable("ovalue")String ovalue){
+    public List<TypeTwo> selectAll(@PathVariable("ovalue")String ovalue){
         return typeTwoService.selectByOId(ovalue);
     }
 }

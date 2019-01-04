@@ -2,6 +2,8 @@ package com.wonders.shixi.mapper;
 
 import com.wonders.shixi.pojo.Library;
 
+import java.util.List;
+
 public interface LibraryMapper {
     int deleteByPrimaryKey(Integer libraryId);
 
@@ -14,4 +16,6 @@ public interface LibraryMapper {
     int updateByPrimaryKeySelective(Library record);
 
     int updateByPrimaryKey(Library record);
+
+    List<Library> selectAll();
 }

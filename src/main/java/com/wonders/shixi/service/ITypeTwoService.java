@@ -1,6 +1,7 @@
 package com.wonders.shixi.service;
 
 import com.wonders.shixi.pojo.BookType;
+import com.wonders.shixi.pojo.TypeTwo;
 
 import java.util.List;
 
@@ -14,6 +15,6 @@ public interface ITypeTwoService {
      * 根据一级分类id查找中图法所有二级分类
      * @return
      */
-    List<BookType> selectByOId(String value);
+    List<TypeTwo> selectByOId(String value);
 
 }

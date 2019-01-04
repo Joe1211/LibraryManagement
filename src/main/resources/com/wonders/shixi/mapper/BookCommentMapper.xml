@@ -143,6 +143,10 @@
     where book_id = #{bookId,jdbcType=INTEGER}
   </select>
 
-
-
+  <!--查找所有评论-->
+  <select id="selectCommentAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from book_comment
+  </select>
 </mapper>

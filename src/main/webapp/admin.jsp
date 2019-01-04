@@ -76,7 +76,7 @@
                     <img src="img/user04.png" alt="">
                 </div>
                 <span class="user-panel-logged-in-text">
-	              			<i class="am-icon-circle-o am-text-success tpl-user-panel-status-icon"></i>禁言小张
+	              			<i class="am-icon-circle-o am-text-success tpl-user-panel-status-icon"></i>小张
 	                    </span>
             </div>
         </div>
@@ -165,16 +165,16 @@
                 </a>
                 <ul class="sidebar-nav sidebar-nav-sub">
                     <li class="sidebar-nav-link">
-                        <a href="">
+                        <a href="admin_comment.jsp" target="showiframe">
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 评论管理
                         </a>
                     </li>
 
-                    <li class="sidebar-nav-link">
-                        <a href="${pageContext.request.contextPath}/book/booklist/information">
-                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span>评论详情
-                        </a>
-                    </li>
+                    <%--<li class="sidebar-nav-link">--%>
+                        <%--<a href="${pageContext.request.contextPath}/book/booklist/information">--%>
+                            <%--<span class="am-icon-angle-right sidebar-nav-link-logo"></span>评论详情--%>
+                        <%--</a>--%>
+                    <%--</li>--%>
                 </ul>
             </li>
         </ul>

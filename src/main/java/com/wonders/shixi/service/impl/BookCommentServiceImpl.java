@@ -22,4 +22,14 @@ public class BookCommentServiceImpl implements IBookCommentService {
     public int intsertComment(BookComment record) {
         return mapper.insert(record);
     }
+
+    @Override
+    public List<BookComment> selectCommentAll() {
+        return mapper.selectCommentAll();
+    }
+
+    @Override
+    public int deleteComment(int id) {
+        return mapper.deleteByPrimaryKey(id);
+    }
 }

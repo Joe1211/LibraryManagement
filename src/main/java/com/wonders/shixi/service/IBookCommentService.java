@@ -10,4 +10,8 @@ public interface IBookCommentService {
     public List<Model> selectAllById(int bookId);
 
     public int intsertComment(BookComment record);
+
+    List<BookComment> selectCommentAll();
+
+    int deleteComment(int id);
 }

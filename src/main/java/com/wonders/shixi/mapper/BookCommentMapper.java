@@ -6,6 +6,11 @@ import com.wonders.shixi.pojo.Model;
 import java.util.List;
 
 public interface BookCommentMapper {
+    /**
+     * 根据评论id删除评论
+     * @param id
+     * @return
+     */
     int deleteByPrimaryKey(Integer id);
 
     int insert(BookComment record);
@@ -26,4 +31,6 @@ public interface BookCommentMapper {
     List<BookComment> selectByBookId(Integer bookId);
 
     List<Model> selectAllByBookId(Integer bookId);
+
+    List<BookComment> selectCommentAll();
 }

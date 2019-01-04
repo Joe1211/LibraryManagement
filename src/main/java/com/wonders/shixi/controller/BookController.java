@@ -5,8 +5,10 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.wonders.shixi.pojo.Book;
 import com.wonders.shixi.pojo.BookBorrowModel;
+import com.wonders.shixi.pojo.Model;
 import com.wonders.shixi.pojo.Reader;
 import com.wonders.shixi.service.ReaderService;
+import com.wonders.shixi.service.impl.BookCommentServiceImpl;
 import com.wonders.shixi.util.MailUtil;
 import com.wonders.shixi.util.RestMsg;
 import com.wonders.shixi.service.IBookService;
@@ -48,6 +50,9 @@ public class BookController {
 
     @Autowired
     IBookService bookService;
+
+    @Autowired
+    BookCommentServiceImpl bookCommentService;
 
     @Autowired
     ReaderService readerService;
@@ -344,8 +349,9 @@ public class BookController {
         String id=request.getParameter("bookId");
         int bookId=Integer.parseInt(id);
         Book book=bookService.selectByPrimaryKey(bookId);
-        System.out.println(book);
         request.getSession().setAttribute("msg",book);
+        List<Model> list=bookCommentService.selectAllById(bookId);
+        request.getSession().setAttribute("comm",list);
         response.sendRedirect("../../bookdetail.jsp");
     }
 

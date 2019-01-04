@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="LibraryManagement" />
+        <module name="LibraryManagement06" />
         <module name="LibraryManagement_02" />
         <module name="LibraryManagementsys4" />
         <module name="LibraryManagementsys5" />

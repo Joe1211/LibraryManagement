@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -15,6 +16,17 @@
         }
         .textare{
             float: left;
+        }
+        .tupian2{
+            width: 256px;
+            height: 320px;
+        }
+        .icon{
+            width:20px;
+            height:20px;
+        }
+        .distance{
+            margin-bottom: 10px;
         }
     </style>
 </head>
@@ -115,19 +127,15 @@
     <div class="container-fluid">
         <div class="navbar-header">
             <div class="images">
+                <a href="search.jsp">
                 <img src="img/logo.jpg" width="250" height="70"/>
+                </a>
             </div>
         </div>
         <div class="">
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     <a href="search.jsp">搜索</a>
-                    <%--<form action="" method="post" class="navbar-form" role="search">--%>
-                        <%--<div class="form-group">--%>
-                            <%--<input type="text" class="form-control" value="" placeholder="Search"  />--%>
-                        <%--</div>--%>
-                        <%--<button type="submit" class="btn btn-default">检索</button>--%>
-                    <%--</form>--%>
                 </li>
                 <li class="alert">
                     <div class="dropdown ">
@@ -145,42 +153,93 @@
                         </ul>
                     </div>
                 </li>
-                <li class="alert">
-                    <div class="dropdown">
-							<span data-toggle="dropdown">
-                                我的借阅
-								<span class="caret"></span>
-							</span>
-                        <ul class="dropdown-menu">
-                            <li><a href="#" id="borrowBook">已借阅</a></li>
-                            <li><a href="#" id="repayBook">已归还</a></li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="active"><a href="#">登录系统</a></li>
             </ul>
         </div>
     </div>
 </nav>
 
 <div class="contrainer panel panel-collapse">
-    <div class="panel-heading">
-        <div class="row-fluid">
-            <div class=" col-lg-1"><a href="javascript:loadBorrow()">图书借阅</a></div>
-            <div class="col-lg-1"><a href="javascript:0" id="lib">馆藏信息</a></div>
-            <div class=" col-lg-1"><a href="javascript:showInfo()" >详细内容</a></div>
-            <div class="col-lg-1"><a href="javascript:0" id="comm">评论标签</a></div>
-            <div class="col-lg-1"><a href="">其他信息</a></div>
-            <div class="col-lg-1"><a href="">虚拟书架</a></div>
-            <%--<input type="text" value="${reader.readerId}">--%>
+    <div class="panel-body">
+        <%--图书详情--%>
+        <div class="container">
+            <div class="panel panel-default">
+                <div class="panel-heading">图书详情</div>
+                <div class="panel-body">
+
+                        <div class="col-md-3">
+                            <img src="img/ShlibEpub_1500949411.jpg" class="tupian2"/>
+                        </div>
+                        <div class="col-md-8">
+                            <h3>&nbsp&nbsp&nbsp${msg.bookName}</h3>
+                            <div class="col-md-12 distance">
+                                <div class="col-md-1">
+                                    <img src="img/icon/writer.png" alt=""class="icon">
+                                </div>
+                                <div class="col-md-11">
+                                    ${msg.bookWriter}
+                                </div>
+                            </div>
+                            <div class="col-md-12 distance">
+                                <div class="col-md-1">
+                                    <img src="img/icon/press.png" alt=""class="icon">
+                                </div>
+                                <div class="col-md-11">
+                                    ${msg.bookPress}
+                                </div>
+                            </div>
+                            <div class="col-md-12 distance">
+                                <div class="col-md-1">
+                                    <img src="img/icon/callnum.png" alt=""class="icon">
+                                </div>
+                                <div class="col-md-11">
+                                    ${msg.bookCallnum}
+                                </div>
+                            </div>
+                            <div class="col-md-12 distance">
+                                <div class="col-md-1">
+                                    <img src="img/icon/info.png" alt=""class="icon">
+                                </div>
+                                <div class="col-md-11">
+                                    ${msg.bookInfo}
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-lg-offset-10">
+                                <a href="javascript:loadBorrow()">
+                                    <button class="btn btn-primary form-group" type="button">图书借阅</button>
+                                </a>
+                            </div>
+                        </div>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="panel-body" id="bod">
-        <div><P>图书名：${msg.bookName}</P></div>
-        <div><p>书刊号：${msg.bookPeriodicals}</p></div>
-        <div><p>索书号:${msg.bookCallnum}</p></div>
-        <div><p>图书作者：${msg.bookWriter}</p></div>
-        <div><p>图书信息：${msg.bookInfo}</p></div>
+        <%--图书详情--%>
+        <%--评论--%>
+        <div class="container">
+            <div class="panel panel-default">
+                <div class="panel-heading">图书评论</div>
+                <div class="panel-body">
+                    <div id="bod">
+                        <c:forEach items="${comm}" var="com">
+                            <div class="col-md-12 distance">
+                                <div class="col-md-2">
+                                    ${com.readerName}:</br>
+                                    ${com.updateTime}
+                                </div>
+                                <div class="col-md-10">
+                                        ${com.comment}
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </div>
+                    <form class="textare" id="myform">
+                        <p>说点什么...</p>
+                        <textarea name="say" rows="3" cols="150" class="t"></textarea>
+                        <button class="btn btn-primary col-lg-1 col-lg-offset-10 form-group" id="sub" type="button">确定</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <%--评论--%>
     </div>
 
 </div>
@@ -200,7 +259,9 @@
             "dataType":"json",
             "success":function (result) {
                 if(result==1){
+                    loadFindComm()
                     alert("评论成功")
+                    $(".t").val("");
                 }else {
                     alert("评论失败")
                 };
@@ -210,7 +271,7 @@
 
     });
 
-    $("#comm").click(function () {
+    function loadFindComm(){
         $.ajax({
             type:'get',
             url: 'api/bookcomment/select'+'?bookId='+${msg.bookId},
@@ -219,17 +280,22 @@
                 loadComm(data);
             }
         })
-    })
+    }
     function loadComm(data){
         // alert(data)
         // alert(JSON.stringify(data))直接将数据弹出来
         if (data!=null) {
             var html='';
             $.each(data,function (i, item) {
-                // html+='<p>'+item.readerName+':'+item.comment+'</p>';
-                html+='<label>'+item.readerName+':</label>'+item.comment+item.updateTime +'</br>';
-                html+='<hr>';
-                // html+='<p>'+item.updateTime+'</p>';
+                html+='<div class="col-md-12 distance">'
+                html+='<div class="col-md-2">'
+                html+=''+item.readerName+':</br>'
+                html+=''+item.updateTime+''
+                html+='</div>'
+                html+='<div class="col-md-10">'
+                html+=''+item.comment+''
+                html+='</div>'
+                html+='</div>'
             })
         }
         $("#bod").html(html);
@@ -262,49 +328,50 @@
 
 
     function  showInfo() {
-        var html='';
-        html+='<div class="container"> '
-        html+='<table class="table table-hover">'
-        html+='<thead>';
-        html+='<tr>';
-        html+='<th id="kuan"><h1>图书详情展示</h1></th>';
-        html+='</tr>';
-        html+='</thead>';
-        html+='<tbody>';
-        html+='<tr>';
-        html+='<th>图书名字：</th>';
-        html+='<th>${msg.bookName}</th>';
-        html+='</tr>'
-        html+='<tr>';
-        html+='<th>图书刊号：</th>';
-        html+='<th>${msg.bookPeriodicals}</th>';
-        html+='</tr>'
-        html+='<tr>';
-        html+='<th>图书索书号：</th>';
-        html+='<th>${msg.bookCallnum}</th>';
-        html+='</tr>'
-        html+='<tr>';
-        html+='<th><p>图书作者：</th>';
-        html+='<th>${msg.bookWriter}</th>';
-        html+='</tr>'
-        html+='<tr>';
-        html+='<th>图书馆：</th>';
-        html+='<th>${msg.bookPress}</th>';
-        html+='</tr>'
-        html+='<tr>';
-        html+='<th>图书信息：</th>';
-        html+='<th>${msg.bookInfo}</th>';
-        html+='</tr>'
-        html+='</tbody>'
-        html+='</table>'
-        html+='</div>'
-        html+='<form class="col-md-offset-2 textare" id="myform">';
-        html+='<p>说点什么...</p>'
-        html+='<textarea name="say" rows="3" cols="150" class="t"></textarea>';
-        html+='<button class="btn btn-primary col-lg-1 col-lg-offset-9 form-group" id="sub" type="button">确定</button>';
-        html+='</form>'
 
-        $("#bod").html(html);
+        <%--var html='';--%>
+        <%--html+='<div class="container"> '--%>
+        <%--html+='<table class="table table-hover">'--%>
+        <%--html+='<thead>';--%>
+        <%--html+='<tr>';--%>
+        <%--html+='<th id="kuan"><h1>图书详情展示</h1></th>';--%>
+        <%--html+='</tr>';--%>
+        <%--html+='</thead>';--%>
+        <%--html+='<tbody>';--%>
+        <%--html+='<tr>';--%>
+        <%--html+='<th>图书名字：</th>';--%>
+        <%--html+='<th>${msg.bookName}</th>';--%>
+        <%--html+='</tr>'--%>
+        <%--html+='<tr>';--%>
+        <%--html+='<th>图书刊号：</th>';--%>
+        <%--html+='<th>${msg.bookPeriodicals}</th>';--%>
+        <%--html+='</tr>'--%>
+        <%--html+='<tr>';--%>
+        <%--html+='<th>图书索书号：</th>';--%>
+        <%--html+='<th>${msg.bookCallnum}</th>';--%>
+        <%--html+='</tr>'--%>
+        <%--html+='<tr>';--%>
+        <%--html+='<th><p>图书作者：</th>';--%>
+        <%--html+='<th>${msg.bookWriter}</th>';--%>
+        <%--html+='</tr>'--%>
+        <%--html+='<tr>';--%>
+        <%--html+='<th>图书馆：</th>';--%>
+        <%--html+='<th>${msg.bookPress}</th>';--%>
+        <%--html+='</tr>'--%>
+        <%--html+='<tr>';--%>
+        <%--html+='<th>图书信息：</th>';--%>
+        <%--html+='<th>${msg.bookInfo}</th>';--%>
+        <%--html+='</tr>'--%>
+        <%--html+='</tbody>'--%>
+        <%--html+='</table>'--%>
+        <%--html+='</div>'--%>
+        <%--html+='<form class="col-md-offset-2 textare" id="myform">';--%>
+        <%--html+='<p>说点什么...</p>'--%>
+        <%--html+='<textarea name="say" rows="3" cols="150" class="t"></textarea>';--%>
+        <%--html+='<button class="btn btn-primary col-lg-1 col-lg-offset-9 form-group" id="sub" type="button">确定</button>';--%>
+        <%--html+='</form>'--%>
+
+        <%--$("#bod").html(html);--%>
     }
     function reserve() {
         location.href="/api/reserve/borrowBook?bookId="+${msg.bookId};

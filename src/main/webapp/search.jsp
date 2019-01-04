@@ -114,13 +114,13 @@
         <div class="container-fluid">
 <!--logo-->
 <div class="navbar-header col-sm-2 ">
-    <a href=" " class="navbar-header ">
+    <a href="index.jsp" class="navbar-header ">
         <img src="img/logo.jpg">
     </a>
 </div>
 
 <!--搜索框-->
-<div class="btn-group col-md-4 col-sm-8 ver2 ">
+<div class="btn-group col-md-4 col-md-offset-1 col-sm-8 ver2 ">
 
     <div class="input-group input-group-md ">
         <input type="text " class="form-control " placeholder="请输入索书号、书名、作者等 " id="content"/>
@@ -174,7 +174,7 @@
 </nav>
 
 
-<div class="container-fluid">
+<div class="container-fluid" id="cont">
     <!--左侧区域 -->
     <div class="row col-md-3 ">
         <h3>按类型检索</h3>

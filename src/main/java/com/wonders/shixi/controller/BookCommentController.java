@@ -25,6 +25,11 @@ public class BookCommentController {
     BookCommentServiceImpl bookCommentService;
     ReaderServiceImpl readerService;
 
+    /**
+     * 查找该图书所有评论
+     * @param bookId
+     * @return
+     */
     @RequestMapping("/select")
     @ResponseBody
     public List<Model> select(int bookId){
@@ -32,6 +37,13 @@ public class BookCommentController {
         return list;
     }
 
+    /**
+     * 图书评论
+     * @param bookId
+     * @param readerId
+     * @param say
+     * @return
+     */
     @ApiOperation(value = "添加评论信息", httpMethod = "post")
     @ApiImplicitParams({
             @ApiImplicitParam(name="bookId",value="图书Id",required=true,dataType="int",paramType = "query"),

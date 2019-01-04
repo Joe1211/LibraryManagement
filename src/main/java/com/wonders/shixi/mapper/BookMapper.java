@@ -73,11 +73,10 @@ public interface BookMapper {
 
     /**
      * 根据读者id和图书id修改图书状态为已还（1）
-     * @param bookId
-     * @param readerId
+     * @param brrId
      * @return
      */
-    int updateByState(@Param("bookId") int bookId, @Param("readerId") int readerId);
+    int updateByState(int brrId);
 
     /**
      * 以借图书表
@@ -106,4 +105,10 @@ public interface BookMapper {
      * @return
      */
     List<BookBorrowModel> selectByBorrowAll();
+
+    /**
+     * 根据借阅记录表id,查对应的图书id
+     * @return
+     */
+    int selectByBid(@Param("bookReaderRecordId")int bookReaderRecordId);
 }

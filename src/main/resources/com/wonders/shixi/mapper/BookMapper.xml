@@ -47,6 +47,7 @@
     <result column="book_state" jdbcType="VARCHAR" property="bookState" />
     <result column="library_id" jdbcType="INTEGER" property="libraryId" />
     <result column="book_record_time" jdbcType="TIMESTAMP" property="bookRecordTime" />
+    <result column="book_reader_record_id" jdbcType="INTEGER" property="bookReaderRecordId" />
     <result column="reader_name" jdbcType="VARCHAR" property="readerName" />
     <result column="reader_phone" jdbcType="VARCHAR" property="readerPhone" />
     <result column="reader_id" jdbcType="INTEGER" property="readerId" />
@@ -296,7 +297,7 @@ where book_id = #{bookId,jdbcType=INTEGER}
   <update id="updateByState" parameterType="java.lang.Integer">
     UPDATE book_reader_record
     set book_reader_record_state = 1
-    where book_id = #{bookId} and reader_id = #{readerId}
+    where book_reader_record_id= #{brrId}
   </update>
 
   <!--未还图书(以借阅)-->
@@ -320,11 +321,18 @@ where book_id = #{bookId,jdbcType=INTEGER}
 
   <!--所有待还图书（管理员）-->
   <select id="selectByBorrowAll" resultMap="BaseResultMap3">
-    select b.<include refid="Base_Column_List" />,brr.book_record_time,r.reader_name,r.reader_id,r.reader_phone
+    select b.<include refid="Base_Column_List" />,brr.book_reader_record_id,brr.book_record_time,r.reader_name,r.reader_id,r.reader_phone
       from book b,book_reader_record brr,reader r
       where
       b.book_id = brr.book_id
       and brr.reader_id = r.reader_id
       and brr.book_reader_record_state=0
   </select>
+  <!--根据借阅记录表id查图书id-->
+  <select id="selectByBid" parameterType="java.lang.Integer" resultType="Integer">
+    select book_id
+    from book_reader_record
+    where book_reader_record_id= #{bookReaderRecordId}
+  </select>
+
 </mapper>

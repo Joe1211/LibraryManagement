@@ -415,21 +415,21 @@ public class BookController {
     }
 
     /**
-     * 图书归还
-     * @param bookId
-     * @param readerId
+     * 图书归还(借阅记录表id)
+     * @param brrId
      * @return
      */
     @GetMapping("/repay")
     @ResponseBody
-    public RestMsg<Object> repayBook(String bookId,String readerId){
+    public RestMsg<Object> repayBook(String brrId){
         RestMsg<Object> rm = new RestMsg<>();
-        int id = Integer.parseInt(bookId);
-        int rid = Integer.parseInt(readerId);
+        int brrid = Integer.parseInt(brrId);
+        //根据借阅记录表id查询对应的bookId
+        int bid = bookService.selectByBid(brrid);
         //图书归还，将可借图书数量加1
-        boolean b = bookService.updateByAddNumber(id);
-        //图书归还，根据读者id和图书id修改图书状态为已还（1）
-        boolean b1 = bookService.updateByState(id,rid);
+        boolean b = bookService.updateByAddNumber(bid);
+        //图书归还，根据借阅记录表id修改图书状态（0未还，1已还）
+        boolean b1 = bookService.updateByState(brrid);
         if(b&&b1){
             return rm.successMsg("还书成功！");
         }

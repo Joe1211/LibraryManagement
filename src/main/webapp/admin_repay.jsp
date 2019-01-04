@@ -62,7 +62,8 @@
                 html+='<td>'+item.readerName+'</td>';
                 html+='<td>'+item.readerPhone+'</td>';
                 html+='<td>'+item.bookRecordTime+'</td>';
-                html+='<td><button type="button" class="btn btn-info btn-sm" id="repay">还书</button></td>';
+                // html+='<td><button type="button" class="btn btn-info btn-sm" id="repay">还书</button></td>';
+                html+='<td><a href="javascript:loadDel('+(item.bookReaderRecordId)+')">'+"还书"+'</a></td>';
                 html+='</tr>';
             })
             html+=' </table>';
@@ -119,19 +120,28 @@
             })
         }
 
-        // 动态加载还书功能
-        $(document).on("click","#repay",function () {
-            alert("还书")
+        // // 动态加载还书功能
+        // $(document).on("click","#repay",function () {
+        //     alert("还书")
+        //     $.ajax({
+        //         type:'get',
+        //         url:'api/books/repay'+'?bookId='+$("#bookId").text()+"&readerId="+$("#readerId").text(),
+        //         dataType:'json',
+        //         success:function (data) {
+        //             alert(data.msg);
+        //         }
+        //     })
+        // })
+        function loadDel(id) {
             $.ajax({
                 type:'get',
-                url:'api/books/repay'+'?bookId='+$("#bookId").text()+"&readerId="+$("#readerId").text(),
-                dataType:'json',
+                url:'api/books/repay?brrId='+id,
                 success:function (data) {
                     alert(data.msg);
+                    loadRepay(1);
                 }
             })
-        })
-
+        }
 
 
     </script>

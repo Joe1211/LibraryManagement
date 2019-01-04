@@ -154,8 +154,8 @@ public class BookServiceImpl implements IBookService {
     }
 
     @Override
-    public boolean updateByState(int bookId, int readerId) {
-        int i = bookMapper.updateByState(bookId,readerId);
+    public boolean updateByState(int brrId) {
+        int i = bookMapper.updateByState(brrId);
         if (i>=1){
             return true;
         }
@@ -165,6 +165,11 @@ public class BookServiceImpl implements IBookService {
     @Override
     public List<BookBorrowModel> selectByBorrowAll() {
         return bookMapper.selectByBorrowAll();
+    }
+
+    @Override
+    public int selectByBid(int id) {
+        return bookMapper.selectByBid(id);
     }
 
 

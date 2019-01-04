@@ -113,25 +113,13 @@
         })
     }
 
-    // 动态加载删除评论功能
-    // $(document).on("click","#repay",function () {
-    //     alert("还书")
-    //     $.ajax({
-    //         type:'get',
-    //         url:'api/books/repay'+'?bookId='+$("#bookId").text()+"&readerId="+$("#readerId").text(),
-    //         dataType:'json',
-    //         success:function (data) {
-    //             alert(data.msg);
-    //         }
-    //     })
-    // })
     function loadDel(id) {
        $.ajax({
            type:'get',
            url:'api/bookcomment/delete?id='+id,
            success:function (data) {
-               loadComm(1);
                alert(data.msg);
+               loadComm(1);
            }
        })
     }

@@ -55,15 +55,20 @@ public interface IBookService {
 
     /**
      * 根据读者id和图书id修改图书状态为已还（1）
-     * @param bookId
-     * @param readerId
+     * @param brrId
      * @return
      */
-    boolean updateByState(int bookId,int readerId);
+    boolean updateByState(int brrId);
 
     /**
      * 查询所有待还图书
      * @return
      */
     List<BookBorrowModel> selectByBorrowAll();
+
+    /**
+     * 根据借阅记录表id,查对应的图书id
+     * @return
+     */
+    int selectByBid(int id);
 }

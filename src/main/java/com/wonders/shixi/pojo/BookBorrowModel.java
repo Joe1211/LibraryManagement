@@ -42,6 +42,8 @@ public class BookBorrowModel {
 
     private Date bookRecordTime;
 
+    private Integer bookReaderRecordId;
+
     private String readerName;
 
     private String readerPhone;
@@ -182,5 +184,13 @@ public class BookBorrowModel {
 
     public void setReaderId(Integer readerId) {
         this.readerId = readerId;
+    }
+
+    public Integer getBookReaderRecordId() {
+        return bookReaderRecordId;
+    }
+
+    public void setBookReaderRecordId(Integer bookReaderRecordId) {
+        this.bookReaderRecordId = bookReaderRecordId;
     }
 }

@@ -60,9 +60,10 @@
             html+='</tr>';
         })
         html+=' </table>';
-        html+= '当前第'+data.result.pageNum+' 页.总共'+data.result.pages+'页.一共 '+data.result.total+' 条记录'
 
-        html+='<div class="col-md-12">';
+
+        html+='<div class="col-md-12" style="text-align: center;">';
+        html+= '当前第'+data.result.pageNum+' 页.总共'+data.result.pages+'页.一共 '+data.result.total+' 条记录';
         html+='';
         html+='<nav aria-label="Page navigation">';
         html+='  <ul class="pagination">';
@@ -71,7 +72,7 @@
         if (test = data.result.hasPreviousPage) {
             html+='<li><a href="javascript:loadComm('+(data.result.pageNum-1)+')">'+"上一页"+'</a></li>';
         }else{
-            html+='<li><a href="avascript:void(0))">'+"上一页"+'</a></li>';
+            html+='<li class="disabled"><a href="avascript:void(0))">'+"上一页"+'</a></li>';
         }
 
         <!--循环遍历连续显示的页面，若是当前页就高亮显示，并且没有链接-->
@@ -90,7 +91,7 @@
         if (test = data.result.hasNextPage) {
             html+='<li><a href="javascript:loadComm('+(data.result.pageNum+1)+')">'+"下一页"+'</a></li>';
         }else{
-            html+='<li><a href="avascript:void(0))">'+"下一页"+'</a></li>';
+            html+='<li class="disabled"><a href="avascript:void(0))">'+"下一页"+'</a></li>';
         }
         html+='  </ul>';
         html+='   </nav>';

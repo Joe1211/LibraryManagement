@@ -147,12 +147,13 @@ public class ReaderController {
         String phone = request.getParameter("readerPhone");
         String password = request.getParameter("readerPassword");
         RestMsg<Object> rm = readerService.login(phone,password);
-        request.getSession().setAttribute("reader",rm.getResult());
         System.out.println(rm.getCode());
         if(rm.getCode()==1){
-            response.sendRedirect("../../index.jsp");
+            request.getSession().setAttribute("reader",rm.getResult());
+            response.sendRedirect(request.getContextPath()+"/index.jsp");
+        }else{
+            response.sendRedirect(request.getContextPath()+"/login.jsp");
         }
-
     }
 
     /**

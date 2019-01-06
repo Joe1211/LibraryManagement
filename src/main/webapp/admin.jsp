@@ -91,13 +91,13 @@
                 </a>
                 <ul class="sidebar-nav sidebar-nav-sub">
                     <li class="sidebar-nav-link">
-                        <a href="${pageContext.request.contextPath}/admin/bookListFenYe" >
+                        <a href="${pageContext.request.contextPath}/admin/bookListFenYe" target="showiframe">
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 图书借阅数量
                         </a>
                     </li>
 
                     <li class="sidebar-nav-link">
-                        <a href="${pageContext.request.contextPath}/management/bookchart.jsp">
+                        <a href="${pageContext.request.contextPath}/management/bookchart.jsp" target="showiframe">
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 图表统计
                         </a>
                     </li>

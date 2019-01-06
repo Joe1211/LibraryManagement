@@ -8,9 +8,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <link rel="stylesheet" href="css/hello.css">
+    <title>欢迎</title>
 </head>
 <body>
-<h1>hello world!</h1>
+    <div id="hello">
+        <h1>欢迎使用图书管理系统！</h1>
+    </div>
 </body>
 </html>

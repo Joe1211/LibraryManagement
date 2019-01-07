@@ -31,200 +31,68 @@
     </style>
 </head>
 <body>
-
-<!-- 修改信息模态框 -->
-<div class="modal animated fadeInUp" id="info">
-    <form class="form-horizontal" id="readerInfo">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button class="close" data-dismiss="modal">&times;</button>
-                    <h4>读者信息</h4>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-2">姓名</label>
-                    <div class="col-sm-9">
-                        <input name="readerName" disabled="disabled" class="form-control" value="${reader.readerName}">
-                    </div>
-                </div>
-
-
-                <div class="form-group">
-                    <label  class="control-label col-sm-2">手机号</label>
-                    <div class="col-sm-9">
-                        <input name="readerPhone" disabled="disabled" class="form-control" value="${reader.readerPhone}">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label  class="control-label col-sm-2">邮箱</label>
-                    <div class="col-sm-9">
-                        <input name="readerEmail" disabled="disabled" class="form-control" value="${reader.readerEmail}">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label  class="control-label col-sm-2">账户余额</label>
-                    <div class="col-sm-9">
-                        <input name="readerBalance" disabled="disabled" class="form-control" value="${reader.readerBalance}">
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <button class="btn btn-primary" data-dismiss="modal" id="readerInf" >确认</button>
-                </div>
-            </div>
-        </div>
-    </form>
-</div>
-<!-- 信息模态框 -->
-
-<!-- 修改密码模态框 -->
-<div class="modal animated fadeInUp" id="upPassword">
-    <form class="form-horizontal" id="pass">
-        <input type="hidden" name="readerPhone" value="${reader.readerPhone}"/>
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button class="close" data-dismiss="modal">&times;</button>
-                    <h4>修改密码</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label class="control-label col-sm-2">原密码</label>
-                        <div class="col-sm-9">
-                            <input name="readerPassword" type="password" class="form-control" required>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label  class="control-label col-sm-2">新密码</label>
-                        <div class="col-sm-9">
-                            <input name="readerPassword1" type="password" class="form-control" >
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label  class="control-label col-sm-2">请再次输入新密码</label>
-                        <div class="col-sm-9">
-                            <input name="readerPassword2" id="rPwd" type="password" class="form-control" >
-                            <span id="d3"></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <button class="btn btn-default" data-dismiss="modal">取消</button>
-                    <button class="btn btn-primary" data-dismiss="modal" id="upPwd" >确认修改</button>
-                </div>
-            </div>
-        </div>
-    </form>
-</div>
-
-
-<nav class="navbar navbar-default" role="navigation">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <div class="images">
-                <a href="search.jsp">
-                <img src="img/logo.jpg" width="250" height="70"/>
-                </a>
-            </div>
-        </div>
-        <div class="">
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="search.jsp">搜索</a>
-                </li>
-                <li class="alert">
-                    <div class="dropdown ">
-							<span data-toggle="dropdown">
-                                <input type="hidden" id="readerId" value="${reader.readerId}">
-								${reader.readerName}
-								<span class="caret"></span>
-							</span>
-                        <ul class="dropdown-menu">
-                            <li><a href="person.jsp">个人中心</a></li>
-                            <li><a href="" data-toggle="modal" data-target="#info">个人资料</a></li>
-                            <li><a href="" data-toggle="modal" data-target="#upPassword">修改密码</a></li>
-                            <li class="divider"></li>
-                            <li><a href="../../login.jsp" id="outReader">注销账户</a></li>
-                        </ul>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
 <div class="contrainer panel panel-collapse">
     <div class="panel-body">
         <%--图书详情--%>
-        <div class="container">
+        <div class="container-fluid">
             <div class="panel panel-default">
                 <div class="panel-heading">图书详情</div>
                 <div class="panel-body">
 
-                        <div class="col-md-3">
-                            <img src="img/ShlibEpub_1500949411.jpg" class="tupian2"/>
-                        </div>
-                        <div class="col-md-8">
-                            <h3>&nbsp&nbsp&nbsp${msg.bookName}</h3>
-                            <input type="hidden" class="bid" value=${msg.bookId}>
-                            <div class="col-md-12 distance">
-                                <div class="col-md-1">
-                                    <img src="img/icon/writer.png" alt=""class="icon">
-                                </div>
-                                <div class="col-md-11">
-                                    ${msg.bookWriter}
-                                </div>
+                    <div class="col-md-4">
+                        <img src="img/ShlibEpub_1500949411.jpg" class="tupian2"/>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="hidden" class="bid" value=${msg.bookId}>
+                        <h3>&nbsp&nbsp&nbsp${msg.bookName}</h3>
+                        <div class="col-md-12 distance">
+                            <div class="col-md-1">
+                                <img src="img/icon/writer.png" alt=""class="icon">
                             </div>
-                            <div class="col-md-12 distance">
-                                <div class="col-md-1">
-                                    <img src="img/icon/press.png" alt=""class="icon">
-                                </div>
-                                <div class="col-md-11">
-                                    ${msg.bookPress}
-                                </div>
-                            </div>
-                            <div class="col-md-12 distance">
-                                <div class="col-md-1">
-                                    <img src="img/icon/callnum.png" alt=""class="icon">
-                                </div>
-                                <div class="col-md-11">
-                                    ${msg.bookCallnum}
-                                </div>
-                            </div>
-                            <div class="col-md-12 distance">
-                                <div class="col-md-1">
-                                    <img src="img/icon/info.png" alt=""class="icon">
-                                </div>
-                                <div class="col-md-11">
-                                    ${msg.bookInfo}
-                                </div>
-                            </div>
-                            <div class="col-md-2 col-lg-offset-10">
-                                <a href="javascript:loadBorrow()">
-                                    <button class="btn btn-primary form-group" type="button">图书借阅</button>
-                                </a>
+                            <div class="col-md-11">
+                                ${msg.bookWriter}
                             </div>
                         </div>
+                        <div class="col-md-12 distance">
+                            <div class="col-md-1">
+                                <img src="img/icon/press.png" alt=""class="icon">
+                            </div>
+                            <div class="col-md-11">
+                                ${msg.bookPress}
+                            </div>
+                        </div>
+                        <div class="col-md-12 distance">
+                            <div class="col-md-1">
+                                <img src="img/icon/callnum.png" alt=""class="icon">
+                            </div>
+                            <div class="col-md-11">
+                                ${msg.bookCallnum}
+                            </div>
+                        </div>
+                        <div class="col-md-12 distance">
+                            <div class="col-md-1">
+                                <img src="img/icon/info.png" alt=""class="icon">
+                            </div>
+                            <div class="col-md-11">
+                                ${msg.bookInfo}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <%--图书详情--%>
         <%--评论--%>
-        <div class="container">
+        <div class="container-fluid">
             <div class="panel panel-default">
                 <div class="panel-heading">图书评论</div>
                 <div class="panel-body">
                     <div id="bod">
-                        <%--<c:forEach items="${comm.list}" var="com">--%>
+                        <%--<c:forEach items="${comm}" var="com">--%>
                             <%--<div class="col-md-12 distance">--%>
                                 <%--<div class="col-md-2">--%>
-                                    <%--${com.readerName}:</br>--%>
-                                    <%--${com.updateTime}--%>
+                                        <%--${com.readerName}:</br>--%>
+                                        <%--${com.updateTime}--%>
                                 <%--</div>--%>
                                 <%--<div class="col-md-10">--%>
                                         <%--${com.comment}--%>
@@ -232,6 +100,11 @@
                             <%--</div>--%>
                         <%--</c:forEach>--%>
                     </div>
+                    <form class="textare" id="myform">
+                        <p>说点什么...</p>
+                        <textarea name="say" rows="3" cols="120" class="t"></textarea>
+                        <button class="btn btn-primary col-md-2 col-md-offset-10 form-group" id="sub" type="button">确定</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -242,14 +115,14 @@
 
 <script>
     window.onload=function(){
-       //评论
+        //评论
         $.ajax({
             type:'get',
             url:'api/books/comments'+'?bookId='+$(".bid").val(),
             success:function (data) {
-              loadInfo(data);
-        }
-    })
+                loadInfo(data);
+            }
+        })
     }
     function  loadInfo(data) {
         var html = '';
@@ -316,26 +189,28 @@
         })
     }
 
-    <%--$(document).on('click', '#sub',function() {--%>
-        <%--var idis=${reader.readerId};--%>
-        <%--var pinglun=$("textarea[name='say']").val();--%>
-        <%--var data = "readerId="+idis+"&say="+pinglun+ "&bookId="+${msg.bookId};--%>
-        <%--$.ajax({--%>
-            <%--"url":'api/bookcomment/insert',--%>
-            <%--"data":data,--%>
-            <%--"type":'post',--%>
-            <%--"dataType":"json",--%>
-            <%--"success":function (result) {--%>
-                <%--if(result==1){--%>
-                    <%--loadFindComm()--%>
-                    <%--alert("评论成功")--%>
-                    <%--$(".t").val("");--%>
-                <%--}else {--%>
-                    <%--alert("评论失败")--%>
-                <%--};--%>
-            <%--},--%>
-        <%--})--%>
-    <%--});--%>
+
+    $(document).on('click', '#sub',function() {
+        var idis=${reader.readerId};
+        var pinglun=$("textarea[name='say']").val();
+        var data = "readerId="+idis+"&say="+pinglun+ "&bookId="+${msg.bookId};
+        $.ajax({
+            "url":'api/bookcomment/insert',
+            "data":data,
+            "type":'post',
+            "dataType":"json",
+            "success":function (result) {
+                if(result==1){
+                    loadFindComm()
+                    alert("评论成功")
+                    $(".t").val("");
+                    loadData(1);
+                }else {
+                    alert("评论失败")
+                };
+            },
+        })
+    });
 
     function loadFindComm(){
         $.ajax({
@@ -481,7 +356,6 @@
             }
         })
     })
-
 </script>
 
 </body>

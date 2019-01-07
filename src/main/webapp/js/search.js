@@ -44,7 +44,7 @@ function loadInfo(data){
             html+='<div class="panel-body panel_2 ">';
             html+='  <div class="form-group col-md-1 ">';
             html+='<div class="picture box tupian ">';
-            html+='<img class="tupian1" src="/bookCover'+item.bookCover+'"/>';
+            html+='<img class="tupian1" src="'+item.bookCover+'"/>';
             html+='</div>';
             html+='</div>';
             html+=' <div id="" class="col-md-8 ">';
@@ -54,7 +54,7 @@ function loadInfo(data){
             html+='<a href="javascript:loadBorrow('+item.bookId+')">借阅&nbsp&nbsp</a>';
             html+=' <a href=" ">馆藏信息&nbsp&nbsp</a>';
             html+='<a href="javascript:load('+item.bookId+')">详细信息&nbsp&nbsp</a>';
-            html+='<a href=" ">评论/标签&nbsp&nbsp</a>';
+            // html+='<a href=" ">评论/标签&nbsp&nbsp</a>';
             html+='</div>';
             html+='</div>';
             html+='</div> ';
@@ -148,7 +148,7 @@ function loadLabelInfo(data){
             html+='<a href="javascript:loadBorrow('+item.bookId+')">借阅&nbsp&nbsp</a>';
             html+=' <a href=" ">馆藏信息&nbsp&nbsp</a>';
             html+='<a href="javascript:load('+item.bookId+')">详细信息&nbsp&nbsp</a>';
-            html+='<a href=" ">评论/标签&nbsp&nbsp</a>';
+            // html+='<a href=" ">评论/标签&nbsp&nbsp</a>';
             html+='</div>';
             html+='</div>';
             html+='</div> ';
@@ -301,7 +301,7 @@ function loadTypeInfo(data){
             html+='<a href="javascript:loadBorrow('+item.bookId+')">借阅&nbsp&nbsp</a>';
             html+=' <a href=" ">馆藏信息&nbsp&nbsp</a>';
             html+='<a href="javascript:load('+item.bookId+')">详细信息&nbsp&nbsp</a>';
-            html+='<a href=" ">评论/标签&nbsp&nbsp</a>';
+            // html+='<a href=" ">评论/标签&nbsp&nbsp</a>';
             html+='</div>';
             html+='</div>';
             html+='</div> ';
@@ -409,11 +409,12 @@ $("#repayBook").click(function () {
         url:'api/books/record/repay'+'?bookId='+$("#readerId").val(),
         success:function (data) {
             alert(data)
-            loadRecordInfo(data)
+            loadRecordInfo1(data)
         }
     })
 })
 
+//显示我的已借图书
 function loadRecordInfo(data){
     if(data.code == 1){
         var html = '';
@@ -423,7 +424,7 @@ function loadRecordInfo(data){
             html+='<div class="panel-body panel_2 ">';
             html+='  <div class="form-group col-md-1 ">';
             html+='<div class="picture box tupian ">';
-            html+='<img class="tupian1" src="/bookCover'+item.bookCover+'"/>';
+            html+='<img class="tupian1" src="'+item.bookCover+'"/>';
             html+='</div>';
             html+='</div>';
             html+=' <div id="" class="col-md-8 ">';
@@ -433,8 +434,7 @@ function loadRecordInfo(data){
             html+='<p>'+item.bookRecordTime+'</p>';
             // html+='<a href="javascript:loadBorrow('+item.bookId+')">借阅&nbsp&nbsp</a>';
             html+=' <a href=" ">馆藏信息&nbsp&nbsp</a>';
-            html+='<a href="javascript:load(\'+item.bookId+\')">详细信息&nbsp&nbsp</a>';
-            html+='<a href=" ">评论/标签&nbsp&nbsp</a>';
+            html+='<a href="javascript:load('+item.bookId+')">详细信息&nbsp&nbsp</a>';
             html+='</div>';
             html+='</div>';
             html+='</div> ';
@@ -447,7 +447,41 @@ function loadRecordInfo(data){
     };
 };
 
+//显示已还图书并可进行评论
+function loadRecordInfo(data){
+    if(data.code == 1){
+        var html = '';
+        $.each(data.result,function (i,item) {
+            html+='<div class="col-md-12 ">';
+            html+=' <div class="panel panel-default panel_1">';
+            html+='<div class="panel-body panel_2 ">';
+            html+='  <div class="form-group col-md-1 ">';
+            html+='<div class="picture box tupian ">';
+            html+='<img class="tupian1" src="'+item.bookCover+'"/>';
+            html+='</div>';
+            html+='</div>';
+            html+=' <div id="" class="col-md-8 ">';
+            html+='<p>'+item.bookName+'</p>';
+            html+='<p>'+item.bookWriter+'</p>';
+            html+='<p>'+item.bookPress+'</p>';
+            html+='<p>'+item.bookRecordTime+'</p>';
+            // html+='<a href="javascript:loadBorrow('+item.bookId+')">借阅&nbsp&nbsp</a>';
+            html+=' <a href=" ">馆藏信息&nbsp&nbsp</a>';
+            html+='<a href="javascript:load('+item.bookId+')">详细信息&nbsp&nbsp</a>';
+            // html+='<a href="javascript:loadComment()">评论/标签&nbsp&nbsp</a>';
+            html+='</div>';
+            html+='</div>';
+            html+='</div> ';
+            html+='</div>';
+        })
+        $("#bod").html(html);
+        alert(data.msg);
+    }else {
+        alert(data.msg);
+    };
+};
 
+//显示图书的详细信息
 function load(bookId) {
         location.href="/api/books/selectById?bookId="+bookId;
 }

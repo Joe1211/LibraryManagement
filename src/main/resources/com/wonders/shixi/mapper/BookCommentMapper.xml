@@ -140,7 +140,7 @@
     r.reader_balance as reader_balance,
     r.reader_password as reader_password
     from book_comment as b left join reader as r on b.reader_id=r.reader_id
-    where book_id = #{bookId,jdbcType=INTEGER}
+    where book_id = #{bookId,jdbcType=INTEGER} order by b.update_time desc
   </select>
 
   <!--查找所有评论-->

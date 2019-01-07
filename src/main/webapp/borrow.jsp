@@ -49,8 +49,8 @@
                     html+='<p>'+item.bookRecordTime+'</p>';
                     // html+='<a href="javascript:loadBorrow('+item.bookId+')">借阅&nbsp&nbsp</a>';
                     html+=' <a href=" ">馆藏信息&nbsp&nbsp</a>';
-                    html+='<a href=" ">详细信息&nbsp&nbsp</a>';
-                    html+='<a href=" ">评论/标签&nbsp&nbsp</a>';
+                    html+='<a href="javascript:load('+item.bookId+')">详细信息&nbsp&nbsp</a>';
+                    // html+='<a href=" ">评论/标签&nbsp&nbsp</a>';
                     html+='</div>';
                     html+='</div>';
                     html+='</div> ';
@@ -62,6 +62,10 @@
             };
         };
 
+        //显示图书的详细信息
+        function load(bookId) {
+            location.href="/api/books/selectById?bookId="+bookId;
+        }
     </script>
 </body>
 </html>

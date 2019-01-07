@@ -182,50 +182,6 @@ public class BookController {
             b.setLibraryId(Integer.parseInt(libraryId));
             b.setBookState(bookState);
 
-            /**
-             * 商品图片表
-             */
-            //获取表单中的附件部分
-//            Part part = null;
-//            try {
-//
-//                part = request.getPart("bookCover");
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            } catch (ServletException e) {
-//                e.printStackTrace();
-//            }
-            //获取提交的文件名称
-//            String iname =UUID.randomUUID()+part.getSubmittedFileName();
-            //目录
-//            String base = "D:/code/bookCover";
-            //根据当前日期创建目录
-//            File dir = new File(time()+"\\"+iname);
-            //当目录不存在时，创建
-//            if(!dir.exists()){
-//                dir.mkdirs();
-//            }
-            //写入到服务器中
-//            part.write(dir+File.separator+iname);
-
-//            b.setBookCover(dir.toString());
-//            //创建img对象
-//            Img i = new Img();
-//            //model.getDate是商品表的gid
-//            i.setGid((int)model.getData());
-//            i.setImg((int)model.getData()+File.separator+iname);
-//
-//            //将数据传送到service中
-//            model = service.insertimg(i);
-
-//            if(model.getCode() == 1){
-//                //发布成功
-//                request.setAttribute("msg", model.getMessage());
-//                return "redirect:goods?method=findGoodsAll";
-//            }else{
-//                //注册失败，请求转发
-//                return "main.jsp";
-//            }
             if(!bookCover.isEmpty()){
                 //封面不为空
                 String iname=UUID.randomUUID()+bookCover.getOriginalFilename();
@@ -374,11 +330,40 @@ public class BookController {
         int bookId=Integer.parseInt(id);
         Book book=bookService.selectByPrimaryKey(bookId);
         request.getSession().setAttribute("msg",book);
-        List<Model> list=bookCommentService.selectAllById(bookId);
-        request.getSession().setAttribute("comm",list);
         response.sendRedirect("../../bookdetail.jsp");
     }
 
+    /**
+     * 根据书id查询
+     * 查询一本书的详细内容并可评论
+     * @param
+     * @return
+     */
+    @RequestMapping("/selectComment")
+    @ResponseBody
+    public void selcetByComment(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String id=request.getParameter("bookId");
+        int bookId=Integer.parseInt(id);
+        Book book=bookService.selectByPrimaryKey(bookId);
+        request.getSession().setAttribute("msg",book);
+        response.sendRedirect("../../bookComment.jsp");
+    }
+
+    @GetMapping("/comments")
+    @ResponseBody
+    public RestMsg<Object> selectCommentAll(String bookId,@RequestParam(required = false,defaultValue = "1",value = "pn")Integer pn){
+        RestMsg<Object> rm = new RestMsg<>();
+        //在查询之前传入当前页，然后多少记录
+        PageHelper.startPage(pn,5);
+        //startPage后紧跟的这个查询就是分页查询
+        List<Model> list=bookCommentService.selectAllById(Integer.parseInt(bookId));
+        //使用PageInfo包装查询结果，只需要将pageInfo交给页面就可以
+        PageInfo pageInfo = new PageInfo<>(list,5);
+        //pageINfo封装了分页的详细信息，也可以指定连续显示的页数
+        rm.setResult(pageInfo);
+        return rm.successMsg();
+
+    }
 
     /**
      * 图书借阅
@@ -431,7 +416,7 @@ public class BookController {
         scheduled.scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {
-                System.out.println("发送消息");
+//                System.out.println("发送消息");
                 MailUtil.sendEmail(bookName,30,emailAddress);
             }
         }, 1, 10000, TimeUnit.SECONDS);

@@ -36,7 +36,7 @@
             if(data.code == 1){
                 var html = '';
                 $.each(data.result,function (i,item) {
-                    html+='<div class="col-md-12 ">';
+                    html+='<div class="col-md-12 " id="'+("r"+i)+'">';
                     html+=' <div class="panel panel-default panel_1">';
                     html+='<div class="panel-body panel_2 ">';
                     html+='  <div class="form-group col-md-1 ">';
@@ -51,8 +51,8 @@
                     html+='<p>'+item.bookRecordTime+'</p>';
                     // html+='<a href="javascript:loadBorrow('+item.bookId+')">借阅&nbsp&nbsp</a>';
                     html+=' <a href=" ">馆藏信息&nbsp&nbsp</a>';
-                    html+='<a href=" ">详细信息&nbsp&nbsp</a>';
-                    html+='<a href=" ">评论/标签&nbsp&nbsp</a>';
+                    html+='<a href="javascript:load('+item.bookId+')">详细信息&nbsp&nbsp</a>';
+                    html+='<a href="javascript:loadComment('+item.bookId+')">评论&nbsp&nbsp</a>';
                     html+='</div>';
                     html+='</div>';
                     html+='</div> ';
@@ -64,6 +64,26 @@
             };
         };
 
+        // function loadComment(r) {
+        //     alert(r)
+        //     var html = '';
+        //     html+='评论信息';
+        //     html+='<form class="textare" id="myform">';
+        //     html+='<p>说点什么...</p>';
+        //     html+='<textarea name="say" rows="3" cols="150" class="t"></textarea>';
+        //     html+='<button class="btn btn-primary col-lg-1 col-lg-offset-10 form-group" id="sub" type="button">确定</button>';
+        //     html+='</form>';
+        //     $("#r1").append(html);
+        // }
+
+        function loadComment(bookId) {
+            location.href="/api/books/selectComment?bookId="+bookId;
+        }
+
+        //显示图书的详细信息
+        function load(bookId) {
+            location.href="/api/books/selectById?bookId="+bookId;
+        }
     </script>
 </body>
 </html>

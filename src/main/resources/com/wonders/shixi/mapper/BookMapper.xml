@@ -333,5 +333,7 @@ where book_id = #{bookId,jdbcType=INTEGER}
     from book_reader_record
     where book_reader_record_id= #{bookReaderRecordId}
   </select>
-
+  <select id="selectBookCoverById" parameterType="int" resultType="String">
+    select book_cover from book where book_id=#{id}
+  </select>
 </mapper>

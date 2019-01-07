@@ -9,6 +9,7 @@ import com.wonders.shixi.pojo.Model;
 import com.wonders.shixi.pojo.Reader;
 import com.wonders.shixi.service.ReaderService;
 import com.wonders.shixi.service.impl.BookCommentServiceImpl;
+import com.wonders.shixi.util.Base64Utils;
 import com.wonders.shixi.util.IC;
 import com.wonders.shixi.util.MailUtil;
 import com.wonders.shixi.util.RestMsg;
@@ -31,14 +32,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
-import java.io.File;
-import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
 import static com.wonders.shixi.util.MailUtil.*;
 
@@ -182,19 +182,75 @@ public class BookController {
             b.setLibraryId(Integer.parseInt(libraryId));
             b.setBookState(bookState);
 
+            /**
+             * 商品图片表
+             */
+            //获取表单中的附件部分
+//            Part part = null;
+//            try {
+//
+//                part = request.getPart("bookCover");
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            } catch (ServletException e) {
+//                e.printStackTrace();
+//            }
+            //获取提交的文件名称
+//            String iname =UUID.randomUUID()+part.getSubmittedFileName();
+            //目录
+//            String base = "D:/code/bookCover";
+            //根据当前日期创建目录
+//            File dir = new File(time()+"\\"+iname);
+            //当目录不存在时，创建
+//            if(!dir.exists()){
+//                dir.mkdirs();
+//            }
+            //写入到服务器中
+//            part.write(dir+File.separator+iname);
+
+//            b.setBookCover(dir.toString());
+//            //创建img对象
+//            Img i = new Img();
+//            //model.getDate是商品表的gid
+//            i.setGid((int)model.getData());
+//            i.setImg((int)model.getData()+File.separator+iname);
+//
+//            //将数据传送到service中
+//            model = service.insertimg(i);
+
+//            if(model.getCode() == 1){
+//                //发布成功
+//                request.setAttribute("msg", model.getMessage());
+//                return "redirect:goods?method=findGoodsAll";
+//            }else{
+//                //注册失败，请求转发
+//                return "main.jsp";
+//            }
+
             if(!bookCover.isEmpty()){
                 //封面不为空
-                String iname=UUID.randomUUID()+bookCover.getOriginalFilename();
-                File file=new File(IC.BOOK_COVER_BASE+File.separator+time()+File.separator+iname);
-                if(!file.getParentFile().exists()){
-                    file.getParentFile().mkdirs();
-                }
+//                String iname=UUID.randomUUID()+bookCover.getOriginalFilename();
+//                File file=new File(IC.BOOK_COVER_BASE+File.separator+time()+File.separator+iname);
+//                if(!file.getParentFile().exists()){
+//                    file.getParentFile().mkdirs();
+//                }
                 try {
                     //传输封面到本地
-                    FileUtils.copyInputStreamToFile(bookCover.getInputStream(),file);
-                    b.setBookCover(file.getPath());
+//                    FileUtils.copyInputStreamToFile(bookCover.getInputStream(),file);
+//                    b.setBookCover(file.getPath());
+                    //转化为base64编码
+                    String base64Str=Base64Utils.encode(bookCover.getInputStream());
+                    b.setBookCover(base64Str);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Logger.getLogger("获取文件流失败");
+                }finally {
+                    try {
+                        if(bookCover.getInputStream()!=null){
+                            bookCover.getInputStream().close();
+                        }
+                    } catch (IOException e) {
+                        Logger.getLogger("文件流关闭失败");
+                    }
                 }
             }
             int insertNum=bookService.insertBook(b);
@@ -207,6 +263,40 @@ public class BookController {
 //            response.setContentType("application/json");
 //            System.out.println(JSON.toJSONString(rm));
             return rm;
+        }
+
+    /**
+     * 获取图书封面
+     * @param id
+     * @param response
+     */
+    @RequestMapping("findBookCover")
+        public void findBookCover(int id,HttpServletRequest request,HttpServletResponse response){
+            String data=bookService.findBookCoverById(id);
+        byte[] bytes=null;
+        try {
+            bytes = Base64.getDecoder().decode(data);
+            if(bytes==null){throw new NullPointerException();}
+        } catch (Exception e) {
+            //没有图片或解析出错，则返回默认图片
+            String path=this.getClass().getClassLoader().getResource(".."+File.separator+".."+File.separator+IC.NO_BOOK_COVER).getPath();
+            File file=new File(path);
+            try {
+                InputStream in=new BufferedInputStream(new FileInputStream(file));
+                bytes=new byte[in.available()];
+                in.read(bytes);
+                in.close();
+            } catch (IOException e1) {
+                Logger.getLogger("读取默认封面图片失败，可能缺少默认文件");
+            }
+        }
+        try {
+                OutputStream out=response.getOutputStream();
+                out.write(bytes);
+                out.flush();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
     /**
@@ -330,40 +420,11 @@ public class BookController {
         int bookId=Integer.parseInt(id);
         Book book=bookService.selectByPrimaryKey(bookId);
         request.getSession().setAttribute("msg",book);
+        List<Model> list=bookCommentService.selectAllById(bookId);
+        request.getSession().setAttribute("comm",list);
         response.sendRedirect("../../bookdetail.jsp");
     }
 
-    /**
-     * 根据书id查询
-     * 查询一本书的详细内容并可评论
-     * @param
-     * @return
-     */
-    @RequestMapping("/selectComment")
-    @ResponseBody
-    public void selcetByComment(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String id=request.getParameter("bookId");
-        int bookId=Integer.parseInt(id);
-        Book book=bookService.selectByPrimaryKey(bookId);
-        request.getSession().setAttribute("msg",book);
-        response.sendRedirect("../../bookComment.jsp");
-    }
-
-    @GetMapping("/comments")
-    @ResponseBody
-    public RestMsg<Object> selectCommentAll(String bookId,@RequestParam(required = false,defaultValue = "1",value = "pn")Integer pn){
-        RestMsg<Object> rm = new RestMsg<>();
-        //在查询之前传入当前页，然后多少记录
-        PageHelper.startPage(pn,5);
-        //startPage后紧跟的这个查询就是分页查询
-        List<Model> list=bookCommentService.selectAllById(Integer.parseInt(bookId));
-        //使用PageInfo包装查询结果，只需要将pageInfo交给页面就可以
-        PageInfo pageInfo = new PageInfo<>(list,5);
-        //pageINfo封装了分页的详细信息，也可以指定连续显示的页数
-        rm.setResult(pageInfo);
-        return rm.successMsg();
-
-    }
 
     /**
      * 图书借阅
@@ -416,7 +477,7 @@ public class BookController {
         scheduled.scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {
-//                System.out.println("发送消息");
+                System.out.println("发送消息");
                 MailUtil.sendEmail(bookName,30,emailAddress);
             }
         }, 1, 10000, TimeUnit.SECONDS);

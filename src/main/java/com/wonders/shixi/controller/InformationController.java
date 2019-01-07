@@ -11,6 +11,7 @@ import com.wonders.shixi.pojo.InformationDemo;
 import com.wonders.shixi.pojo.TypeTwo;
 import com.wonders.shixi.service.IBookService;
 import com.wonders.shixi.service.IInformationService;
+import com.wonders.shixi.util.Base64Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
@@ -66,16 +68,16 @@ public class InformationController {
 
     @RequestMapping(value = "/updatebook",method = {RequestMethod.POST,RequestMethod.GET})
     public String updatebook(Book book, MultipartFile bimg) {
-        MultipartFile file=bimg;
         try {
-            //将图片保存在磁盘目录
-            file.transferTo(new File("D:/code/"+file.getOriginalFilename()));
-            //设置值，将路径存入数据库
-            book.setBookCover("/bookCover/"+file.getOriginalFilename());
+//            //将图片保存在磁盘目录
+//            bimg.transferTo(new File("D:/code/"+file.getOriginalFilename()));
+//            //设置值，将路径存入数据库
+//            book.setBookCover("/bookCover/"+file.getOriginalFilename());
+            String base64Str= Base64Utils.encode(bimg.getInputStream());
+            book.setBookCover(base64Str);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         Date bookUpdata=new Date();
         book.setBookUpdata(bookUpdata);
         System.out.println(book);

@@ -167,7 +167,7 @@
                 <div class="panel-body">
 
                         <div class="col-md-3">
-                            <img src="img/ShlibEpub_1500949411.jpg" class="tupian2"/>
+                            <img src="/api/books/findBookCover?id=${msg.bookId}" class="tupian2"/>
                         </div>
                         <div class="col-md-8">
                             <h3>&nbsp&nbsp&nbsp${msg.bookName}</h3>

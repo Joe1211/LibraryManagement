@@ -71,4 +71,10 @@ public interface IBookService {
      * @return
      */
     int selectByBid(int id);
+
+    /**
+     * 根据主键查询图书封面
+     * @return 返回base64字符串
+     */
+    String findBookCoverById(int id);
 }

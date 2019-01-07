@@ -130,7 +130,7 @@
         <div class="col-sm-9 big-photo">
             <div id="preview">
                 <img id="imghead" border="0"
-                     src="${book.bookCover}"
+                     src="/api/books/findBookCover?id=${book.bookId}"
                      width="50" height="50" onclick="$('#bimg').click();">
             </div>
             <input type="file" name="bimg" onchange="bimg(this)"

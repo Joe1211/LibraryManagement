@@ -111,4 +111,11 @@ public interface BookMapper {
      * @return
      */
     int selectByBid(@Param("bookReaderRecordId")int bookReaderRecordId);
+
+    /**
+     * 根据主键查询图书封面
+     * @param id
+     * @return
+     */
+    String selectBookCoverById(Integer id);
 }

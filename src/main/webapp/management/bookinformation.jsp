@@ -53,7 +53,7 @@
                     <td>${book.bookCallnum}</td>
                     <td>${book.bookWriter}</td>
                     <td>${book.bookPress}</td>
-                    <td><img src="${book.bookCover}" width="60px" height="50px"></td>
+                    <td><img src="/api/books/findBookCover?id=${book.bookId}" width="60px" height="50px"></td>
                     <td><fmt:formatDate value="${book.bookTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                     <td>${book.typeTwoValue}</td>
                     <td>${book.libraryId}</td>

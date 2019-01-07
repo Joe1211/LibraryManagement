@@ -9,6 +9,7 @@ import com.wonders.shixi.pojo.Model;
 import com.wonders.shixi.pojo.Reader;
 import com.wonders.shixi.service.ReaderService;
 import com.wonders.shixi.service.impl.BookCommentServiceImpl;
+import com.wonders.shixi.util.Base64Utils;
 import com.wonders.shixi.util.IC;
 import com.wonders.shixi.util.MailUtil;
 import com.wonders.shixi.util.RestMsg;
@@ -31,14 +32,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
-import java.io.File;
-import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
 import static com.wonders.shixi.util.MailUtil.*;
 
@@ -226,19 +226,31 @@ public class BookController {
 //                //注册失败，请求转发
 //                return "main.jsp";
 //            }
+
             if(!bookCover.isEmpty()){
                 //封面不为空
-                String iname=UUID.randomUUID()+bookCover.getOriginalFilename();
-                File file=new File(IC.BOOK_COVER_BASE+File.separator+time()+File.separator+iname);
-                if(!file.getParentFile().exists()){
-                    file.getParentFile().mkdirs();
-                }
+//                String iname=UUID.randomUUID()+bookCover.getOriginalFilename();
+//                File file=new File(IC.BOOK_COVER_BASE+File.separator+time()+File.separator+iname);
+//                if(!file.getParentFile().exists()){
+//                    file.getParentFile().mkdirs();
+//                }
                 try {
                     //传输封面到本地
-                    FileUtils.copyInputStreamToFile(bookCover.getInputStream(),file);
-                    b.setBookCover(file.getPath());
+//                    FileUtils.copyInputStreamToFile(bookCover.getInputStream(),file);
+//                    b.setBookCover(file.getPath());
+                    //转化为base64编码
+                    String base64Str=Base64Utils.encode(bookCover.getInputStream());
+                    b.setBookCover(base64Str);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Logger.getLogger("获取文件流失败");
+                }finally {
+                    try {
+                        if(bookCover.getInputStream()!=null){
+                            bookCover.getInputStream().close();
+                        }
+                    } catch (IOException e) {
+                        Logger.getLogger("文件流关闭失败");
+                    }
                 }
             }
             int insertNum=bookService.insertBook(b);
@@ -251,6 +263,40 @@ public class BookController {
 //            response.setContentType("application/json");
 //            System.out.println(JSON.toJSONString(rm));
             return rm;
+        }
+
+    /**
+     * 获取图书封面
+     * @param id
+     * @param response
+     */
+    @RequestMapping("findBookCover")
+        public void findBookCover(int id,HttpServletRequest request,HttpServletResponse response){
+            String data=bookService.findBookCoverById(id);
+        byte[] bytes=null;
+        try {
+            bytes = Base64.getDecoder().decode(data);
+            if(bytes==null){throw new NullPointerException();}
+        } catch (Exception e) {
+            //没有图片或解析出错，则返回默认图片
+            String path=this.getClass().getClassLoader().getResource(".."+File.separator+".."+File.separator+IC.NO_BOOK_COVER).getPath();
+            File file=new File(path);
+            try {
+                InputStream in=new BufferedInputStream(new FileInputStream(file));
+                bytes=new byte[in.available()];
+                in.read(bytes);
+                in.close();
+            } catch (IOException e1) {
+                Logger.getLogger("读取默认封面图片失败，可能缺少默认文件");
+            }
+        }
+        try {
+                OutputStream out=response.getOutputStream();
+                out.write(bytes);
+                out.flush();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
     /**

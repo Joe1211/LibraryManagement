@@ -17,6 +17,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        /*
         System.out.println(request.getSession().getAttribute("reader"));
         if(request.getSession().getAttribute("reader")==null){
             //未登录
@@ -24,6 +25,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
             response.sendRedirect(request.getContextPath()+"/login.jsp");
             return false;
         }
+        */
         return true;
     }
 

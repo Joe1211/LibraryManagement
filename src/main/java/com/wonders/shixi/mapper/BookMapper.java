@@ -3,8 +3,10 @@ package com.wonders.shixi.mapper;
 import com.wonders.shixi.pojo.Book;
 import com.wonders.shixi.pojo.BookBorrowModel;
 import com.wonders.shixi.pojo.BookRecordModel;
+import com.wonders.shixi.pojo.BookResidueTimeModel;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -118,4 +120,11 @@ public interface BookMapper {
      * @return
      */
     String selectBookCoverById(Integer id);
+
+    /**
+     * 查询未还图书剩余免费借阅时间
+     * @param currentTime
+     * @return
+     */
+    List<BookResidueTimeModel> selectResidueTime(String currentTime);
 }

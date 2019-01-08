@@ -5,11 +5,13 @@ import com.wonders.shixi.mapper.BookMapper;
 import com.wonders.shixi.pojo.Book;
 import com.wonders.shixi.pojo.BookBorrowModel;
 import com.wonders.shixi.pojo.BookRecordModel;
+import com.wonders.shixi.pojo.BookResidueTimeModel;
 import com.wonders.shixi.service.IBookService;
 import com.wonders.shixi.util.RestMsg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 /**
  * @ClassName 图书查询控制器
@@ -99,14 +101,16 @@ public class BookServiceImpl implements IBookService {
     }
 
     /**
-     * 以借图书记录表,添加以借图书记录
+     * 以借图书记录表,添加到借图书记录
      * @param bookId
      * @param readerId
      * @return
      */
     @Override
     public int addBookRecord(int bookId, int readerId) {
-        return bookMapper.addBookRecord(bookId,readerId);
+        int i = bookMapper.addBookRecord(bookId,readerId);
+        System.out.println("借阅记录表id------>"+i);
+        return i;
     }
 
     /**
@@ -175,6 +179,11 @@ public class BookServiceImpl implements IBookService {
     public String findBookCoverById(int id) {
         String data=bookMapper.selectBookCoverById(id);
         return "".equals(data)?null:data;
+    }
+
+    @Override
+    public List<BookResidueTimeModel> selectResidueTime(String currentTime) {
+        return bookMapper.selectResidueTime(currentTime);
     }
 
 

@@ -3,12 +3,11 @@ package com.wonders.shixi.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.wonders.shixi.pojo.Book;
-import com.wonders.shixi.pojo.BookBorrowModel;
-import com.wonders.shixi.pojo.Model;
+import com.wonders.shixi.pojo.*;
 import com.wonders.shixi.pojo.Reader;
 import com.wonders.shixi.service.ReaderService;
 import com.wonders.shixi.service.impl.BookCommentServiceImpl;
+import com.wonders.shixi.service.impl.BookServiceImpl;
 import com.wonders.shixi.util.Base64Utils;
 import com.wonders.shixi.util.IC;
 import com.wonders.shixi.util.MailUtil;
@@ -28,6 +27,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -185,48 +185,6 @@ public class BookController {
             /**
              * 商品图片表
              */
-            //获取表单中的附件部分
-//            Part part = null;
-//            try {
-//
-//                part = request.getPart("bookCover");
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            } catch (ServletException e) {
-//                e.printStackTrace();
-//            }
-            //获取提交的文件名称
-//            String iname =UUID.randomUUID()+part.getSubmittedFileName();
-            //目录
-//            String base = "D:/code/bookCover";
-            //根据当前日期创建目录
-//            File dir = new File(time()+"\\"+iname);
-            //当目录不存在时，创建
-//            if(!dir.exists()){
-//                dir.mkdirs();
-//            }
-            //写入到服务器中
-//            part.write(dir+File.separator+iname);
-
-//            b.setBookCover(dir.toString());
-//            //创建img对象
-//            Img i = new Img();
-//            //model.getDate是商品表的gid
-//            i.setGid((int)model.getData());
-//            i.setImg((int)model.getData()+File.separator+iname);
-//
-//            //将数据传送到service中
-//            model = service.insertimg(i);
-
-//            if(model.getCode() == 1){
-//                //发布成功
-//                request.setAttribute("msg", model.getMessage());
-//                return "redirect:goods?method=findGoodsAll";
-//            }else{
-//                //注册失败，请求转发
-//                return "main.jsp";
-//            }
-
             if(!bookCover.isEmpty()){
                 //封面不为空
 //                String iname=UUID.randomUUID()+bookCover.getOriginalFilename();
@@ -439,6 +397,12 @@ public class BookController {
         response.sendRedirect("../../bookComment.jsp");
     }
 
+    /**
+     * 根据图书id查询该书的评论
+     * @param bookId
+     * @param pn
+     * @return
+     */
     @GetMapping("/comments")
     @ResponseBody
     public RestMsg<Object> selectCommentAll(String bookId,@RequestParam(required = false,defaultValue = "1",value = "pn")Integer pn){
@@ -456,7 +420,7 @@ public class BookController {
     }
 
     /**
-     * 图书借阅
+     * 图书借阅，根据图书id和读者id
      * @param bookId
      * @param readerId
      * @return
@@ -478,38 +442,51 @@ public class BookController {
             //根据图书id获取书刊号，再将书刊信息表(book_periodicals)里可借图书数量减1
             int n = bookService.updataByNumber(id);
             System.out.println("图书减1：");
-            //将减借书记录存放到以借书目表中(book_reader_record)
-            int m = bookService.addBookRecord(id,rid);
+            //将减借书记录存放到以借书目表中(book_reader_record)并返回id
+            int brrId = bookService.addBookRecord(id,rid);
             System.out.println("成功");
-            if(m>=1){
-                //查询借图书的书名
-                Book book = bookService.selectByPrimaryKey(id);
-                String bookName = book.getBookName();
-                //查询用户邮箱，用于发邮件
-                Reader reader = readerService.getReaderById(rid);
-                String email = reader.getReaderEmail();
-//              调用定时任务
-                timer(bookName,email);
-                return rm.successMsg("借书成功，免费借书时间为一个月，请按时归还！");
-            }else{
-                return rm.errorMsg("借书失败！");
-            }
+            //查询借图书的书名
+            Book book = bookService.selectByPrimaryKey(id);
+            String bookName = book.getBookName();
+            //查询用户邮箱，用于发邮件
+            Reader reader = readerService.getReaderById(rid);
+            String email = reader.getReaderEmail();
+            MailUtil.sendEmail(bookName,30,email);
+            return rm.successMsg("借书成功，免费借书时间为一个月，请按时归还！");
         }else{
             return rm.errorMsg("该图书以借完");
         }
     }
 
 
-    public void timer(String bookName,String emailAddress) {
+    /**
+     * 定时任务，查询数据库借书时间，借书25天未还书则提醒,超出时间则提醒应缴纳费用
+     * 被@PostConstruct修饰的方法会在服务器加载Servlet的时候运行，并且只会被服务器调用一次
+     */
+    @PostConstruct
+    public void timer() {
         //线程池中初始化只放了2个线程去执行任务
         ScheduledThreadPoolExecutor scheduled = new ScheduledThreadPoolExecutor(2);
         scheduled.scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {
-                System.out.println("发送消息");
-                MailUtil.sendEmail(bookName,30,emailAddress);
+                Date d = new Date();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                List<BookResidueTimeModel> list = bookService.selectResidueTime(sdf.format(d));
+                for(BookResidueTimeModel list1:list) {
+                    int time = list1.getBookResidueTime();
+                    String bookName = list1.getBookName();
+                    String email = list1.getReaderEmail();
+                    if(time>=25&&time<=26){
+                        MailUtil.sendEmail(bookName,5,email);
+                    }else if(time>=28&&time<=29){
+                        MailUtil.sendEmail(bookName,1,email);
+                    }else if(time>=30){
+                        MailUtil.sendEmailOut(bookName,time-30,email);
+                    }
+                }
             }
-        }, 1, 10000, TimeUnit.SECONDS);
+        }, 5, 100000, TimeUnit.SECONDS);
         //initialDelay表示首次执行任务的延迟时间，period表示每次执行任务的间隔时间，TimeUnit.DAYS执行的时间间隔数值单位
     }
 

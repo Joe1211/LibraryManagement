@@ -12,6 +12,10 @@
         <param-value>classpath:config/log4j2.xml</param-value>
     </context-param>
 
+    <!--<listener>-->
+        <!--<listener-class>com.wonders.shixi.util.TimerListener</listener-class>-->
+    <!--</listener>-->
+
     <!-- log4j2-begin -->
 
     <!--<listener>-->

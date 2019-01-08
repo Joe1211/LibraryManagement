@@ -52,6 +52,17 @@
     <result column="reader_phone" jdbcType="VARCHAR" property="readerPhone" />
     <result column="reader_id" jdbcType="INTEGER" property="readerId" />
   </resultMap>
+  <resultMap id="BaseResultMap4" type="com.wonders.shixi.pojo.BookResidueTimeModel">
+    <id column="book_reader_record_id" jdbcType="INTEGER" property="bookReaderRecordId" />
+    <result column="reader_id" jdbcType="INTEGER" property="readerId" />
+    <result column="book_id" jdbcType="INTEGER" property="bookId" />
+    <result column="book_reader_record_state" jdbcType="INTEGER" property="bookReaderRecordState" />
+    <result column="book_record_time" jdbcType="TIMESTAMP" property="bookRecordTime" />
+    <result column="residuetime" jdbcType="INTEGER" property="bookResidueTime" />
+    <result column="reader_email" jdbcType="VARCHAR" property="readerEmail" />
+    <result column="book_name" jdbcType="VARCHAR" property="bookName" />
+  </resultMap>
+
   <sql id="Base_Column_List">
     book_id, book_name, book_periodicals, book_callnum, book_writer, book_press, book_cover, 
     book_info, book_time, book_updata, type_two_value, book_state, library_id
@@ -278,6 +289,7 @@ where book_id = #{bookId,jdbcType=INTEGER}
       )
   </update>
   <!--添加借阅记录-->
+
   <insert id="addBookRecord" parameterType="java.lang.Integer">
     insert into book_reader_record(book_id,reader_id) values (#{bookId},#{readerId})
   </insert>
@@ -326,6 +338,15 @@ where book_id = #{bookId,jdbcType=INTEGER}
       b.book_id = brr.book_id
       and brr.reader_id = r.reader_id
       and brr.book_reader_record_state=0
+  </select>
+  
+  <!--查询未还图书所剩免费借阅时间-->
+  <select id="selectResidueTime" parameterType="java.lang.String" resultMap="BaseResultMap4">
+    SELECT TIMESTAMPDIFF(hour,brr.book_record_time,#{currentTime}) as residuetime,
+        brr.book_reader_record_id,brr.reader_id,brr.book_id,brr.book_reader_record_state,brr.book_record_time,
+        r.reader_email,b.book_name
+        FROM book_reader_record brr,reader r,book b
+        where brr.book_reader_record_state = 0 and brr.reader_id = r.reader_id and brr.book_id = b.book_id
   </select>
   <!--根据借阅记录表id查图书id-->
   <select id="selectByBid" parameterType="java.lang.Integer" resultType="Integer">

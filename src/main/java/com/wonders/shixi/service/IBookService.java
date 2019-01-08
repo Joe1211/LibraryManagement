@@ -6,8 +6,10 @@ package com.wonders.shixi.service;
 import com.wonders.shixi.pojo.Book;
 import com.wonders.shixi.pojo.BookBorrowModel;
 import com.wonders.shixi.pojo.BookRecordModel;
+import com.wonders.shixi.pojo.BookResidueTimeModel;
 import com.wonders.shixi.util.RestMsg;
 
+import java.util.Date;
 import java.util.List;
 /**
  * @ClassName 图书查询控制器
@@ -31,6 +33,12 @@ public interface IBookService {
 
     int updataByNumber(int bookId);
 
+    /**
+     * 将借阅记录添加到数据库表中
+     * @param bookId
+     * @param readerId
+     * @return
+     */
     int addBookRecord(int bookId,int readerId);
 
     /**
@@ -77,4 +85,11 @@ public interface IBookService {
      * @return 返回base64字符串
      */
     String findBookCoverById(int id);
+
+    /**
+     * 查询未还图书剩余免费借阅时间
+     * @param currentTime
+     * @return
+     */
+    List<BookResidueTimeModel> selectResidueTime(String currentTime);
 }

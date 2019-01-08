@@ -40,12 +40,12 @@
                 <ul>
                     <!-- 欢迎语 -->
                     <li class="am-text-sm tpl-header-navbar-welcome">
-                        <a href="javascript:;">欢迎你, <span>xxx</span> </a>
+                        <a href="javascript:;">欢迎你, <span>${reader.readerName}</span> </a>
                     </li>
 
                     <!-- 退出 -->
                     <li class="am-text-sm">
-                        <a href="javascript:;">
+                        <a href="api/readermanagement/outReader">
                             <span class="am-icon-sign-out"></span> 退出
                         </a>
                     </li>

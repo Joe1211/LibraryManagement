@@ -6,6 +6,8 @@
 <head>
     <meta charset="utf-8" />
     <title>搜索结果</title>
+    <link rel="icon" type="image/png" href="img/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="img/app-icon72x72@2x.png">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css" />
     <link rel="stylesheet" type="text/css" href="css/custom.css" />
@@ -252,7 +254,7 @@
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="../../login.jsp" id="outReader">注销账户</a>
+                                <a href="api/readermanagement/outReader" id="outReader">注销账户</a>
                             </li>
                         </ul>
                     </div>

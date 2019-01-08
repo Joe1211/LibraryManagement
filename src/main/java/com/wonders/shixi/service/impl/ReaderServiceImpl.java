@@ -115,87 +115,111 @@ public class ReaderServiceImpl implements ReaderService {
     public boolean creatReader(Reader reader) {
 
 
-
-
-             return  readerMapper.insert(reader) > 0;
+        return readerMapper.insert(reader) > 0;
     }
 
     /**
-     *根据条件查询符合条件的Reader集合
+     * 根据条件查询符合条件的Reader集合
+     *
      * @return
      */
     @Override
-    public List<Reader> selectReadersByCondition(ReaderCondition readerCondition ){
+    public List<Reader> selectReadersByCondition(ReaderCondition readerCondition) {
         ReaderExample readerExample = new ReaderExample();
-        ReaderExample.Criteria criteria=null;
+        ReaderExample.Criteria criteria = null;
         //判断查询条件是否拥有，并构建查询sql
-        if(readerCondition!=null){
+        if (readerCondition != null) {
             criteria = readerExample.createCriteria();
-            String name =readerCondition.getReaderName().trim();
-            String email= readerCondition.getReaderEmail().trim();
+            String name = readerCondition.getReaderName().trim();
+            String email = readerCondition.getReaderEmail().trim();
             String phone = readerCondition.getReaderPhone().trim();
             Integer state = readerCondition.getReaderState();
-            Double minBalance =readerCondition.getMinReaderBalance();
+            Double minBalance = readerCondition.getMinReaderBalance();
             Double maxBalance = readerCondition.getMaxReaderBalance();
-            Integer blackList =readerCondition.getReaderBlacklist();
-            if(name !=null&&!name.isEmpty()){
+            Integer blackList = readerCondition.getReaderBlacklist();
+            if (name != null && !name.isEmpty()) {
                 criteria.andReaderNameLike(name);
             }
-            if(email!=null&&!email.isEmpty()){
+            if (email != null && !email.isEmpty()) {
                 criteria.andReaderEmailLike(email);
             }
-            if(phone!=null&&!phone.isEmpty()){
+            if (phone != null && !phone.isEmpty()) {
                 criteria.andReaderPhoneLike(phone);
             }
-            if(state!=null){
+            if (state != null) {
                 criteria.andReaderStateEqualTo(state);
             }
-            if(minBalance!=null){
+            if (minBalance != null) {
                 criteria.andReaderBalanceGreaterThanOrEqualTo(minBalance);
             }
-            if(maxBalance!=null){
+            if (maxBalance != null) {
                 criteria.andReaderBalanceLessThanOrEqualTo(maxBalance);
             }
         }
         //查询
-       List<Reader> readers= readerMapper.selectByExample(readerExample);
+        List<Reader> readers = readerMapper.selectByExample(readerExample);
 
         return readers;
 
     }
 
     /**
-     * 用户登陆
-     * @param phone
-     * @param password
-     * @return
+     * 读者登陆
+     *
+     * @param phone    手机号
+     * @param password 密码
+     * @return RestMsg<Object>
      */
     @Override
-    public RestMsg<Object> login(String phone, String password) {
-        Reader reader = readerMapper.login(phone);
+    public RestMsg<Object> readerLogin(String phone, String password) {
+        Reader reader = readerMapper.readerLogin(phone);
         RestMsg<Object> rm = new RestMsg<>();
-        if ((reader.getReaderPassword()).equals(password)){
+        System.out.println("reader:test1");
+        if (reader != null && password.equals(reader.getReaderPassword())) {
+            System.out.println("reader:test2");
             rm.setResult(reader);
             return rm.successMsg("登陆成功");
         }
-        return rm.errorMsg("登陆失败");
+        System.out.println("reader:test3");
+        return rm.errorMsg("登陆失败,你不是读者");
     }
+
+    /**
+     * 管理员登录
+     *
+     * @param phone    手机号
+     * @param password 密码
+     * @return RestMsg<Object>
+     */
     @Override
-    public List<Reader>selectReaderByReaderId(int readerId){
-        List<Reader>list=readerMapper.selectByPrimaryKey(readerId);
+    public RestMsg<Object> adminLogin(String phone, String password) {
+        Reader reader = readerMapper.adminLogin(phone);
+        RestMsg<Object> rm = new RestMsg<>();
+        if (reader != null && password.equals(reader.getReaderPassword())) {
+            rm.setResult(reader);
+            return rm.successMsg("登陆成功");
+        }
+        return rm.errorMsg("登陆失败,你不是管理员");
+    }
+
+
+    @Override
+    public List<Reader> selectReaderByReaderId(int readerId) {
+        List<Reader> list = readerMapper.selectByPrimaryKey(readerId);
         return list;
     }
 
     /**
      * 修改密码
+     *
      * @param phone
      * @param password
      * @return
      */
     @Override
     public boolean updataByPassword(String phone, String password) {
-        int i = readerMapper.updateBypassword(phone,password);
-        if(i != 0){
+        int i = readerMapper.updateBypassword(phone, password);
+        if (i != 0) {
             return true;
         }
         return false;

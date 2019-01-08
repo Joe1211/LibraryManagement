@@ -11,6 +11,7 @@
     <result column="reader_state" jdbcType="INTEGER" property="readerState" />
     <result column="reader_balance" jdbcType="DOUBLE" property="readerBalance" />
     <result column="reader_password" jdbcType="VARCHAR" property="readerPassword" />
+    <result column="reader_role" jdbcType="INTEGER" property="role" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -72,7 +73,7 @@
   </sql>
   <sql id="Base_Column_List">
     reader_id, reader_name, reader_phone, reader_email, reader_blacklist, reader_update, 
-    reader_state, reader_balance, reader_password
+    reader_state, reader_balance, reader_password ,reader_role
   </sql>
   <select id="selectByExample" parameterType="com.wonders.shixi.pojo.ReaderExample" resultMap="BaseResultMap">
     select
@@ -283,11 +284,17 @@
       reader_password = #{readerPassword,jdbcType=VARCHAR}
     where reader_id = #{readerId,jdbcType=INTEGER}
   </update>
-  <select id="login" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="readerLogin" parameterType="java.lang.String" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from reader
-    where reader_phone = #{readerPhone,jdbcType=VARCHAR}
+    where reader_phone = #{readerPhone,jdbcType=VARCHAR} and  (reader_role=0 or reader_role=2)
+  </select>
+  <select id="adminLogin" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from reader
+    where reader_phone = #{readerPhone,jdbcType=VARCHAR} and  (reader_role=1 or reader_role=2)
   </select>
 
   <update id="updateBypassword" parameterType="java.lang.String">

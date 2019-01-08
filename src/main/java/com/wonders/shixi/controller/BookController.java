@@ -410,11 +410,40 @@ public class BookController {
         int bookId=Integer.parseInt(id);
         Book book=bookService.selectByPrimaryKey(bookId);
         request.getSession().setAttribute("msg",book);
-        List<Model> list=bookCommentService.selectAllById(bookId);
-        request.getSession().setAttribute("comm",list);
         response.sendRedirect("../../bookdetail.jsp");
     }
 
+    /**
+     * 根据书id查询
+     * 查询一本书的详细内容并可评论
+     * @param
+     * @return
+     */
+    @RequestMapping("/selectComment")
+    @ResponseBody
+    public void selcetByComment(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String id=request.getParameter("bookId");
+        int bookId=Integer.parseInt(id);
+        Book book=bookService.selectByPrimaryKey(bookId);
+        request.getSession().setAttribute("msg",book);
+        response.sendRedirect("../../bookComment.jsp");
+    }
+
+    @GetMapping("/comments")
+    @ResponseBody
+    public RestMsg<Object> selectCommentAll(String bookId,@RequestParam(required = false,defaultValue = "1",value = "pn")Integer pn){
+        RestMsg<Object> rm = new RestMsg<>();
+        //在查询之前传入当前页，然后多少记录
+        PageHelper.startPage(pn,5);
+        //startPage后紧跟的这个查询就是分页查询
+        List<Model> list=bookCommentService.selectAllById(Integer.parseInt(bookId));
+        //使用PageInfo包装查询结果，只需要将pageInfo交给页面就可以
+        PageInfo pageInfo = new PageInfo<>(list,5);
+        //pageINfo封装了分页的详细信息，也可以指定连续显示的页数
+        rm.setResult(pageInfo);
+        return rm.successMsg();
+
+    }
 
     /**
      * 图书借阅
@@ -541,5 +570,4 @@ public class BookController {
             return rm.errorMsg("没有待还的图书");
         }
     }
-
 }

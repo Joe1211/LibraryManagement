@@ -21,6 +21,20 @@ public class Reader {
 
     private String readerPassword;
 
+    /**
+     * 角色
+     * 0：读者，1：管理员，2：既是读者又是管理员
+     */
+    private Integer role;
+
+    public Integer getRole() {
+        return role;
+    }
+
+    public void setRole(Integer role) {
+        this.role = role;
+    }
+
     public Integer getReaderId() {
         return readerId;
     }

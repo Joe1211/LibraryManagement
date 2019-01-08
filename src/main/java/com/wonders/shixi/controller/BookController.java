@@ -9,7 +9,7 @@ import com.wonders.shixi.pojo.Model;
 import com.wonders.shixi.pojo.Reader;
 import com.wonders.shixi.service.ReaderService;
 import com.wonders.shixi.service.impl.BookCommentServiceImpl;
-import com.wonders.shixi.util.Base64Utils;
+import com.wonders.shixi.util.Base64Util;
 import com.wonders.shixi.util.IC;
 import com.wonders.shixi.util.MailUtil;
 import com.wonders.shixi.util.RestMsg;
@@ -17,21 +17,13 @@ import com.wonders.shixi.service.IBookService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 import java.io.*;
 import java.util.List;
 import java.text.SimpleDateFormat;
@@ -39,8 +31,6 @@ import java.util.*;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
-
-import static com.wonders.shixi.util.MailUtil.*;
 
 /**
  * @ClassName 图书查询控制器
@@ -239,7 +229,7 @@ public class BookController {
 //                    FileUtils.copyInputStreamToFile(bookCover.getInputStream(),file);
 //                    b.setBookCover(file.getPath());
                     //转化为base64编码
-                    String base64Str=Base64Utils.encode(bookCover.getInputStream());
+                    String base64Str= Base64Util.encode(bookCover.getInputStream());
                     b.setBookCover(base64Str);
                 } catch (IOException e) {
                     Logger.getLogger("获取文件流失败");

@@ -31,7 +31,9 @@ public interface ReaderMapper {
 
     int updateByPrimaryKey(Reader record);
 
-    Reader login(String readerPhone);
+    Reader readerLogin(String readerPhone);
+
+    Reader adminLogin(String adminPhone);
 
     int updateBypassword(@Param("readerPhone")String readerPhone,@Param("readerPassword")String readerPassword);
 }

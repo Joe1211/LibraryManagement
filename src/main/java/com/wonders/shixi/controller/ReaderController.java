@@ -18,8 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -44,11 +42,11 @@ public class ReaderController {
      * 通过id获取读者信息
      *
      * @param id 读者id
-     * @return
+     * @return ReaderModel
      */
     @ApiOperation(value = "通过id获取读者信息", httpMethod = "GET")
     @ApiImplicitParams({
-            @ApiImplicitParam(name="id",value="用户id",required=true,dataType="String",paramType = "query")
+            @ApiImplicitParam(name = "id", value = "用户id", required = true, dataType = "String", paramType = "query")
     })
     @RequestMapping(value = "/getReaderById.do", method = RequestMethod.GET)
     @ResponseBody
@@ -64,11 +62,11 @@ public class ReaderController {
      */
     @ApiOperation(value = "通过id删除读者（改变激活状态）", httpMethod = "GET")
     @ApiImplicitParams({
-            @ApiImplicitParam(name="id",value="用户姓名",required=true,dataType="String",paramType = "query")
+            @ApiImplicitParam(name = "id", value = "用户姓名", required = true, dataType = "String", paramType = "query")
     })
     @RequestMapping(value = "/deleteReaderById.do", method = RequestMethod.GET)
     @ResponseBody
-    public Massage deleteReaderById( int id) {
+    public Massage deleteReaderById(int id) {
         return MassageUtil.boolMassage(readerService.deleteReaderById(id));
     }
 
@@ -128,75 +126,93 @@ public class ReaderController {
             readers = readerService.selectReadersByCondition(readerCondition);
         }
         //日志写入
-        if(readers!=null){
+        if (readers != null) {
             log.info("成功新建读者记录！");
-        }else {
+        } else {
             log.info("失败");
         }
         return readers;
     }
 
     /**
-     * 读者登陆
-     * @param request
-     * @return
+     * 登录
+     *
+     * @param phone 手机号
+     * @param password 密码
+     * @param role 角色
+     * @param session session对象
+     * @return RestMsg<Object>
      */
     @GetMapping("/login")
     @ResponseBody
-    public void login(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String phone = request.getParameter("readerPhone");
-        String password = request.getParameter("readerPassword");
-        RestMsg<Object> rm = readerService.login(phone,password);
-        System.out.println(rm.getCode());
-        if(rm.getCode()==1){
-            request.getSession().setAttribute("reader",rm.getResult());
-            response.sendRedirect(request.getContextPath()+"/index.jsp");
-        }else{
-            response.sendRedirect(request.getContextPath()+"/login.jsp");
+    public RestMsg<Object> login(@RequestParam("readerPhone") String phone, @RequestParam("readerPassword") String password, int role, HttpSession session){
+        RestMsg<Object> rm = null;
+        switch (role) {
+            case 0:
+                //读者登录
+                rm = readerService.readerLogin(phone, password);
+                break;
+            case 1:
+                //管理员登录
+                rm = readerService.adminLogin(phone, password);
+                break;
         }
+//        System.out.println(rm.getCode());
+        if (rm.getCode() == 1) {
+            session.setAttribute("reader", rm.getResult());
+        }
+        return rm;
     }
 
     /**
      * 修改密码
-     * @param request
-     * @return
+     *
+     * @param phone 手机号
+     * @param pwd 旧密码
+     * @param newPwd 新密码
+     * @param session session对象
+     * @return RestMsg<Object>
      */
     @GetMapping("/upPassword")
     @ResponseBody
-    public RestMsg<Object> updataPassword(HttpServletRequest request){
+    public RestMsg<Object> updataPassword(@RequestParam("readerPhone") String phone, @RequestParam("readerPassword") String pwd, @RequestParam("readerPassword1") String newPwd, HttpSession session) {
         RestMsg<Object> rm = new RestMsg<>();
-        String phone = request.getParameter("readerPhone");
-        String pwd = request.getParameter("readerPassword");
-        String newPwd = request.getParameter("readerPassword1");
-        rm = readerService.login(phone,pwd);
+        Reader curUser = (Reader) session.getAttribute("reader");
+        switch (curUser.getRole()) {
+            case 2:
+            case 0:
+                rm = readerService.readerLogin(phone, pwd);
+                break;
+            case 1:
+                rm = readerService.adminLogin(phone, pwd);
+                break;
+        }
 //        原始密码为真
-        if(rm.getCode()==1){
+        if (rm.getCode() == 1) {
 //           修改密码是否成功
-           boolean b = readerService.updataByPassword(phone,newPwd);
-           if(b){
-               return rm.successMsg("修改密码成功，请重新登陆！");
-           }else {
-               return rm.errorMsg("修改密码失败");
-           }
-        }else {
+            boolean b = readerService.updataByPassword(phone, newPwd);
+            if (b) {
+                return rm.successMsg("修改密码成功，请重新登陆！");
+            } else {
+                return rm.errorMsg("修改密码失败");
+            }
+        } else {
             return rm.errorMsg("原始密码错误");
         }
     }
 
     /**
      * 注销登陆并跳回登陆页面
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
+     *
+     * @param session session对象
+     * @param response 响应对象
+     * @throws IOException IO异常
      */
     @GetMapping("/outReader")
-    public void outReader(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        //防止创建Session
-        HttpSession session = request.getSession(false);
-        session.removeAttribute("reader");
+    public void outReader(HttpSession session, HttpServletResponse response)
+            throws IOException {
+        //销毁session
+        session.invalidate();
         response.sendRedirect("../../login.jsp");
-
     }
 }

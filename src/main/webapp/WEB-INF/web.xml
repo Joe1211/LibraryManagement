@@ -64,6 +64,15 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+    <!--登录过滤器-->
+    <filter>
+        <filter-name>loginFilter</filter-name>
+        <filter-class>com.wonders.shixi.filter.LoginFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>loginFilter</filter-name>
+        <url-pattern>*.jsp</url-pattern>
+    </filter-mapping>
 
     <!-- spring mvc配置 -->
     <servlet>
@@ -83,6 +92,6 @@
     </servlet-mapping>
 
     <welcome-file-list>
-        <welcome-file>login.jsp</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 </web-app>

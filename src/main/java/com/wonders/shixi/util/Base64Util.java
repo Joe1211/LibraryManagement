@@ -10,7 +10,7 @@ import java.util.Base64;
  * base64转换工具类
  * @author 邱家锦
  */
-public class Base64Utils {
+public class Base64Util {
     /**
      * 读取流中的数据，转换为base64编码
      * @param input

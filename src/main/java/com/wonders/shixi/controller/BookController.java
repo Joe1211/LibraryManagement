@@ -454,7 +454,7 @@ public class BookController {
      * 被@PostConstruct修饰的方法会在服务器加载Servlet的时候运行，并且只会被服务器调用一次，类似于Servlet的inti()方法。被@PostConstruct修饰的方法会在构造函数之后，init()方法之前运行。
      * 被@PreDestroy修饰的方法会在服务器卸载Servlet的时候运行，并且只会被服务器调用一次，类似于Servlet的destroy()方法。被@PreDestroy修饰的方法会在destroy()方法之后运行，在Servlet被彻底卸载之前。
      */
-//    @PostConstruct
+    //@PostConstruct
     public void timer() {
         //线程池中初始化只放了2个线程去执行任务
         ScheduledThreadPoolExecutor scheduled = new ScheduledThreadPoolExecutor(2);

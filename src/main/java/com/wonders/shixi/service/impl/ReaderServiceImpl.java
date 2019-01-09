@@ -113,8 +113,10 @@ public class ReaderServiceImpl implements ReaderService {
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     @Override
     public boolean creatReader(Reader reader) {
-
-
+        reader.setReaderBalance(0d);
+        reader.setReaderState(0);
+        reader.setReaderBlacklist(0);
+        reader.setRole(0);
         return readerMapper.insert(reader) > 0;
     }
 
@@ -174,13 +176,10 @@ public class ReaderServiceImpl implements ReaderService {
     public RestMsg<Object> readerLogin(String phone, String password) {
         Reader reader = readerMapper.readerLogin(phone);
         RestMsg<Object> rm = new RestMsg<>();
-        System.out.println("reader:test1");
         if (reader != null && password.equals(reader.getReaderPassword())) {
-            System.out.println("reader:test2");
             rm.setResult(reader);
             return rm.successMsg("登陆成功");
         }
-        System.out.println("reader:test3");
         return rm.errorMsg("登陆失败,你不是读者");
     }
 
@@ -207,6 +206,16 @@ public class ReaderServiceImpl implements ReaderService {
     public List<Reader> selectReaderByReaderId(int readerId) {
         List<Reader> list = readerMapper.selectByPrimaryKey(readerId);
         return list;
+    }
+
+    @Override
+    public boolean isPhoneRegistered(String phone) {
+        return readerMapper.getReaderCountWithPhone(phone)>0;
+    }
+
+    @Override
+    public boolean isEmailRegistered(String email) {
+        return readerMapper.getReaderCountWithEmail(email)>0;
     }
 
     /**

@@ -93,6 +93,9 @@
             <mvc:mapping path="/**" />
             <!--    不拦截请求   -->
             <mvc:exclude-mapping path="/api/readermanagement/login" />
+            <mvc:exclude-mapping path="/api/readermanagement/createReader" />
+            <mvc:exclude-mapping path="/api/readermanagement/isPhoneRegistered" />
+            <mvc:exclude-mapping path="/api/readermanagement/isEmailRegistered" />
             <mvc:exclude-mapping path="/logout" />
             <mvc:exclude-mapping path="/loginvalidate"/>
             <mvc:exclude-mapping path="/captcha"/>

@@ -26,7 +26,7 @@ public class LoginFilter implements Filter {
         HttpSession session = request.getSession();
         Reader user = (Reader) session.getAttribute("reader");
         String uri = request.getRequestURI().toString();
-        if(uri.equals("/login.jsp")){
+        if(uri.equals("/login.jsp")||uri.equals("/register.jsp")){
             filterChain.doFilter(servletRequest, servletResponse);
             return;
         }
@@ -38,19 +38,15 @@ public class LoginFilter implements Filter {
         boolean isRedirect=false;
         switch (user.getRole()) {
             case 2:
-                if (uri.equals("/login.jsp")) {
-                    response.sendRedirect(request.getContextPath() + "/admin.jsp");
-                    isRedirect=true;
-                }
                 break;
             case 1:
-                if (uri.equals("/login.jsp") || uri.equals("/index.jsp") ||uri.equals(request.getContextPath()+"/")) {
+                if (uri.equals("/index.jsp") ||uri.equals(request.getContextPath()+"/")) {
                     response.sendRedirect(request.getContextPath() + "/admin.jsp");
                     isRedirect=true;
                 }
                 break;
             case 0:
-                if (uri.equals("/login.jsp") || uri.equals("/admin.jsp")) {
+                if (uri.equals("/admin.jsp")) {
                     response.sendRedirect(request.getContextPath() + "/index.jsp");
                     isRedirect=true;
                 }

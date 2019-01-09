@@ -36,4 +36,8 @@ public interface ReaderMapper {
     Reader adminLogin(String adminPhone);
 
     int updateBypassword(@Param("readerPhone")String readerPhone,@Param("readerPassword")String readerPassword);
+
+    int getReaderCountWithPhone(String phone);
+
+    int getReaderCountWithEmail(String email);
 }

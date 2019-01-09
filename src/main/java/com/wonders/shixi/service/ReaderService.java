@@ -58,21 +58,35 @@ public interface ReaderService {
 
     /**
      * 读者登录
-     * @param phone
-     * @param password
-     * @return
+     * @param phone 手机号
+     * @param password 密码
+     * @return RestMsg<Object>
      */
     RestMsg<Object> readerLogin(String phone, String password);
 
     /**
      * 管理员登录
-     * @param phone
-     * @param password
-     * @return
+     * @param phone 手机号
+     * @param password 密码
+     * @return RestMsg<Object>
      */
     RestMsg<Object> adminLogin(String phone,String password);
 
     boolean updataByPassword(String phone, String password);
 
     List<Reader> selectReaderByReaderId(int readerId);
+
+    /**
+     *手机号是否已注册
+     * @param phone 手机号
+     * @return 是否已注册
+     */
+    boolean isPhoneRegistered(String phone);
+
+    /**
+     * 邮箱是否已注册
+     * @param email 邮箱
+     * @return 是否已注册
+     */
+    boolean isEmailRegistered(String email);
 }

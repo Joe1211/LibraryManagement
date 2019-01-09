@@ -78,7 +78,7 @@
                    onclick="login()" value="登 录"/>
         </form>
         <div class="form-group text-right">
-            <span>还没有账号？立即<a href="#">注册</a></span>
+            <span>还没有账号？立即<a href="register.jsp">注册</a></span>
         </div>
     </div>
 </div>

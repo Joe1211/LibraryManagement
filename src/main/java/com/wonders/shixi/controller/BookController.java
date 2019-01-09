@@ -15,21 +15,20 @@ import com.wonders.shixi.service.IBookService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.quartz.*;
+import org.quartz.impl.StdSchedulerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.annotation.PostConstruct;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.List;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 /**
@@ -454,30 +453,42 @@ public class BookController {
      * 被@PostConstruct修饰的方法会在服务器加载Servlet的时候运行，并且只会被服务器调用一次，类似于Servlet的inti()方法。被@PostConstruct修饰的方法会在构造函数之后，init()方法之前运行。
      * 被@PreDestroy修饰的方法会在服务器卸载Servlet的时候运行，并且只会被服务器调用一次，类似于Servlet的destroy()方法。被@PreDestroy修饰的方法会在destroy()方法之后运行，在Servlet被彻底卸载之前。
      */
-//    @PostConstruct
-    public void timer() {
-        //线程池中初始化只放了2个线程去执行任务
-        ScheduledThreadPoolExecutor scheduled = new ScheduledThreadPoolExecutor(2);
-        scheduled.scheduleAtFixedRate(new Runnable() {
-            @Override
-            public void run() {
-                Date d = new Date();
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                List<BookResidueTimeModel> list = bookService.selectResidueTime(sdf.format(d));
-                for(BookResidueTimeModel list1:list) {
-                    int time = list1.getBookResidueTime();
-                    String bookName = list1.getBookName();
-                    String email = list1.getReaderEmail();
-                    if(time>=25&&time<=26){
-                        MailUtil.sendEmail(bookName,5,email);
-                    }else if(time>=28&&time<=29){
-                        MailUtil.sendEmail(bookName,1,email);
-                    }else if(time>=30){
-                        MailUtil.sendEmailOut(bookName,time-30,email);
-                    }
-                }
-            }
-        }, 5, 100000, TimeUnit.SECONDS);
+    @PostConstruct
+    public void timer() throws SchedulerException {
+        //创建一个jobDetail的实例，将该实例与EmailJob Class绑定
+        JobDetail jobDetail = JobBuilder.newJob(EmailJob.class).withIdentity("cronJob").build();
+        //创建一个Trigger触发器的实例，定义该job每天中午12执行
+        CronTrigger cronTrigger = TriggerBuilder.newTrigger()
+                .withIdentity("cronTrigger")
+                .withSchedule(CronScheduleBuilder.cronSchedule("0 0 12 * * ?"))
+                .build();
+        //创建Scheduler实例
+        StdSchedulerFactory stdSchedulerFactory = new StdSchedulerFactory();
+        Scheduler scheduler = stdSchedulerFactory.getScheduler();
+        scheduler.start();
+        scheduler.scheduleJob(jobDetail,cronTrigger);
+//        //线程池中初始化只放了2个线程去执行任务
+//        ScheduledThreadPoolExecutor scheduled = new ScheduledThreadPoolExecutor(2);
+//        scheduled.scheduleAtFixedRate(new Runnable() {
+//            @Override
+//            public void run() {
+//                Date d = new Date();
+//                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//                List<BookResidueTimeModel> list = bookService.selectResidueTime(sdf.format(d));
+//                for(BookResidueTimeModel list1:list) {
+//                    int time = list1.getBookResidueTime();
+//                    String bookName = list1.getBookName();
+//                    String email = list1.getReaderEmail();
+//                    if(time>=25&&time<=26){
+//                        MailUtil.sendEmail(bookName,5,email);
+//                    }else if(time>=28&&time<=29){
+//                        MailUtil.sendEmail(bookName,1,email);
+//                    }else if(time>=30){
+//                        MailUtil.sendEmailOut(bookName,time-30,email);
+//                    }
+//                }
+//            }
+//        }, 5, 100000, TimeUnit.SECONDS);
         //initialDelay表示首次执行任务的延迟时间，period表示每次执行任务的间隔时间，TimeUnit.DAYS执行的时间间隔数值单位
     }
 

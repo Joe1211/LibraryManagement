@@ -109,11 +109,12 @@ public class ReaderController {
      * @return Massage  操作返回的结果
      */
     @ApiOperation(value = "新建读者对象", httpMethod = "POST")
-    @RequestMapping(value = "/creatReader.do", method = RequestMethod.POST)
-    public @ResponseBody
-    Massage creatReader(@RequestBody Reader reader) {
-
-        return MassageUtil.boolMassage(readerService.creatReader(reader));
+    @RequestMapping(value = "createReader", method = RequestMethod.POST)
+    @ResponseBody
+    public RestMsg<Reader> createReader(Reader reader) {
+        System.out.println(reader);
+        RestMsg<Reader> msg=new RestMsg<Reader>();
+        return readerService.creatReader(reader)?msg.successMsg("注册成功,跳转到登录界面"):msg.successMsg("注册失败，请检查注册信息");
     }
 
 
@@ -199,6 +200,34 @@ public class ReaderController {
         } else {
             return rm.errorMsg("原始密码错误");
         }
+    }
+
+    /**
+     * 手机号是否已注册
+     * @param phone 手机号
+     * @return 是否已注册
+     */
+    @ApiOperation(value="isPhoneRegistered",httpMethod = "GET")
+    @ApiImplicitParams({@ApiImplicitParam(name = "phone", value = "手机号", required = true, dataType = "String", paramType = "query")})
+    @GetMapping("isPhoneRegistered")
+    @ResponseBody
+    public boolean isPhoneRegistered(@RequestParam("readerPhone") String phone){
+        return readerService.isPhoneRegistered(phone);
+    }
+
+    /**
+     * 邮箱是否已注册
+     * @param email 手机号
+     * @return 是否已注册
+     */
+    @ApiOperation(value="isEmailRegistered",httpMethod = "GET")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "email", value = "邮箱", required = true, dataType = "String", paramType = "query")
+    })
+    @GetMapping("isEmailRegistered")
+    @ResponseBody
+    public boolean isEmailRegistered(@RequestParam("readerEmail") String email){
+        return readerService.isEmailRegistered(email);
     }
 
     /**

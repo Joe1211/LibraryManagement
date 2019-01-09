@@ -449,6 +449,7 @@ public class BookController {
 
 
     /**
+     * Quartz
      * 定时任务，查询数据库借书时间，借书25天未还书则提醒,超出时间则提醒应缴纳费用
      * 被@PostConstruct修饰的方法会在服务器加载Servlet的时候运行，并且只会被服务器调用一次，类似于Servlet的inti()方法。被@PostConstruct修饰的方法会在构造函数之后，init()方法之前运行。
      * 被@PreDestroy修饰的方法会在服务器卸载Servlet的时候运行，并且只会被服务器调用一次，类似于Servlet的destroy()方法。被@PreDestroy修饰的方法会在destroy()方法之后运行，在Servlet被彻底卸载之前。
@@ -467,29 +468,6 @@ public class BookController {
         Scheduler scheduler = stdSchedulerFactory.getScheduler();
         scheduler.start();
         scheduler.scheduleJob(jobDetail,cronTrigger);
-//        //线程池中初始化只放了2个线程去执行任务
-//        ScheduledThreadPoolExecutor scheduled = new ScheduledThreadPoolExecutor(2);
-//        scheduled.scheduleAtFixedRate(new Runnable() {
-//            @Override
-//            public void run() {
-//                Date d = new Date();
-//                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//                List<BookResidueTimeModel> list = bookService.selectResidueTime(sdf.format(d));
-//                for(BookResidueTimeModel list1:list) {
-//                    int time = list1.getBookResidueTime();
-//                    String bookName = list1.getBookName();
-//                    String email = list1.getReaderEmail();
-//                    if(time>=25&&time<=26){
-//                        MailUtil.sendEmail(bookName,5,email);
-//                    }else if(time>=28&&time<=29){
-//                        MailUtil.sendEmail(bookName,1,email);
-//                    }else if(time>=30){
-//                        MailUtil.sendEmailOut(bookName,time-30,email);
-//                    }
-//                }
-//            }
-//        }, 5, 100000, TimeUnit.SECONDS);
-        //initialDelay表示首次执行任务的延迟时间，period表示每次执行任务的间隔时间，TimeUnit.DAYS执行的时间间隔数值单位
     }
 
     /**
@@ -546,7 +524,7 @@ public class BookController {
         RestMsg<Object> rm = new RestMsg<>();
         //引入分页查询，使用PageHelper分页功能
         //在查询之前传入当前页，然后多少记录
-        PageHelper.startPage(pn,5);
+        PageHelper.startPage(pn,10);
         //startPage后紧跟的这个查询就是分页查询
         List<BookBorrowModel> list = bookService.selectByBorrowAll();
         //使用PageInfo包装查询结果，只需要将pageInfo交给页面就可以

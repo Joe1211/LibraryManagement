@@ -22,7 +22,8 @@ import java.util.Date;
 import java.util.List;
 
 /**
- *@ClassName HelloJob
+ * Quartz job
+ *@ClassName EmailJob
  *@Author 乔翰林
  *@Date 2019/1/9
  **/

@@ -92,4 +92,10 @@ public interface IBookService {
      * @return
      */
     List<BookResidueTimeModel> selectResidueTime(String currentTime);
+
+    /**
+     * 首页每日推荐8本图书
+     * @return
+     */
+    RestMsg<Object> randomBook();
 }

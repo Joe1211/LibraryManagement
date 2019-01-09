@@ -186,5 +186,19 @@ public class BookServiceImpl implements IBookService {
         return bookMapper.selectResidueTime(currentTime);
     }
 
-
+    /**
+     * 首页每日推荐8本图书
+     * @return
+     */
+    @Override
+    public RestMsg<Object> randomBook(){
+        RestMsg<Object> rm =new RestMsg<>();
+        List<Book> list = bookMapper.randomBook();
+        if (list.size()!=0){
+            rm.setResult(list);
+            return rm.successMsg("查询成功");
+        }else {
+            return rm.errorMsg("服务器错误");
+        }
+    }
 }

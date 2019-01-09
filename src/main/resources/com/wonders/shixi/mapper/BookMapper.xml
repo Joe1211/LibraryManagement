@@ -357,4 +357,9 @@ where book_id = #{bookId,jdbcType=INTEGER}
   <select id="selectBookCoverById" parameterType="int" resultType="String">
     select book_cover from book where book_id=#{id}
   </select>
+
+  <!--首页每日推荐8本图书-->
+  <select id="randomBook" resultMap="BaseResultMap">
+    SELECT * FROM book  ORDER BY  RAND() LIMIT 8
+  </select>
 </mapper>

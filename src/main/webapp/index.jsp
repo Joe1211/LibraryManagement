@@ -113,6 +113,14 @@
             background-color:#3399CC;
             font-size: 15px;
         }
+        .info{
+            height:198px;
+            overflow : hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+        }
     </style>
 </head>
 
@@ -351,73 +359,11 @@
     </div>
 
 
-    <h3 class="biaoti">---每周推荐---</h3>
-    <div class="col-md-4 tuijian">
-        <div class="col-md-5">
-            <img src="img/ShlibEpub_1500949411.jpg" class="tupian2"/>
-        </div>
-        <div class="col-md-7">
-            <h3>图书名</h3>
-            <p>作者</p>
-            <p>出版社</p>
-            <p>图书简介</p>
-        </div>
+    <h3 class="biaoti">---每日推荐---</h3>
+    <div id="bod">
+
     </div>
-    <div class="col-md-4 tuijian">
-        <div class="col-md-5">
-            <img src="img/ShlibEpub_1500949411.jpg" class="tupian2"/>
-        </div>
-        <div class="col-md-7">
-            <h3>图书名</h3>
-            <p>作者</p>
-            <p>出版社</p>
-            <p>图书简介</p>
-        </div>
-    </div>
-    <div class="col-md-4 tuijian">
-        <div class="col-md-5">
-            <img src="img/ShlibEpub_1500949411.jpg" class="tupian2"/>
-        </div>
-        <div class="col-md-7">
-            <h3>图书名</h3>
-            <p>作者</p>
-            <p>出版社</p>
-            <p>图书简介</p>
-        </div>
-    </div>
-    <div class="col-md-4 tuijian">
-        <div class="col-md-5">
-            <img src="img/ShlibEpub_1500949411.jpg" class="tupian2"/>
-        </div>
-        <div class="col-md-7">
-            <h3>图书名</h3>
-            <p>作者</p>
-            <p>出版社</p>
-            <p>图书简介</p>
-        </div>
-    </div>
-    <div class="col-md-4 tuijian">
-        <div class="col-md-5">
-            <img src="img/ShlibEpub_1500949411.jpg" class="tupian2"/>
-        </div>
-        <div class="col-md-7">
-            <h3>图书名</h3>
-            <p>作者</p>
-            <p>出版社</p>
-            <p>图书简介</p>
-        </div>
-    </div>
-    <div class="col-md-4 tuijian">
-        <div class="col-md-5">
-            <img src="img/ShlibEpub_1500949411.jpg" class="tupian2"/>
-        </div>
-        <div class="col-md-7">
-            <h3>图书名</h3>
-            <p>作者</p>
-            <p>出版社</p>
-            <p>图书简介</p>
-        </div>
-    </div>
+
     <div class="col-md-4 col-lg-offset-9">
         <h3>
             <a href="search.jsp"><button class="btn-info">查看更多---></button></a>
@@ -456,6 +402,41 @@
 <script src="js/defaults-zh_CN.min.js"></script>
 <script src="js/search.js"></script>
 <script>
+    window.onload=function(){
+        $.ajax({
+            type:'get',
+            url:'api/books/indexbook',
+            success:function (data) {
+                if(data.code == 1){
+                    var html = '';
+                    $.each(data.result,function (i,item) {
+
+                        html+='<div class="col-md-4 tuijian">';
+                        html+='<div class="col-md-5">';
+                        html+='<a href="javascript:load('+item.bookId+')">';
+                        html+='<img class="tupian2"src="/api/books/findBookCover?id='+item.bookId+'"/>';
+                        html+='</a>'
+                        html+='</div>';
+                        html+='<div class="col-md-7 info">';
+                        html+='<a href="javascript:load('+item.bookId+')">';
+                        html+='<h3>'+item.bookName+'</h3>';
+                        html+='</a>'
+                        html+='<p>'+item.bookWriter+'</p>';
+                        html+='<p>'+item.bookPress+'</p>';
+                        html+='<p>'+item.bookInfo+'</p>';
+                        html+='</div>';
+                        html+='</div>';
+
+                    })
+                   $("#bod").html(html);
+                }
+            }
+        })
+    }
+    //显示图书的详细信息
+    function load(bookId) {
+        location.href="/api/books/selectById?bookId="+bookId;
+    }
     $(document).ready(function() {
         var i = 0;
         var timer;

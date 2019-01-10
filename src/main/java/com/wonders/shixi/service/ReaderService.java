@@ -5,6 +5,7 @@ import com.wonders.shixi.pojo.Admin;
 import com.wonders.shixi.pojo.Reader;
 import com.wonders.shixi.util.RestMsg;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -89,4 +90,6 @@ public interface ReaderService {
      * @return 是否已注册
      */
     boolean isEmailRegistered(String email);
+
+    RestMsg<Object> adminToReader(Reader reader, HttpSession session);
 }

@@ -271,6 +271,9 @@
             <if test="readerPassword != null">
                 reader_password = #{readerPassword,jdbcType=VARCHAR},
             </if>
+            <if test="role != null">
+                reader_role = #{role,jdbcType=INTEGER},
+            </if>
         </set>
         where reader_id = #{readerId,jdbcType=INTEGER}
     </update>

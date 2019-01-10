@@ -4,6 +4,7 @@
   Date: 2018/12/17
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
     <meta charset="utf-8">
@@ -15,11 +16,12 @@
     <meta name="renderer" content="webkit">
     <link rel="icon" type="image/png" href="img/favicon.png">
     <link rel="apple-touch-icon-precomposed" href="img/app-icon72x72@2x.png">
-    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
     <script src="js/echarts.min.js"></script>
-    <link rel="stylesheet" href="css/amazeui.min.css" />
-    <link rel="stylesheet" href="css/amazeui.datatables.min.css" />
+    <link rel="stylesheet" href="css/amazeui.min.css"/>
+    <link rel="stylesheet" href="css/amazeui.datatables.min.css"/>
     <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/admin.css">
     <script src="js/jquery.min.js"></script>
 
 </head>
@@ -38,11 +40,22 @@
             <!-- 其它功能-->
             <div class="am-fr tpl-header-navbar">
                 <ul>
+                    <li class="am-text-sm">
+                        <c:if test="${reader.role==1}">
+                            <div class="reader-div">
+                                <button id="beReader" class="reader-btn am-btn am-btn-secondary am-round">成为读者</button>
+                            </div>
+                        </c:if>
+                        <c:if test="${reader.role==2}">
+                            <div class="reader-div">
+                                <button id="toIndex" class="reader-btn am-btn am-btn-secondary am-round">进入读者首页</button>
+                            </div>
+                        </c:if>
+                    </li>
                     <!-- 欢迎语 -->
                     <li class="am-text-sm tpl-header-navbar-welcome">
                         <a href="javascript:;">欢迎你, <span>${reader.readerName}</span> </a>
                     </li>
-
                     <!-- 退出 -->
                     <li class="am-text-sm">
                         <a href="api/readermanagement/outReader">
@@ -76,8 +89,9 @@
                     <img src="img/user04.png" alt="">
                 </div>
                 <span class="user-panel-logged-in-text">
-	              			<i class="am-icon-circle-o am-text-success tpl-user-panel-status-icon"></i>小张
-	                    </span>
+                    <i class="am-icon-circle-o am-text-success tpl-user-panel-status-icon"></i>
+                    ${reader.readerName}
+                </span>
             </div>
         </div>
 
@@ -86,15 +100,46 @@
 
             <li class="sidebar-nav-link">
                 <a href="javascript:;" class="sidebar-nav-sub-title">
-                    <i class="am-icon-table sidebar-nav-link-logo"></i> 信息统计
+                    <i class="am-icon-table sidebar-nav-link-logo"></i> 图书管理
                     <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
                 </a>
                 <ul class="sidebar-nav sidebar-nav-sub">
                     <li class="sidebar-nav-link">
                         <a href="${pageContext.request.contextPath}/admin/bookListFenYe" target="showiframe">
-                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 图书借阅数量
+                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 图书信息
                         </a>
                     </li>
+                    <li class="sidebar-nav-link">
+                        <a href="admin_book.jsp" target="showiframe">
+                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 图书入库
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+
+
+            <li class="sidebar-nav-link">
+                <a href="javascript:;" class="sidebar-nav-sub-title">
+                    <i class="am-icon-table sidebar-nav-link-logo"></i> 借阅管理
+                    <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
+                </a>
+                <ul class="sidebar-nav sidebar-nav-sub">
+                    <li class="sidebar-nav-link">
+                        <a href="admin_repay.jsp" target="showiframe">
+                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 待还图书
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="sidebar-nav-link">
+                <a href="javascript:;" class="sidebar-nav-sub-title">
+                    <i class="am-icon-table sidebar-nav-link-logo"></i> 信息统计
+                    <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
+                </a>
+                <ul class="sidebar-nav sidebar-nav-sub">
+
 
                     <li class="sidebar-nav-link">
                         <a href="${pageContext.request.contextPath}/management/bookchart.jsp" target="showiframe">
@@ -104,39 +149,6 @@
                 </ul>
             </li>
 
-            <li class="sidebar-nav-link">
-                <a href="javascript:;" class="sidebar-nav-sub-title">
-                    <i class="am-icon-table sidebar-nav-link-logo"></i> 借阅管理
-                    <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
-                </a>
-                <ul class="sidebar-nav sidebar-nav-sub">
-                    <li class="sidebar-nav-link">
-                        <a href="admin_repay.jsp" target="showiframe" >
-                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 待还图书
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
-            <li class="sidebar-nav-link">
-                <a href="javascript:;" class="sidebar-nav-sub-title">
-                    <i class="am-icon-table sidebar-nav-link-logo"></i> 图书管理
-                    <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
-                </a>
-                <ul class="sidebar-nav sidebar-nav-sub">
-                    <li class="sidebar-nav-link">
-                        <a href="admin_book.jsp" target="showiframe">
-                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 图书入库
-                        </a>
-                    </li>
-
-                    <li class="sidebar-nav-link">
-                        <a href="">
-                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 图书出库
-                        </a>
-                    </li>
-                </ul>
-            </li>
 
             <li class="sidebar-nav-link">
                 <a href="javascript:;" class="sidebar-nav-sub-title">
@@ -171,9 +183,9 @@
                     </li>
 
                     <%--<li class="sidebar-nav-link">--%>
-                        <%--<a href="${pageContext.request.contextPath}/book/booklist/information">--%>
-                            <%--<span class="am-icon-angle-right sidebar-nav-link-logo"></span>评论详情--%>
-                        <%--</a>--%>
+                    <%--<a href="${pageContext.request.contextPath}/book/booklist/information">--%>
+                    <%--<span class="am-icon-angle-right sidebar-nav-link-logo"></span>评论详情--%>
+                    <%--</a>--%>
                     <%--</li>--%>
                 </ul>
             </li>
@@ -185,6 +197,20 @@
     <div class="tpl-content-wrapper">
         <iframe src="hello.jsp" width="100%" height="600px" frameborder="0" name="showiframe"></iframe>
     </div>
+
+    <%--确认框--%>
+    <div class="am-modal am-modal-confirm" tabindex="-1" id="beReader-confirm">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">成为读者？</div>
+            <div class="am-modal-bd">
+                确定要注册成为读者？
+            </div>
+            <div class="am-modal-footer">
+                <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+            </div>
+        </div>
+    </div>
 </div>
 </div>
 
@@ -192,7 +218,36 @@
 <script src="js/amazeui.datatables.min.js"></script>
 <script src="js/dataTables.responsive.min.js"></script>
 <script src="js/app.js"></script>
-
+<script>
+    $("#beReader").on('click',function(){
+        $('#beReader-confirm').modal({
+            onConfirm: function(options) {
+                //确认成为读者
+                $.ajax({
+                    type:"get",
+                    dataType:"json",
+                    url:"api/readermanagement/adminToReader",
+                    data:{readerId:${reader.readerId}},
+                    success:function(data){
+                        //跳转到读者首页
+                        if(data!=null&&data.code==1){
+                            alert("恭喜你，成为了读者，即将跳转到读者页");
+                            location.href="/index.jsp";
+                        }else{
+                            alert("请求失败");
+                        }
+                    },
+                    error:function(){
+                        alert("服务器异常");
+                    }
+                });
+            }
+        });
+    });
+    $("#toIndex").on("click",function(){
+        location.href="/index.jsp";
+    });
+</script>
 </body>
 
 </html>

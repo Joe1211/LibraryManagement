@@ -5,6 +5,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.wonders.shixi.pojo.*;
 import com.wonders.shixi.pojo.Reader;
+import com.wonders.shixi.service.IBookPeriodicalsService;
 import com.wonders.shixi.service.ReaderService;
 import com.wonders.shixi.service.impl.BookCommentServiceImpl;
 import com.wonders.shixi.util.Base64Util;
@@ -48,6 +49,9 @@ public class BookController {
 
     @Autowired
     ReaderService readerService;
+
+    @Autowired
+    IBookPeriodicalsService bookPeriodicalsService;
 //    /**
 //     * 图书添加（基于文件的ajax上传）
 //     * @param request
@@ -158,6 +162,7 @@ public class BookController {
             String typeTwoValue = request.getParameter("typeTwoValue");
             String libraryId = request.getParameter("libraryId");
             String bookState = request.getParameter("bookState");
+            String bookNumber = request.getParameter("bookNumber");
 
             //将值传入book
             Book b = new Book();
@@ -170,6 +175,12 @@ public class BookController {
             b.setTypeTwoValue(typeTwoValue);
             b.setLibraryId(Integer.parseInt(libraryId));
             b.setBookState(bookState);
+            System.out.println(b);
+//          将ISBN添加到book_periodicals表中
+            BookPeriodicals bp = new BookPeriodicals();
+            bp.setBookPeriodicals(bookPeriodicals);
+            bp.setBookNumber(Integer.parseInt(bookNumber));
+            int i = bookPeriodicalsService.insertISBN(bp);
 
             /**
              * 商品图片表
@@ -529,12 +540,12 @@ public class BookController {
         List<BookBorrowModel> list = bookService.selectByBorrowAll();
         //使用PageInfo包装查询结果，只需要将pageInfo交给页面就可以
         PageInfo pageInfo = new PageInfo<>(list,5);
-        //pageINfo封装了分页的详细信息，也可以指定连续显示的页数
-        if (pageInfo.getList().size() != 0){
-            rm.setResult(pageInfo);
-            return rm.successMsg();
-        }else {
-            return rm.errorMsg("没有待还的图书");
+            //pageINfo封装了分页的详细信息，也可以指定连续显示的页数
+            if (pageInfo.getList().size() != 0){
+                rm.setResult(pageInfo);
+                return rm.successMsg();
+            }else {
+                return rm.errorMsg("没有待还的图书");
         }
     }
 

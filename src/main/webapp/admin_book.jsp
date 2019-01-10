@@ -37,18 +37,27 @@
                 <input class="form-control" type="text" name="bookWriter" id="bookWriter" placeholder="请输入作者">
             </div>
         </div>
+        <%--<div class="form-group">--%>
+            <%--<label class="col-sm-2 control-label" for="bookPeriodicals">书刊号：</label>--%>
+            <%--<div class="col-sm-5">--%>
+                <%--<select class="form-control" name="bookPeriodicals" id="bookPeriodicals">--%>
+                    <%--<option value="34623456">34623456</option>--%>
+                    <%--<option value="35246753">35246753</option>--%>
+                    <%--<option value="35254321">35254321</option>--%>
+                    <%--<option value="36437556">36437556</option>--%>
+                    <%--<option value="65325184">65325184</option>--%>
+                <%--</select>--%>
+            <%--</div>--%>
+        <%--</div>--%>
+
         <div class="form-group">
-            <label class="col-sm-2 control-label" for="bookPeriodicals">书刊号：</label>
+            <label class="col-sm-2 control-label" for="bookPeriodicals">ISBN：</label>
             <div class="col-sm-5">
-                <select class="form-control" name="bookPeriodicals" id="bookPeriodicals">
-                    <option value="34623456">34623456</option>
-                    <option value="35246753">35246753</option>
-                    <option value="35254321">35254321</option>
-                    <option value="36437556">36437556</option>
-                    <option value="65325184">65325184</option>
-                </select>
+                <input class="form-control" type="text" name="bookPeriodicals" id="bookPeriodicals" placeholder="请输入ISBN">
             </div>
         </div>
+
+
         <div class="form-group">
             <label class="col-sm-2 control-label" for="bookCallnum">索书号：</label>
             <div class="col-sm-5">
@@ -73,6 +82,14 @@
                 <textarea rows="3" cols="20" class="form-control" type="text" name="bookInfo" id="bookInfo" placeholder="请输入图书简介"></textarea>
             </div>
         </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="bookNumber">库存：</label>
+            <div class="col-sm-5">
+                <input class="form-control" type="text" name="bookNumber" id="bookNumber" placeholder="请输入库存">
+            </div>
+        </div>
+
         <div class="form-group">
             <label class="col-sm-2 control-label" for="bookTypeValue">图书目录编号：</label>
             <div class="col-sm-5">

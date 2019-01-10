@@ -34,6 +34,40 @@ window.onload=function(){
 }
 
 
+// 根据部类id查询一级分类
+$("#type0").change(function () {
+    $.ajax({
+        type:'get',
+        url:'api/typeones/'+$(this).val(),
+        dataType:'json',
+        success:function (data) {
+            var html = '';
+            html+='<option>请选择一级分类</option>';
+            $.each(data,function (i,item) {
+                html+='<option value="'+item.typeOneValue+'">'+'['+item.typeOneValue+']'+item.typeOneType+'</option>'
+            })
+            $("#type1").html(html);
+        }
+    })
+})
+
+// 根据一级分类值查询二级分类
+$("#type1").change(function () {
+    $.ajax({
+        type:'get',
+        url:'api/typetwos/'+$(this).val(),
+        dataType:'json',
+        success:function (data) {
+            var html = '';
+            html+='<option>请选择二级分类</option>';
+            $.each(data,function (i,item) {
+                html+='<option value="'+item.typeTwoValue+'">'+'['+item.typeTwoValue+']'+item.typeTwoType+'</option>'
+            })
+            $("#type2").html(html);
+        }
+    })
+})
+
 //显示模糊查询图书信息并加载分页
 function loadInfo(data){
     if(data.code == 1){
@@ -219,40 +253,6 @@ function loadLabelData(page) {
         }
     })
 }
-
-// 根据部类id查询一级分类
-$("#type0").change(function () {
-    $.ajax({
-        type:'get',
-        url:'api/typeones/'+$(this).val(),
-        dataType:'json',
-        success:function (data) {
-            var html = '';
-            html+='<option>请选择一级分类</option>';
-            $.each(data,function (i,item) {
-                html+='<option value="'+item.typeOneValue+'">'+item.typeOneType+'</option>'
-            })
-            $("#type1").html(html);
-        }
-    })
-})
-
-// 根据一级分类值查询二级分类
-$("#type1").change(function () {
-    $.ajax({
-        type:'get',
-        url:'api/typetwos/'+$(this).val(),
-        dataType:'json',
-        success:function (data) {
-            var html = '';
-            html+='<option>请选择二级分类</option>';
-            $.each(data,function (i,item) {
-                html+='<option value="'+item.typeTwoValue+'">'+item.typeTwoType+'</option>'
-            })
-            $("#type2").html(html);
-        }
-    })
-})
 
 //根据二级分类查询图书
 $("#selectType").click(function () {

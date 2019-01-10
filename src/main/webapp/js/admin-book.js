@@ -3,6 +3,7 @@ $(function () {
     $("#subbook").validate({
         submitHandler:function(form){
             var formData = new FormData(form);
+            alert(formData);
             $.ajax({
                 type: "post",
                 cache: false,
@@ -91,7 +92,7 @@ function changeTypeOne() {
         success: function (data) {
             if (data != null && data.length > 0) {
                 for (var i = 0; i < data.length; i++) {
-                    $("#typeOneValue").append("<option value='" + data[i].typeOneId + "'>" +"["+ data[i].typeOneValue+"]"+data[i].typeOneType + "</option>");
+                    $("#typeOneValue").append("<option value='" + data[i].typeOneValue + "'>" +"["+ data[i].typeOneValue+"]"+data[i].typeOneType + "</option>");
                 }
             }
             changeTypeTwo();
@@ -111,7 +112,7 @@ function changeTypeTwo() {
         success: function (data) {
             if (data != null && data.length > 0) {
                 for (var i = 0; i < data.length; i++) {
-                    $("#typeTwoValue").append("<option value='" + data[i].typeTwoId + "'>" +"["+ data[i].typeTwoValue+"]"+data[i].typeTwoType + "</option>");
+                    $("#typeTwoValue").append("<option value='" + data[i].typeTwoValue + "'>" +"["+ data[i].typeTwoValue+"]"+data[i].typeTwoType + "</option>");
                 }
             }
         }

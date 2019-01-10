@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -234,5 +235,17 @@ public class ReaderServiceImpl implements ReaderService {
         return false;
     }
 
-
+    @Override
+    public RestMsg<Object> adminToReader(Reader reader, HttpSession session) {
+        RestMsg<Object> msg=new RestMsg<Object>();
+        reader.setRole(2);
+        if(readerMapper.updateByPrimaryKeySelective(reader)>0){
+            Reader user=(Reader)session.getAttribute("reader");
+            user.setRole(2);
+            session.setAttribute("reader",user);
+            return msg.successMsg("请求成功");
+        }else{
+            return msg.errorMsg("请求失败");
+        }
+    }
 }

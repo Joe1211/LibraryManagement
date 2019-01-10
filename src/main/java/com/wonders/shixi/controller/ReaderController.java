@@ -231,6 +231,21 @@ public class ReaderController {
     }
 
     /**
+     * 管理员成为读者
+     * @param reader 读者
+     * @return RestMsg<Object>
+     */
+    @ApiOperation(value="adminToReader",httpMethod = "GET")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "用户id", required = true, dataType = "String", paramType = "query")
+    })
+    @GetMapping("adminToReader")
+    @ResponseBody
+    public RestMsg<Object> adminToReader(Reader reader,HttpSession session){
+        return readerService.adminToReader(reader,session);
+    }
+
+    /**
      * 注销登陆并跳回登陆页面
      *
      * @param session session对象

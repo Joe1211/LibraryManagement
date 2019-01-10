@@ -254,6 +254,11 @@
                             <li>
                                 <a href="person.jsp">个人中心</a>
                             </li>
+                            <c:if test="${reader.role==2}">
+                                <li>
+                                    <a href="admin.jsp">管理员页面</a>
+                                </li>
+                            </c:if>
                             <li>
                                 <a href="" data-toggle="modal" data-target="#info">个人资料</a>
                             </li>

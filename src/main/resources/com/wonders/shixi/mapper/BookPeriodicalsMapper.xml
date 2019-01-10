@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wonders.shixi.mapper.BookPeriodicalsMapper">
+  <resultMap id="BaseResultMap" type="com.wonders.shixi.pojo.BookPeriodicals">
+    <id column="book_periodicals_id" jdbcType="INTEGER" property="bookPeriodicalsId" />
+    <result column="book_periodicals" jdbcType="VARCHAR" property="bookPeriodicals" />
+    <result column="book_borrow" jdbcType="INTEGER" property="bookBorrow" />
+    <result column="book_click" jdbcType="INTEGER" property="bookClick" />
+    <result column="book_number" jdbcType="INTEGER" property="bookNumber" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    book_periodicals_id, book_periodicals, book_borrow, book_click, book_number
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from book_periodicals
+    where book_periodicals_id = #{bookPeriodicalsId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from book_periodicals
+    where book_periodicals_id = #{bookPeriodicalsId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wonders.shixi.pojo.BookPeriodicals">
+    insert into book_periodicals (book_periodicals_id, book_periodicals, 
+      book_borrow, book_click, book_number
+      )
+    values (#{bookPeriodicalsId,jdbcType=INTEGER}, #{bookPeriodicals,jdbcType=VARCHAR}, 
+      #{bookBorrow,jdbcType=INTEGER}, #{bookClick,jdbcType=INTEGER}, #{bookNumber,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wonders.shixi.pojo.BookPeriodicals">
+    insert into book_periodicals
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bookPeriodicalsId != null">
+        book_periodicals_id,
+      </if>
+      <if test="bookPeriodicals != null">
+        book_periodicals,
+      </if>
+      <if test="bookBorrow != null">
+        book_borrow,
+      </if>
+      <if test="bookClick != null">
+        book_click,
+      </if>
+      <if test="bookNumber != null">
+        book_number,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bookPeriodicalsId != null">
+        #{bookPeriodicalsId,jdbcType=INTEGER},
+      </if>
+      <if test="bookPeriodicals != null">
+        #{bookPeriodicals,jdbcType=VARCHAR},
+      </if>
+      <if test="bookBorrow != null">
+        #{bookBorrow,jdbcType=INTEGER},
+      </if>
+      <if test="bookClick != null">
+        #{bookClick,jdbcType=INTEGER},
+      </if>
+      <if test="bookNumber != null">
+        #{bookNumber,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wonders.shixi.pojo.BookPeriodicals">
+    update book_periodicals
+    <set>
+      <if test="bookPeriodicals != null">
+        book_periodicals = #{bookPeriodicals,jdbcType=VARCHAR},
+      </if>
+      <if test="bookBorrow != null">
+        book_borrow = #{bookBorrow,jdbcType=INTEGER},
+      </if>
+      <if test="bookClick != null">
+        book_click = #{bookClick,jdbcType=INTEGER},
+      </if>
+      <if test="bookNumber != null">
+        book_number = #{bookNumber,jdbcType=INTEGER},
+      </if>
+    </set>
+    where book_periodicals_id = #{bookPeriodicalsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wonders.shixi.pojo.BookPeriodicals">
+    update book_periodicals
+    set book_periodicals = #{bookPeriodicals,jdbcType=VARCHAR},
+      book_borrow = #{bookBorrow,jdbcType=INTEGER},
+      book_click = #{bookClick,jdbcType=INTEGER},
+      book_number = #{bookNumber,jdbcType=INTEGER}
+    where book_periodicals_id = #{bookPeriodicalsId,jdbcType=INTEGER}
+  </update>
+
+  <insert id="insertISBN" parameterType="com.wonders.shixi.pojo.BookPeriodicals">
+    insert into book_periodicals(book_periodicals,book_number) values (#{bookPeriodicals},#{bookNumber})
+  </insert>
+
+</mapper>

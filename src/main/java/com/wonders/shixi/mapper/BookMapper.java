@@ -22,6 +22,13 @@ public interface BookMapper {
      * @return
      */
     int insert(Book book);
+    /**
+     * 图书入库时添加标签
+     * @param bookId
+     * @param bookLabelId
+     * @return
+     */
+    int bookLabelAdd(int bookId,int bookLabelId);
 
     int insertSelective(Book record);
 
@@ -133,4 +140,6 @@ public interface BookMapper {
      * @return
      */
     List<Book> randomBook();
+
+
 }

@@ -21,6 +21,14 @@ public interface IBookService {
 
     int insertBook(Book book);
 
+    /**
+     * 图书入库时添加标签
+     * @param bookId
+     * @param bookLabelId
+     * @return
+     */
+    int bookLabelAdd(int bookId,int bookLabelId);
+
     List<Book> findDimBook(String s);
 
     List<Book> findLabelBook(String[] arr);
@@ -97,5 +105,5 @@ public interface IBookService {
      * 首页每日推荐8本图书
      * @return
      */
-    RestMsg<Object> randomBook();
+    List<Book> randomBook();
 }

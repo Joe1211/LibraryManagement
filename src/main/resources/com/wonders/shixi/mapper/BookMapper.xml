@@ -358,6 +358,10 @@ where book_id = #{bookId,jdbcType=INTEGER}
     select book_cover from book where book_id=#{id}
   </select>
 
+  <insert id="bookLabelAdd" parameterType="int">
+      insert into book_label_relation(book_id, book_label_id) VALUES (#{bookId},#{bookLabelId})
+  </insert>
+
   <!--首页每日推荐8本图书-->
   <select id="randomBook" resultMap="BaseResultMap">
     SELECT * FROM book  ORDER BY  RAND() LIMIT 8

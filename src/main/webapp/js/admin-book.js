@@ -3,7 +3,6 @@ $(function () {
     $("#subbook").validate({
         submitHandler:function(form){
             var formData = new FormData(form);
-            alert(formData);
             $.ajax({
                 type: "post",
                 cache: false,
@@ -75,6 +74,23 @@ $(function () {
                     // console.log(data[i].libraryName);
                     $("#libraryId").append("<option value='" + data[i].libraryId + "'>" + data[i].libraryName + "</option>");
                 }
+            }
+        }
+    });
+    //加载标签
+    $.ajax({
+        type:'GET',
+        url:'api/labels',
+        dataType:'json',
+        success:function (data) {
+            if(data.code == 1){
+                // var html = '';
+                alert(data)
+                $.each(data.result,function (i,item) {
+                    // html+='<option value="'+item.bookLabelId+'">'+item.bookLabel+'</option>'
+                    $("#bookLabel").append('<option value="'+item.bookLabelId+'">'+item.bookLabel+'</option>');
+                })
+                // $("#bookLabel").html(html);
             }
         }
     });

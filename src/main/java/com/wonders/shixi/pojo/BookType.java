@@ -1,5 +1,9 @@
 package com.wonders.shixi.pojo;
 
+import com.wonders.shixi.util.SerialoizebleUtil;
+
+import java.io.Serializable;
+
 public class BookType {
     private Integer bookTypeId;
 

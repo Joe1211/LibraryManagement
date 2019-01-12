@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wonders.shixi.mapper.BookScoreMapper">
+    <resultMap id="baseResultMap" type="com.wonders.shixi.pojo.BookScore">
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="score" column="score" jdbcType="INTEGER"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <association property="book" column="book_id" javaType="com.wonders.shixi.pojo.Book">
+            <id column="book_id" jdbcType="INTEGER" property="bookId"/>
+            <result column="book_name" jdbcType="VARCHAR" property="bookName"/>
+            <result column="book_periodicals" jdbcType="VARCHAR" property="bookPeriodicals"/>
+            <result column="book_callnum" jdbcType="VARCHAR" property="bookCallnum"/>
+            <result column="book_writer" jdbcType="VARCHAR" property="bookWriter"/>
+            <result column="book_press" jdbcType="VARCHAR" property="bookPress"/>
+            <result column="book_cover" jdbcType="VARCHAR" property="bookCover"/>
+            <result column="book_info" jdbcType="VARCHAR" property="bookInfo"/>
+            <result column="book_time" jdbcType="TIMESTAMP" property="bookTime"/>
+            <result column="book_updata" jdbcType="TIMESTAMP" property="bookUpdata"/>
+            <result column="type_two_value" jdbcType="VARCHAR" property="typeTwoValue"/>
+            <result column="book_state" jdbcType="VARCHAR" property="bookState"/>
+            <result column="library_id" jdbcType="INTEGER" property="libraryId"/>
+        </association>
+        <association property="reader" column="reader_id" javaType="com.wonders.shixi.pojo.Reader">
+            <id column="reader_id" jdbcType="INTEGER" property="readerId"/>
+            <result column="reader_name" jdbcType="VARCHAR" property="readerName"/>
+            <result column="reader_phone" jdbcType="VARCHAR" property="readerPhone"/>
+            <result column="reader_email" jdbcType="VARCHAR" property="readerEmail"/>
+            <result column="reader_blacklist" jdbcType="INTEGER" property="readerBlacklist"/>
+            <result column="reader_update" jdbcType="TIMESTAMP" property="readerUpdate"/>
+            <result column="reader_state" jdbcType="INTEGER" property="readerState"/>
+            <result column="reader_balance" jdbcType="DOUBLE" property="readerBalance"/>
+            <result column="reader_password" jdbcType="VARCHAR" property="readerPassword"/>
+            <result column="reader_role" jdbcType="INTEGER" property="role"/>
+        </association>
+    </resultMap>
+    <select id="selectByBookIdAndReaderId" parameterType="com.wonders.shixi.pojo.BookScore" resultMap="baseResultMap">
+        SELECT
+            book_score.id,
+            book_score.book_id,
+            book_score.reader_id,
+            book_score.score,
+            book_score.update_time,
+            book.book_id,
+            book.book_name,
+            book.book_periodicals,
+            book.book_callnum,
+            book.book_writer,
+            book.book_press,
+            book.book_cover,
+            book.book_info,
+            book.book_time,
+            book.book_updata,
+            book.type_two_value,
+            book.book_state,
+            book.library_id,
+            reader.reader_id,
+            reader.reader_name,
+            reader.reader_phone,
+            reader.reader_email,
+            reader.reader_blacklist,
+            reader.reader_update,
+            reader.reader_state,
+            reader.reader_balance,
+            reader.reader_password,
+            reader.reader_role
+        FROM
+            book_score ,
+            book ,
+            reader
+        WHERE
+            book_score.book_id=#{book.bookId}
+        AND
+            book_score.reader_id=#{reader.readerId}
+    </select>
+    <insert id="insertBookScore" parameterType="com.wonders.shixi.pojo.BookScore">
+        insert into book_score(score,update_time,book_id,reader_id)
+            values(#{score,jdbcType=INTEGER},#{updateTime,jdbcType=TIMESTAMP},#{book.bookId,jdbcType=INTEGER},#{reader.readerId,jdbcType=INTEGER})
+    </insert>
+</mapper>

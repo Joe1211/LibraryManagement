@@ -7,8 +7,10 @@
     <meta charset="UTF-8">
     <title>test</title>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/score.css"/>
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/score.js"></script>
 
     <style>
         #kuan{
@@ -28,6 +30,23 @@
         .distance{
             margin-bottom: 10px;
         }
+        #score{
+            hight:50px;
+            line-height: 50px;
+        }
+        div.lq-score{
+            float: left;
+        }
+        #score-tip{
+            padding: 0 8px;
+            float: left;
+        }
+        .lq-score-tip{
+            margin: 0px;
+        }
+        div.lq-score>ul>li {
+            font-size: 25px;
+        }
     </style>
 </head>
 <body>
@@ -43,7 +62,7 @@
                         <img src="img/ShlibEpub_1500949411.jpg" class="tupian2"/>
                     </div>
                     <div class="col-md-8">
-                        <input type="hidden" class="bid" value=${msg.bookId}>
+                        <input id="bookId" type="hidden" class="bid" value=${msg.bookId}>
                         <h3>&nbsp&nbsp&nbsp${msg.bookName}</h3>
                         <div class="col-md-12 distance">
                             <div class="col-md-1">
@@ -101,7 +120,17 @@
                         <%--</c:forEach>--%>
                     </div>
                     <form class="textare" id="myform">
-                        <p>说点什么...</p>
+                        <div style="height: 50px;;line-height: 50px;">
+                            <p style="float: left;margin-bottom:0;margin-right: 20px;">说点什么...</p>
+                            <div id="score" style="float:left;">
+                                <div class="lq-score">
+                                </div>
+                                <div id="score-tip">
+                                    <span class="lq-score-tip"></span>
+                                </div>
+                            </div>
+                            <div style="clear:both;"></div>
+                        </div>
                         <textarea name="say" rows="3" cols="120" class="t"></textarea>
                         <button class="btn btn-primary col-md-2 col-md-offset-10 form-group" id="sub" type="button">确定</button>
                     </form>
@@ -114,7 +143,39 @@
 
 
 <script>
+    $(function(){
+        var bookScore=new LQScore({
+            tips: ["不推荐", "一般", "不错", "很棒", "极力推荐！"],
+            afterScore:function(score){
+                //向后台传输评价数据
+                $.ajax({
+                    type:"get",
+                    url:"api/bookScore/insertBookScore",
+                    data:{bookId:$("#bookId").val(),score:score},
+                    success:function(data){
+                        if(data!=null&&data.code==1){
+                            alert(data.msg);
+                        }else{
+                            alert(data.msg);
+                        }
+                    }
+                });
+            }
+        });
+        bookScore.init();
+        $.ajax({
+            type:"get",
+            url:"api/bookScore/selectBookScoreByBookAndReader",
+            data:{bookId:$("#bookId").val()},
+            success:function(data){
+                if(data!=null&&data.code==1){
+                    bookScore.setScore(data.result.score,false);
+                }
+            }
+        });
+    });
     window.onload=function(){
+
         //评论
         $.ajax({
             type:'get',

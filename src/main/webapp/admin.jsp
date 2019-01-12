@@ -23,7 +23,14 @@
     <link rel="stylesheet" href="css/app.css">
     <link rel="stylesheet" href="css/admin.css">
     <script src="js/jquery.min.js"></script>
-
+    <style>
+        .reader-div{
+            display: table-cell;
+            vertical-align: middle;
+            height:56px;
+            padding: 0 16px;
+        }
+    </style>
 </head>
 
 <body data-type="index">

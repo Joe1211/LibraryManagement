@@ -8,10 +8,7 @@ import com.wonders.shixi.pojo.Reader;
 import com.wonders.shixi.service.IBookPeriodicalsService;
 import com.wonders.shixi.service.ReaderService;
 import com.wonders.shixi.service.impl.BookCommentServiceImpl;
-import com.wonders.shixi.util.Base64Util;
-import com.wonders.shixi.util.IC;
-import com.wonders.shixi.util.MailUtil;
-import com.wonders.shixi.util.RestMsg;
+import com.wonders.shixi.util.*;
 import com.wonders.shixi.service.IBookService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -22,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import redis.clients.jedis.Jedis;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
@@ -181,6 +179,9 @@ public class BookController {
             bp.setBookPeriodicals(bookPeriodicals);
             bp.setBookNumber(Integer.parseInt(bookNumber));
             int i = bookPeriodicalsService.insertISBN(bp);
+
+//          将图书标签添加到book_label_relation表中
+
 
             /**
              * 商品图片表
@@ -556,6 +557,19 @@ public class BookController {
     @GetMapping("indexbook")
     @ResponseBody
     public RestMsg<Object> randomBook(){
-        return bookService.randomBook();
+        RestMsg<Object> rm = new RestMsg<>();
+        List<Book> list = bookService.randomBook();
+
+        Jedis jedis = RedisPool.getJedis();
+        byte[] value = SerialoizebleUtil.serializeList(list);
+        String k = "tushu";
+        byte[] key = k.getBytes();
+        jedis.set(key,value);
+
+        byte[] b = jedis.get(key);
+        List<Book> book = (List<Book>) SerialoizebleUtil.unserializeList(b);
+        System.out.println("book----->"+book);
+        rm.setResult(list);
+        return rm.successMsg();
     }
 }

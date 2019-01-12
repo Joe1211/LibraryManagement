@@ -12,6 +12,7 @@
     <title>图书管理</title>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css"/>
+    <%--<link rel="stylesheet" type="text/css" href="css/tab.css">--%>
     <style>
         input.error{
             border: red 1px solid;
@@ -91,6 +92,15 @@
         </div>
 
         <div class="form-group">
+            <label class="col-sm-2 control-label" for="bookLabel">标签：</label>
+            <div class="col-sm-5">
+                <select class="form-control" name="bookLabel" id="bookLabel">
+
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
             <label class="col-sm-2 control-label" for="bookTypeValue">图书目录编号：</label>
             <div class="col-sm-5">
                 <div class="col-sm-4">
@@ -135,6 +145,7 @@
 <script src="js/bootstrap.min.js"></script>
 <script src="js/bootstrap-select.js"></script>
 <script src="js/jquery.validate.min.js"></script>
+<%--<script src="js/tab.js"></script>--%>
 <script src="js/admin-book.js"></script>
 </body>
 </html>

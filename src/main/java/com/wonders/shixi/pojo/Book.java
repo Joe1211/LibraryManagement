@@ -2,9 +2,10 @@ package com.wonders.shixi.pojo;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Book {
+public class Book implements Serializable {
     private Integer bookId;
 
     private String bookName;
@@ -31,7 +32,6 @@ public class Book {
     private String bookState;
 
     private Integer libraryId;
-
 
 
     public Integer getBookId() {

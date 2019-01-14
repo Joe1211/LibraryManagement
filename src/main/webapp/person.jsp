@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<html>
+<html style="height: 100%">
 <head>
     <meta charset="utf-8"/>
     <title>个人中心</title>
@@ -10,60 +10,59 @@
     <link rel="stylesheet" type="text/css" href="css/custom.css"/>
     <%--<script src="js/pccs.js" type="text/javascript"></script>--%>
 </head>
-<body>
+<body style="height: 100%">
+<div style="height:100% ">
+    <!--导航栏-->
+    <nav class="navbar navbar-default col-md-12" style="background: none">
+        <div class="container-fluid">
+            <!--logo-->
+            <div class="navbar-header col-sm-2 ">
+                <a href="search.jsp" class="navbar-header ">
+                    <img src="img/logo.jpg">
+                </a>
+            </div>
 
-<!--导航栏-->
-<nav class="navbar navbar-default col-md-12" style="background: none">
-    <div class="container-fluid">
-        <!--logo-->
-        <div class="navbar-header col-sm-2 ">
-            <a href="search.jsp" class="navbar-header ">
-                <img src="img/logo.jpg">
-            </a>
-        </div>
+            <!--搜索框-->
 
-        <!--搜索框-->
-
-        <!--用户信息-->
-        <form class="btn-group col-md-6 col-sm-6 ver col-md-offset-3 ">
-            <ul class="nav navbar-nav navbar-right">
-                <li class="ver1 ">
-                    <div class="dropdown ">
+            <!--用户信息-->
+            <form class="btn-group col-md-6 col-sm-6 ver col-md-offset-3 ">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="ver1 ">
+                        <div class="dropdown ">
 							<span>
                                 <input type="hidden" id="readerId" value="${reader.readerId}">
 								欢迎，${reader.readerName}
 							</span>
-                    </div>
-                </li>
-            </ul>
-        </form>
-    </div>
-</nav>
-
-
-<div class="container-fluid ">
-    <!--左侧区域 -->
-    <div class="row col-md-3 ">
-        <table class="table table-hover">
-            <tr><td><a href="xinxi.jsp" target="showiframe">基本信息</a></td></tr>
-            <tr><td><a href="updata.jsp" target="showiframe">修改密码</a></td></tr>
-            <tr><td><a href="borrow.jsp" target="showiframe">我的借阅</a></td></tr>
-            <tr><td><a href="repay.jsp" target="showiframe">已还图书</a></td></tr>
-        </table>
-    </div>
-
-    <!--右侧区域-->
-    <div class="row col-md-9 left_1 ">
-        <%--图书信息--%>
-        <div id="bod">
-            <iframe src="xinxi.jsp" width="100%" height="600px" frameborder="0" name="showiframe"></iframe>
-            <%--<iframe src="updata.jsp" width="100%" height="300px" frameborder="0" name="showiframe1"></iframe>--%>
+                        </div>
+                    </li>
+                </ul>
+            </form>
         </div>
+    </nav>
+
+
+    <div class="container-fluid " style="height: calc(100% - 55px);">
+        <!--左侧区域 -->
+        <div class="row col-md-3 ">
+            <table class="table table-hover">
+                <tr><td><a href="xinxi.jsp" target="showiframe">基本信息</a></td></tr>
+                <tr><td><a href="updata.jsp" target="showiframe">修改密码</a></td></tr>
+                <tr><td><a href="borrow.jsp" target="showiframe">我的借阅</a></td></tr>
+                <tr><td><a href="repay.jsp" target="showiframe">已还图书</a></td></tr>
+            </table>
+        </div>
+
+        <!--右侧区域-->
+        <div class="row col-md-9 left_1 " style="height: calc(100% - 55px);">
+            <%--图书信息--%>
+            <div id="bod" style="height: calc(100% - 55px);">
+                <iframe src="xinxi.jsp" width="100%" height="100%" frameborder="0" name="showiframe"></iframe>
+                <%--<iframe src="updata.jsp" width="100%" height="300px" frameborder="0" name="showiframe1"></iframe>--%>
+            </div>
+        </div>
+
     </div>
-
 </div>
-</div>
-
 
 <script src="js/jquery-3.3.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>

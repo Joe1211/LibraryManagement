@@ -59,7 +59,7 @@
                 <div class="panel-body">
 
                     <div class="col-md-4">
-                        <img src="img/ShlibEpub_1500949411.jpg" class="tupian2"/>
+                        <img src="api/books/findBookCover?id=${msg.bookId}" class="tupian2"/>
                     </div>
                     <div class="col-md-8">
                         <input id="bookId" type="hidden" class="bid" value=${msg.bookId}>

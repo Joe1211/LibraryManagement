@@ -551,6 +551,28 @@ public class BookController {
     }
 
     /**
+     * Quartz
+     * 定时任务，每日推荐，0点更新，放入redis中
+     * 被@PostConstruct修饰的方法会在服务器加载Servlet的时候运行，并且只会被服务器调用一次，类似于Servlet的inti()方法。被@PostConstruct修饰的方法会在构造函数之后，init()方法之前运行。
+     * 被@PreDestroy修饰的方法会在服务器卸载Servlet的时候运行，并且只会被服务器调用一次，类似于Servlet的destroy()方法。被@PreDestroy修饰的方法会在destroy()方法之后运行，在Servlet被彻底卸载之前。
+     */
+    @PostConstruct
+    public void timer1() throws SchedulerException {
+        //创建一个jobDetail的实例，将该实例与EmailJob Class绑定
+        JobDetail jobDetail = JobBuilder.newJob(RecommendJob.class).withIdentity("cronJob1").build();
+        //创建一个Trigger触发器的实例，定义该job每天0点执行
+        CronTrigger cronTrigger = TriggerBuilder.newTrigger()
+                .withIdentity("cronTrigger1")
+                .withSchedule(CronScheduleBuilder.cronSchedule("0 40 9 * * ?"))
+                .build();
+        //创建Scheduler实例
+        StdSchedulerFactory stdSchedulerFactory = new StdSchedulerFactory();
+        Scheduler scheduler = stdSchedulerFactory.getScheduler();
+        scheduler.start();
+        scheduler.scheduleJob(jobDetail,cronTrigger);
+    }
+
+    /**
      * 首页每日推荐图书
      * @return
      */
@@ -558,18 +580,18 @@ public class BookController {
     @ResponseBody
     public RestMsg<Object> randomBook(){
         RestMsg<Object> rm = new RestMsg<>();
-        List<Book> list = bookService.randomBook();
-
+//        List<Book> list = bookService.randomBook();
+//
         Jedis jedis = RedisPool.getJedis();
-        byte[] value = SerialoizebleUtil.serializeList(list);
+//        byte[] value = SerialoizebleUtil.serializeList(list);
         String k = "tushu";
         byte[] key = k.getBytes();
-        jedis.set(key,value);
+//        jedis.set(key,value);
 
         byte[] b = jedis.get(key);
         List<Book> book = (List<Book>) SerialoizebleUtil.unserializeList(b);
         System.out.println("book----->"+book);
-        rm.setResult(list);
+        rm.setResult(book);
         return rm.successMsg();
     }
 }

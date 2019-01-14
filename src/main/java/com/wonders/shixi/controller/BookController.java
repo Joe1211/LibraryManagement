@@ -388,6 +388,21 @@ public class BookController {
         request.getSession().setAttribute("msg",book);
         response.sendRedirect("../../bookdetail.jsp");
     }
+    /**
+     * 根据书id查询
+     * 查询一本书的详细内容
+     * @param
+     * @return
+     */
+    @RequestMapping("/selectByIdMin")
+    @ResponseBody
+    public void selcetByIdMin(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String id=request.getParameter("bookId");
+        int bookId=Integer.parseInt(id);
+        Book book=bookService.selectByPrimaryKey(bookId);
+        request.getSession().setAttribute("msg",book);
+        response.sendRedirect("../../bookdetailmin.jsp");
+    }
 
     /**
      * 根据书id查询

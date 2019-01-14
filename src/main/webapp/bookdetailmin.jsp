@@ -31,40 +31,6 @@
     </style>
 </head>
 <body>
-<nav class="navbar navbar-default" role="navigation">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <div class="images">
-                <a href="search.jsp">
-                    <img src="img/logo.jpg" width="250" height="70"/>
-                </a>
-            </div>
-        </div>
-        <div class="">
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="search.jsp">搜索</a>
-                </li>
-                <li class="alert">
-                    <div class="dropdown ">
-							<span data-toggle="dropdown">
-                                <input type="hidden" id="readerId" value="${reader.readerId}">
-								${reader.readerName}
-								<span class="caret"></span>
-							</span>
-                        <ul class="dropdown-menu">
-                            <li><a href="person.jsp">个人中心</a></li>
-                            <li><a href="" data-toggle="modal" data-target="#info">个人资料</a></li>
-                            <li><a href="" data-toggle="modal" data-target="#upPassword">修改密码</a></li>
-                            <li class="divider"></li>
-                            <li><a href="../../login.jsp" id="outReader">注销账户</a></li>
-                        </ul>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
 <div class="contrainer panel panel-collapse">
 
     <div class="panel-body">
@@ -74,49 +40,45 @@
                 <div class="panel-heading">图书详情</div>
                 <div class="panel-body">
 
-                        <div class="col-md-3">
-                            <img src="/api/books/findBookCover?id=${msg.bookId}" class="tupian2"/>
-                        </div>
-                        <div class="col-md-8">
-                            <h3>&nbsp&nbsp&nbsp${msg.bookName}</h3>
-                            <input type="hidden" class="bid" value=${msg.bookId}>
-                            <div class="col-md-12 distance">
-                                <div class="col-md-1">
-                                    <img src="img/icon/writer.png" alt=""class="icon">
-                                </div>
-                                <div class="col-md-11">
-                                    ${msg.bookWriter}
-                                </div>
+                    <div class="col-md-3">
+                        <img src="/api/books/findBookCover?id=${msg.bookId}" class="tupian2"/>
+                    </div>
+                    <div class="col-md-8">
+                        <h3>&nbsp&nbsp&nbsp${msg.bookName}</h3>
+                        <input type="hidden" class="bid" value=${msg.bookId}>
+                        <div class="col-md-12 distance">
+                            <div class="col-md-1">
+                                <img src="img/icon/writer.png" alt=""class="icon">
                             </div>
-                            <div class="col-md-12 distance">
-                                <div class="col-md-1">
-                                    <img src="img/icon/press.png" alt=""class="icon">
-                                </div>
-                                <div class="col-md-11">
-                                    ${msg.bookPress}
-                                </div>
-                            </div>
-                            <div class="col-md-12 distance">
-                                <div class="col-md-1">
-                                    <img src="img/icon/callnum.png" alt=""class="icon">
-                                </div>
-                                <div class="col-md-11">
-                                    ${msg.bookCallnum}
-                                </div>
-                            </div>
-                            <div class="col-md-12 distance">
-                                <div class="col-md-1">
-                                    <img src="img/icon/info.png" alt=""class="icon">
-                                </div>
-                                <div class="col-md-11">
-                                    ${msg.bookInfo}
-                                </div>
-                            </div>
-                            <div class="col-md-2 col-lg-offset-10">
-                                    <input type="hidden" class="readerId" value="${reader.readerId}">
-                                    <button class="btn btn-primary form-group" type="button" id="borrow">图书借阅</button>
+                            <div class="col-md-11">
+                                ${msg.bookWriter}
                             </div>
                         </div>
+                        <div class="col-md-12 distance">
+                            <div class="col-md-1">
+                                <img src="img/icon/press.png" alt=""class="icon">
+                            </div>
+                            <div class="col-md-11">
+                                ${msg.bookPress}
+                            </div>
+                        </div>
+                        <div class="col-md-12 distance">
+                            <div class="col-md-1">
+                                <img src="img/icon/callnum.png" alt=""class="icon">
+                            </div>
+                            <div class="col-md-11">
+                                ${msg.bookCallnum}
+                            </div>
+                        </div>
+                        <div class="col-md-12 distance">
+                            <div class="col-md-1">
+                                <img src="img/icon/info.png" alt=""class="icon">
+                            </div>
+                            <div class="col-md-11">
+                                ${msg.bookInfo}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -127,7 +89,17 @@
                 <div class="panel-heading">图书评论</div>
                 <div class="panel-body">
                     <div id="bod">
-
+                        <%--<c:forEach items="${comm.list}" var="com">--%>
+                        <%--<div class="col-md-12 distance">--%>
+                        <%--<div class="col-md-2">--%>
+                        <%--${com.readerName}:</br>--%>
+                        <%--${com.updateTime}--%>
+                        <%--</div>--%>
+                        <%--<div class="col-md-10">--%>
+                        <%--${com.comment}--%>
+                        <%--</div>--%>
+                        <%--</div>--%>
+                        <%--</c:forEach>--%>
                     </div>
                 </div>
             </div>
@@ -139,14 +111,14 @@
 
 <script>
     window.onload=function(){
-       //评论
+        //评论
         $.ajax({
             type:'get',
             url:'api/books/comments'+'?bookId='+$(".bid").val(),
             success:function (data) {
-              loadInfo(data);
-        }
-    })
+                loadInfo(data);
+            }
+        })
     }
     function  loadInfo(data) {
         var html = '';
@@ -213,6 +185,27 @@
         })
     }
 
+    <%--$(document).on('click', '#sub',function() {--%>
+    <%--var idis=${reader.readerId};--%>
+    <%--var pinglun=$("textarea[name='say']").val();--%>
+    <%--var data = "readerId="+idis+"&say="+pinglun+ "&bookId="+${msg.bookId};--%>
+    <%--$.ajax({--%>
+    <%--"url":'api/bookcomment/insert',--%>
+    <%--"data":data,--%>
+    <%--"type":'post',--%>
+    <%--"dataType":"json",--%>
+    <%--"success":function (result) {--%>
+    <%--if(result==1){--%>
+    <%--loadFindComm()--%>
+    <%--alert("评论成功")--%>
+    <%--$(".t").val("");--%>
+    <%--}else {--%>
+    <%--alert("评论失败")--%>
+    <%--};--%>
+    <%--},--%>
+    <%--})--%>
+    <%--});--%>
+
     function loadFindComm(){
         $.ajax({
             type:'get',
@@ -266,6 +259,55 @@
         $("#bod").html(html);
     }
 
+
+
+
+    function  showInfo() {
+
+        <%--var html='';--%>
+        <%--html+='<div class="container"> '--%>
+        <%--html+='<table class="table table-hover">'--%>
+        <%--html+='<thead>';--%>
+        <%--html+='<tr>';--%>
+        <%--html+='<th id="kuan"><h1>图书详情展示</h1></th>';--%>
+        <%--html+='</tr>';--%>
+        <%--html+='</thead>';--%>
+        <%--html+='<tbody>';--%>
+        <%--html+='<tr>';--%>
+        <%--html+='<th>图书名字：</th>';--%>
+        <%--html+='<th>${msg.bookName}</th>';--%>
+        <%--html+='</tr>'--%>
+        <%--html+='<tr>';--%>
+        <%--html+='<th>图书刊号：</th>';--%>
+        <%--html+='<th>${msg.bookPeriodicals}</th>';--%>
+        <%--html+='</tr>'--%>
+        <%--html+='<tr>';--%>
+        <%--html+='<th>图书索书号：</th>';--%>
+        <%--html+='<th>${msg.bookCallnum}</th>';--%>
+        <%--html+='</tr>'--%>
+        <%--html+='<tr>';--%>
+        <%--html+='<th><p>图书作者：</th>';--%>
+        <%--html+='<th>${msg.bookWriter}</th>';--%>
+        <%--html+='</tr>'--%>
+        <%--html+='<tr>';--%>
+        <%--html+='<th>图书馆：</th>';--%>
+        <%--html+='<th>${msg.bookPress}</th>';--%>
+        <%--html+='</tr>'--%>
+        <%--html+='<tr>';--%>
+        <%--html+='<th>图书信息：</th>';--%>
+        <%--html+='<th>${msg.bookInfo}</th>';--%>
+        <%--html+='</tr>'--%>
+        <%--html+='</tbody>'--%>
+        <%--html+='</table>'--%>
+        <%--html+='</div>'--%>
+        <%--html+='<form class="col-md-offset-2 textare" id="myform">';--%>
+        <%--html+='<p>说点什么...</p>'--%>
+        <%--html+='<textarea name="say" rows="3" cols="150" class="t"></textarea>';--%>
+        <%--html+='<button class="btn btn-primary col-lg-1 col-lg-offset-9 form-group" id="sub" type="button">确定</button>';--%>
+        <%--html+='</form>'--%>
+
+        <%--$("#bod").html(html);--%>
+    }
     function reserve() {
         location.href="/api/reserve/borrowBook?bookId="+${msg.bookId};
     }
@@ -305,16 +347,6 @@
                 }else {
                     alert(data.msg)
                 }
-            }
-        })
-    })
-    // 借阅
-    $("#borrow").click(function () {
-        $.ajax({
-            type:'get',
-            url:'api/books/borrow'+'?bookId='+$(".bid").val()+'&readerId='+$(".readerId").val(),
-            success:function (data) {
-                alert(data.msg)
             }
         })
     })

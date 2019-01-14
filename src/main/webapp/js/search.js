@@ -172,7 +172,7 @@ function loadLabelInfo(data){
             html+='<div class="panel-body panel_2 ">';
             html+='  <div class="form-group col-md-1 ">';
             html+='<div class="picture box tupian ">';
-            html+='<img class="tupian1" src="/bookCover'+item.bookCover+'"/>';
+            html+='<img class="tupian1"src="/api/books/findBookCover?id='+item.bookId+'"/>';
             html+='</div>';
             html+='</div>';
             html+=' <div id="" class="col-md-8 ">';
@@ -291,7 +291,7 @@ function loadTypeInfo(data){
             html+='<div class="panel-body panel_2 ">';
             html+='  <div class="form-group col-md-1 ">';
             html+='<div class="picture box tupian ">';
-            html+='<img class="tupian1" src="/bookCover'+item.bookCover+'"/>';
+            html+='<img class="tupian1"src="/api/books/findBookCover?id='+item.bookId+'"/>';
             html+='</div>';
             html+='</div>';
             html+=' <div id="" class="col-md-8 ">';
@@ -424,7 +424,7 @@ function loadRecordInfo(data){
             html+='<div class="panel-body panel_2 ">';
             html+='  <div class="form-group col-md-1 ">';
             html+='<div class="picture box tupian ">';
-            html+='<img class="tupian1" src="'+item.bookCover+'"/>';
+            html+='<img class="tupian1"src="/api/books/findBookCover?id='+item.bookId+'"/>';
             html+='</div>';
             html+='</div>';
             html+=' <div id="" class="col-md-8 ">';
@@ -457,7 +457,7 @@ function loadRecordInfo(data){
             html+='<div class="panel-body panel_2 ">';
             html+='  <div class="form-group col-md-1 ">';
             html+='<div class="picture box tupian ">';
-            html+='<img class="tupian1" src="'+item.bookCover+'"/>';
+            html+='<img class="tupian1"src="/api/books/findBookCover?id='+item.bookId+'"/>';
             html+='</div>';
             html+='</div>';
             html+=' <div id="" class="col-md-8 ">';

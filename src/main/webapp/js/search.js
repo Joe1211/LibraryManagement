@@ -360,7 +360,7 @@ $("#upPwd").click(function () {
         success:function (data) {
             if(data.code==1){
                 alert(data.msg)
-                window.location.href="login.jsp";
+                top.location.href="login.jsp";
             }else {
                 alert(data.msg)
             }

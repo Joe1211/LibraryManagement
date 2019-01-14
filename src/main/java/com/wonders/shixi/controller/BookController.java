@@ -421,7 +421,7 @@ public class BookController {
     }
 
     /**
-     * 根据图书id查询该书的评论
+     * 根据图书id查询该书的所有评论
      * @param bookId
      * @param pn
      * @return

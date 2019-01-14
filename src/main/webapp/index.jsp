@@ -170,53 +170,6 @@
 </div>
 <!-- 信息模态框 -->
 
-<!-- 修改密码模态框 -->
-<div class="modal animated fadeInUp" id="upPassword">
-    <form class="form-horizontal" id="pass">
-        <input type="hidden" name="readerPhone" value="${reader.readerPhone}" />
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button class="close" data-dismiss="modal">&times;</button>
-                    <h4>修改密码</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label class="control-label col-sm-2">原密码</label>
-                        <div class="col-sm-9">
-                            <input name="readerPassword" type="password" class="form-control" required>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label class="control-label col-sm-2">新密码</label>
-                        <div class="col-sm-9">
-                            <input name="readerPassword1" type="password" class="form-control">
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label class="control-label col-sm-2">请再次输入新密码</label>
-                        <div class="col-sm-9">
-                            <input name="readerPassword2" id="rPwd" type="password" class="form-control">
-                            <span id="d3"></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <button class="btn btn-default" data-dismiss="modal">取消</button>
-                    <button class="btn btn-primary" data-dismiss="modal" id="upPwd">确认修改</button>
-                </div>
-            </div>
-        </div>
-    </form>
-</div>
-
-<!-- 修改密码模态框 -->
-
 <!--导航栏-->
 <nav class="navbar navbar-default col-md-12" style="background: none">
     <div class="container-fluid">
@@ -261,9 +214,6 @@
                             </c:if>
                             <li>
                                 <a href="" data-toggle="modal" data-target="#info">个人资料</a>
-                            </li>
-                            <li>
-                                <a href="" data-toggle="modal" data-target="#upPassword">修改密码</a>
                             </li>
                             <li class="divider"></li>
                             <li>

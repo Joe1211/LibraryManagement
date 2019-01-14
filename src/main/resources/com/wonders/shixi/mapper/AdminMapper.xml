@@ -127,7 +127,7 @@
       </if>
       <if test="adminPassword != null">
         #{adminPassword,jdbcType=VARCHAR},
-      </if>
+      </if>0
       <if test="adminJurisdiction != null">
         #{adminJurisdiction,jdbcType=INTEGER},
       </if>

@@ -101,4 +101,5 @@ public interface IBookService {
      * @return
      */
     List<Book> randomBook();
+
 }

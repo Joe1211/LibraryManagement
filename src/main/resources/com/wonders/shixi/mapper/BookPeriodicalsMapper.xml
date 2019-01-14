@@ -3,13 +3,14 @@
 <mapper namespace="com.wonders.shixi.mapper.BookPeriodicalsMapper">
   <resultMap id="BaseResultMap" type="com.wonders.shixi.pojo.BookPeriodicals">
     <id column="book_periodicals_id" jdbcType="INTEGER" property="bookPeriodicalsId" />
+    <result column="book_id" jdbcType="INTEGER" property="bookId" />
     <result column="book_periodicals" jdbcType="VARCHAR" property="bookPeriodicals" />
     <result column="book_borrow" jdbcType="INTEGER" property="bookBorrow" />
     <result column="book_click" jdbcType="INTEGER" property="bookClick" />
     <result column="book_number" jdbcType="INTEGER" property="bookNumber" />
   </resultMap>
   <sql id="Base_Column_List">
-    book_periodicals_id, book_periodicals, book_borrow, book_click, book_number
+    book_periodicals_id, book_id, book_periodicals, book_borrow, book_click, book_number
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -22,10 +23,10 @@
     where book_periodicals_id = #{bookPeriodicalsId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.wonders.shixi.pojo.BookPeriodicals">
-    insert into book_periodicals (book_periodicals_id, book_periodicals, 
+    insert into book_periodicals (book_periodicals_id, book_id, book_periodicals, 
       book_borrow, book_click, book_number
       )
-    values (#{bookPeriodicalsId,jdbcType=INTEGER}, #{bookPeriodicals,jdbcType=VARCHAR}, 
+    values (#{bookPeriodicalsId,jdbcType=INTEGER}, #{bookId,jdbcType=INTEGER}, #{bookPeriodicals,jdbcType=VARCHAR}, 
       #{bookBorrow,jdbcType=INTEGER}, #{bookClick,jdbcType=INTEGER}, #{bookNumber,jdbcType=INTEGER}
       )
   </insert>
@@ -34,6 +35,9 @@
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="bookPeriodicalsId != null">
         book_periodicals_id,
+      </if>
+      <if test="bookId != null">
+        book_id,
       </if>
       <if test="bookPeriodicals != null">
         book_periodicals,
@@ -52,6 +56,9 @@
       <if test="bookPeriodicalsId != null">
         #{bookPeriodicalsId,jdbcType=INTEGER},
       </if>
+      <if test="bookId != null">
+        #{bookId,jdbcType=INTEGER},
+      </if>
       <if test="bookPeriodicals != null">
         #{bookPeriodicals,jdbcType=VARCHAR},
       </if>
@@ -69,6 +76,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.wonders.shixi.pojo.BookPeriodicals">
     update book_periodicals
     <set>
+      <if test="bookId != null">
+        book_id = #{bookId,jdbcType=INTEGER},
+      </if>
       <if test="bookPeriodicals != null">
         book_periodicals = #{bookPeriodicals,jdbcType=VARCHAR},
       </if>
@@ -86,15 +96,20 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.wonders.shixi.pojo.BookPeriodicals">
     update book_periodicals
-    set book_periodicals = #{bookPeriodicals,jdbcType=VARCHAR},
+    set book_id = #{bookId,jdbcType=INTEGER},
+      book_periodicals = #{bookPeriodicals,jdbcType=VARCHAR},
       book_borrow = #{bookBorrow,jdbcType=INTEGER},
       book_click = #{bookClick,jdbcType=INTEGER},
       book_number = #{bookNumber,jdbcType=INTEGER}
     where book_periodicals_id = #{bookPeriodicalsId,jdbcType=INTEGER}
   </update>
-
   <insert id="insertISBN" parameterType="com.wonders.shixi.pojo.BookPeriodicals">
-    insert into book_periodicals(book_periodicals,book_number) values (#{bookPeriodicals},#{bookNumber})
+    insert into book_periodicals(book_periodicals,book_number,book_id) values (#{bookPeriodicals},#{bookNumber},#{bookId})
   </insert>
-
+  <update id="updateClick" parameterType="java.lang.Integer">
+    update book_periodicals set book_click = book_click+1 where book_id = #{bookId}
+  </update>
+  <update id="updateBorrow" parameterType="java.lang.Integer">
+    update book_periodicals set book_borrow = book_borrow+1 where book_id = #{bookId}
+  </update>
 </mapper>

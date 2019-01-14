@@ -14,4 +14,18 @@ public interface IBookPeriodicalsService {
      * @return
      */
     int insertISBN(BookPeriodicals bp);
+
+    /**
+     * 点击次数
+     * @param bookId
+     * @return
+     */
+    int updateClick(int bookId);
+
+    /**
+     * 借阅次数
+     * @param bookId
+     * @return
+     */
+    int updateBorrow(int bookId);
 }

@@ -174,13 +174,6 @@ public class BookController {
             b.setLibraryId(Integer.parseInt(libraryId));
             b.setBookState(bookState);
             System.out.println(b);
-//          将ISBN添加到book_periodicals表中
-            BookPeriodicals bp = new BookPeriodicals();
-            bp.setBookPeriodicals(bookPeriodicals);
-
-
-            bp.setBookNumber(Integer.parseInt(bookNumber));
-            int i = bookPeriodicalsService.insertISBN(bp);
 
             /**
              * 商品图片表
@@ -218,6 +211,12 @@ public class BookController {
             String bookLabelId = request.getParameter("bookLabel");
             BookLabelRelation br = new BookLabelRelation(bookId,Integer.parseInt(bookLabelId));
             bookService.bookLabelAdd(br);
+            //将ISBN添加到book_periodicals表中
+            BookPeriodicals bp = new BookPeriodicals();
+            bp.setBookPeriodicals(bookPeriodicals);
+            bp.setBookNumber(Integer.parseInt(bookNumber));
+            bp.setBookId(bookId);
+            bookPeriodicalsService.insertISBN(bp);
 
             RestMsg<Object> rm =new RestMsg<Object>();
             if(num>0){
@@ -384,6 +383,8 @@ public class BookController {
         String id=request.getParameter("bookId");
         int bookId=Integer.parseInt(id);
         Book book=bookService.selectByPrimaryKey(bookId);
+        bookPeriodicalsService.updateClick(bookId);
+
         request.getSession().setAttribute("msg",book);
         response.sendRedirect("../../bookdetail.jsp");
     }
@@ -451,7 +452,7 @@ public class BookController {
             System.out.println("图书减1：");
             //将减借书记录存放到以借书目表中(book_reader_record)并返回id
             int brrId = bookService.addBookRecord(id,rid);
-            System.out.println("成功");
+//            System.out.println("成功");
             //查询借图书的书名
             Book book = bookService.selectByPrimaryKey(id);
             String bookName = book.getBookName();
@@ -459,6 +460,8 @@ public class BookController {
             Reader reader = readerService.getReaderById(rid);
             String email = reader.getReaderEmail();
             MailUtil.sendEmail(bookName,30,email);
+            //借阅成功，借阅次数加1
+            bookPeriodicalsService.updateBorrow(id);
             return rm.successMsg("借书成功，免费借书时间为一个月，请按时归还！");
         }else{
             return rm.errorMsg("该图书以借完");

@@ -31,8 +31,42 @@
     </style>
 </head>
 <body>
-
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <div class="images">
+                <a href="search.jsp">
+                    <img src="img/logo.jpg" width="250" height="70"/>
+                </a>
+            </div>
+        </div>
+        <div class="">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="search.jsp">搜索</a>
+                </li>
+                <li class="alert">
+                    <div class="dropdown ">
+							<span data-toggle="dropdown">
+                                <input type="hidden" id="readerId" value="${reader.readerId}">
+								${reader.readerName}
+								<span class="caret"></span>
+							</span>
+                        <ul class="dropdown-menu">
+                            <li><a href="person.jsp">个人中心</a></li>
+                            <li><a href="" data-toggle="modal" data-target="#info">个人资料</a></li>
+                            <li><a href="" data-toggle="modal" data-target="#upPassword">修改密码</a></li>
+                            <li class="divider"></li>
+                            <li><a href="../../login.jsp" id="outReader">注销账户</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 <div class="contrainer panel panel-collapse">
+
     <div class="panel-body">
         <%--图书详情--%>
         <div class="container">

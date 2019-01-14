@@ -177,11 +177,10 @@ public class BookController {
 //          将ISBN添加到book_periodicals表中
             BookPeriodicals bp = new BookPeriodicals();
             bp.setBookPeriodicals(bookPeriodicals);
+
+
             bp.setBookNumber(Integer.parseInt(bookNumber));
             int i = bookPeriodicalsService.insertISBN(bp);
-
-//          将图书标签添加到book_label_relation表中
-
 
             /**
              * 商品图片表
@@ -212,9 +211,16 @@ public class BookController {
                     }
                 }
             }
-            int insertNum=bookService.insertBook(b);
+            //添加图书信息，返回bookId
+            int num=bookService.insertBook(b);
+            int bookId = b.getBookId();
+            //将图书标签添加到book_label_relation表中
+            String bookLabelId = request.getParameter("bookLabel");
+            BookLabelRelation br = new BookLabelRelation(bookId,Integer.parseInt(bookLabelId));
+            bookService.bookLabelAdd(br);
+
             RestMsg<Object> rm =new RestMsg<Object>();
-            if(insertNum>0){
+            if(num>0){
                 rm.successMsg("图书上传成功,可以继续上传");
             }else{
                 rm.errorMsg("图书上传失败,请检查图书信息");
@@ -563,7 +569,7 @@ public class BookController {
         //创建一个Trigger触发器的实例，定义该job每天0点执行
         CronTrigger cronTrigger = TriggerBuilder.newTrigger()
                 .withIdentity("cronTrigger1")
-                .withSchedule(CronScheduleBuilder.cronSchedule("0 40 9 * * ?"))
+                .withSchedule(CronScheduleBuilder.cronSchedule("0 44 14 * * ?"))
                 .build();
         //创建Scheduler实例
         StdSchedulerFactory stdSchedulerFactory = new StdSchedulerFactory();
@@ -580,17 +586,11 @@ public class BookController {
     @ResponseBody
     public RestMsg<Object> randomBook(){
         RestMsg<Object> rm = new RestMsg<>();
-//        List<Book> list = bookService.randomBook();
-//
         Jedis jedis = RedisPool.getJedis();
-//        byte[] value = SerialoizebleUtil.serializeList(list);
         String k = "tushu";
         byte[] key = k.getBytes();
-//        jedis.set(key,value);
-
         byte[] b = jedis.get(key);
         List<Book> book = (List<Book>) SerialoizebleUtil.unserializeList(b);
-        System.out.println("book----->"+book);
         rm.setResult(book);
         return rm.successMsg();
     }

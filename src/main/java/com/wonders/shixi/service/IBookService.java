@@ -3,10 +3,7 @@ package com.wonders.shixi.service;
 
 
 
-import com.wonders.shixi.pojo.Book;
-import com.wonders.shixi.pojo.BookBorrowModel;
-import com.wonders.shixi.pojo.BookRecordModel;
-import com.wonders.shixi.pojo.BookResidueTimeModel;
+import com.wonders.shixi.pojo.*;
 import com.wonders.shixi.util.RestMsg;
 
 import java.util.Date;
@@ -23,11 +20,9 @@ public interface IBookService {
 
     /**
      * 图书入库时添加标签
-     * @param bookId
-     * @param bookLabelId
      * @return
      */
-    int bookLabelAdd(int bookId,int bookLabelId);
+    int bookLabelAdd(BookLabelRelation br);
 
     List<Book> findDimBook(String s);
 

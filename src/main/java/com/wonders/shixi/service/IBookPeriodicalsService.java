@@ -10,7 +10,7 @@ import com.wonders.shixi.pojo.BookPeriodicals;
 public interface IBookPeriodicalsService {
     /**
      * 将ISBN添加到book_periodicals表中
-     * @param isbn
+     * @param bp
      * @return
      */
     int insertISBN(BookPeriodicals bp);

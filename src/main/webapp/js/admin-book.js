@@ -85,7 +85,6 @@ $(function () {
         success:function (data) {
             if(data.code == 1){
                 // var html = '';
-                alert(data)
                 $.each(data.result,function (i,item) {
                     // html+='<option value="'+item.bookLabelId+'">'+item.bookLabel+'</option>'
                     $("#bookLabel").append('<option value="'+item.bookLabelId+'">'+item.bookLabel+'</option>');

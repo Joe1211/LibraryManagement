@@ -77,13 +77,16 @@
     delete from book
     where book_id = #{bookId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.wonders.shixi.pojo.Book">
-    insert into book (book_name, book_periodicals,
+  <insert id="insert" parameterType="com.wonders.shixi.pojo.Book" useGeneratedKeys="true" keyProperty="bookId">
+  <!--<selectKey order="AFTER" resultType="java.lang.Integer">-->
+    <!--SELECT LAST_INSERT_ID()-->
+  <!--</selectKey>-->
+    insert into book (book_id,book_name, book_periodicals,
       book_callnum, book_writer, book_press, 
       book_cover, book_info, book_time, 
       book_updata, type_two_value, book_state, 
       library_id)
-    values (#{bookName,jdbcType=VARCHAR}, #{bookPeriodicals,jdbcType=VARCHAR},
+    values (#{bookId,jdbcType=INTEGER},#{bookName,jdbcType=VARCHAR}, #{bookPeriodicals,jdbcType=VARCHAR},
       #{bookCallnum,jdbcType=VARCHAR}, #{bookWriter,jdbcType=VARCHAR}, #{bookPress,jdbcType=VARCHAR}, 
       #{bookCover,jdbcType=VARCHAR}, #{bookInfo,jdbcType=VARCHAR}, #{bookTime,jdbcType=TIMESTAMP}, 
       #{bookUpdata,jdbcType=TIMESTAMP}, #{typeTwoValue,jdbcType=VARCHAR}, #{bookState,jdbcType=VARCHAR}, 
@@ -358,7 +361,7 @@ where book_id = #{bookId,jdbcType=INTEGER}
     select book_cover from book where book_id=#{id}
   </select>
 
-  <insert id="bookLabelAdd" parameterType="int">
+  <insert id="bookLabelAdd" parameterType="com.wonders.shixi.pojo.BookLabelRelation">
       insert into book_label_relation(book_id, book_label_id) VALUES (#{bookId},#{bookLabelId})
   </insert>
 

@@ -89,17 +89,6 @@
                 <div class="panel-heading">图书评论</div>
                 <div class="panel-body">
                     <div id="bod">
-                        <%--<c:forEach items="${comm.list}" var="com">--%>
-                        <%--<div class="col-md-12 distance">--%>
-                        <%--<div class="col-md-2">--%>
-                        <%--${com.readerName}:</br>--%>
-                        <%--${com.updateTime}--%>
-                        <%--</div>--%>
-                        <%--<div class="col-md-10">--%>
-                        <%--${com.comment}--%>
-                        <%--</div>--%>
-                        <%--</div>--%>
-                        <%--</c:forEach>--%>
                     </div>
                 </div>
             </div>
@@ -121,7 +110,6 @@
                 }else{
                     $("#bod").html("该书还没有评论！");
                 }
-
             }
         })
     }

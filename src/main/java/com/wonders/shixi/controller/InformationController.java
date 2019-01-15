@@ -94,7 +94,6 @@ public class InformationController {
     @RequestMapping(value = "/findhostbook",method = {RequestMethod.POST,RequestMethod.GET})
     @ResponseBody
     public List<InformationDemo> findhostbook(){
-        System.out.println(informationService.findhostbook().toString());
         return informationService.findhostbook();
     }
 

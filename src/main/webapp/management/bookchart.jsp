@@ -43,11 +43,11 @@
     </div>
 
 
-    <div id="main1" style="width: 600px;height:400px;">
+    <div id="main1" style="width: 1000px;height:400px;">
 
     </div>
 
-    <div id="main2" style="width: 600px;height:400px;">
+    <div id="main2" style="width: 1000px;height:400px;">
 
     </div>
 
@@ -62,7 +62,7 @@
 <script type="text/javascript">
 
     $.post('${pageContext.request.contextPath}/admin/findhostbook', function (data) {
-        console.info(data[0]);
+        // console.info(data[0]);
         var xA = [];
         var yA = [];
         for (var i = 0; i < data.length; i++) {

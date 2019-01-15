@@ -1,9 +1,6 @@
 package com.wonders.shixi.mapper;
 
-import com.wonders.shixi.pojo.Book;
-import com.wonders.shixi.pojo.BookBorrowModel;
-import com.wonders.shixi.pojo.BookRecordModel;
-import com.wonders.shixi.pojo.BookResidueTimeModel;
+import com.wonders.shixi.pojo.*;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
@@ -24,11 +21,9 @@ public interface BookMapper {
     int insert(Book book);
     /**
      * 图书入库时添加标签
-     * @param bookId
-     * @param bookLabelId
      * @return
      */
-    int bookLabelAdd(int bookId,int bookLabelId);
+    int bookLabelAdd(BookLabelRelation br);
 
     int insertSelective(Book record);
 

@@ -1,9 +1,4 @@
-package com.wonders.shixi.controller;/**
- * @Auther: qiaohanlin
- * @Date: 2019/1/14 09:29
- * @Description:
- */
-
+package com.wonders.shixi.controller;
 import com.wonders.shixi.pojo.Book;
 import com.wonders.shixi.pojo.BookResidueTimeModel;
 import com.wonders.shixi.pojo.RedisPool;
@@ -17,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 import redis.clients.jedis.Jedis;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 /**

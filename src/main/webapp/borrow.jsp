@@ -39,7 +39,7 @@
                     html+='<div class="panel-body panel_2 ">';
                     html+='<div class="form-group col-md-1 ">';
                     html+='<div class="picture box tupian ">';
-                    html+='<img class="tupian1" src="/bookCover'+item.bookCover+'"/>';
+                    html+='<img class="tupian1"src="/api/books/findBookCover?id='+item.bookId+'"/>';
                     html+='</div>';
                     html+='</div>';
                     html+=' <div id="" class="col-md-8 ">';
@@ -64,7 +64,7 @@
 
         //显示图书的详细信息
         function load(bookId) {
-            location.href="/api/books/selectById?bookId="+bookId;
+            location.href="/api/books/selectByIdMin?bookId="+bookId;
         }
     </script>
 </body>

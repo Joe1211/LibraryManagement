@@ -94,7 +94,7 @@
         <div class="form-group">
             <label class="col-sm-2 control-label" for="bookLabel">标签：</label>
             <div class="col-sm-5">
-                <select class="form-control" name="bookLabel" id="bookLabel">
+                <select class="form-control" data-live-search="true" name="bookLabel" id="bookLabel">
 
                 </select>
             </div>

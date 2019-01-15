@@ -82,7 +82,7 @@
 
         //显示图书的详细信息
         function load(bookId) {
-            location.href="/api/books/selectById?bookId="+bookId;
+            location.href="/api/books/selectByIdMin?bookId="+bookId;
         }
     </script>
 </body>

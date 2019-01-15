@@ -174,14 +174,6 @@ public class BookController {
             b.setLibraryId(Integer.parseInt(libraryId));
             b.setBookState(bookState);
             System.out.println(b);
-//          将ISBN添加到book_periodicals表中
-            BookPeriodicals bp = new BookPeriodicals();
-            bp.setBookPeriodicals(bookPeriodicals);
-            bp.setBookNumber(Integer.parseInt(bookNumber));
-            int i = bookPeriodicalsService.insertISBN(bp);
-
-//          将图书标签添加到book_label_relation表中
-
 
             /**
              * 商品图片表
@@ -212,9 +204,22 @@ public class BookController {
                     }
                 }
             }
-            int insertNum=bookService.insertBook(b);
+            //添加图书信息，返回bookId
+            int num=bookService.insertBook(b);
+            int bookId = b.getBookId();
+            //将图书标签添加到book_label_relation表中
+            String bookLabelId = request.getParameter("bookLabel");
+            BookLabelRelation br = new BookLabelRelation(bookId,Integer.parseInt(bookLabelId));
+            bookService.bookLabelAdd(br);
+            //将ISBN添加到book_periodicals表中
+            BookPeriodicals bp = new BookPeriodicals();
+            bp.setBookPeriodicals(bookPeriodicals);
+            bp.setBookNumber(Integer.parseInt(bookNumber));
+            bp.setBookId(bookId);
+            bookPeriodicalsService.insertISBN(bp);
+
             RestMsg<Object> rm =new RestMsg<Object>();
-            if(insertNum>0){
+            if(num>0){
                 rm.successMsg("图书上传成功,可以继续上传");
             }else{
                 rm.errorMsg("图书上传失败,请检查图书信息");
@@ -378,8 +383,25 @@ public class BookController {
         String id=request.getParameter("bookId");
         int bookId=Integer.parseInt(id);
         Book book=bookService.selectByPrimaryKey(bookId);
+        bookPeriodicalsService.updateClick(bookId);
+
         request.getSession().setAttribute("msg",book);
         response.sendRedirect("../../bookdetail.jsp");
+    }
+    /**
+     * 根据书id查询
+     * 查询一本书的详细内容
+     * @param
+     * @return
+     */
+    @RequestMapping("/selectByIdMin")
+    @ResponseBody
+    public void selcetByIdMin(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String id=request.getParameter("bookId");
+        int bookId=Integer.parseInt(id);
+        Book book=bookService.selectByPrimaryKey(bookId);
+        request.getSession().setAttribute("msg",book);
+        response.sendRedirect("../../bookdetailmin.jsp");
     }
 
     /**
@@ -399,7 +421,7 @@ public class BookController {
     }
 
     /**
-     * 根据图书id查询该书的评论
+     * 根据图书id查询该书的所有评论
      * @param bookId
      * @param pn
      * @return
@@ -415,9 +437,12 @@ public class BookController {
         //使用PageInfo包装查询结果，只需要将pageInfo交给页面就可以
         PageInfo pageInfo = new PageInfo<>(list,5);
         //pageINfo封装了分页的详细信息，也可以指定连续显示的页数
-        rm.setResult(pageInfo);
-        return rm.successMsg();
-
+        if(pageInfo.getList().size()!=0){
+            rm.setResult(pageInfo);
+            return rm.successMsg();
+        }else {
+            return rm.errorMsg("该书目前还没有评论！");
+        }
     }
 
     /**
@@ -445,7 +470,7 @@ public class BookController {
             System.out.println("图书减1：");
             //将减借书记录存放到以借书目表中(book_reader_record)并返回id
             int brrId = bookService.addBookRecord(id,rid);
-            System.out.println("成功");
+//            System.out.println("成功");
             //查询借图书的书名
             Book book = bookService.selectByPrimaryKey(id);
             String bookName = book.getBookName();
@@ -453,6 +478,8 @@ public class BookController {
             Reader reader = readerService.getReaderById(rid);
             String email = reader.getReaderEmail();
             MailUtil.sendEmail(bookName,30,email);
+            //借阅成功，借阅次数加1
+            bookPeriodicalsService.updateBorrow(id);
             return rm.successMsg("借书成功，免费借书时间为一个月，请按时归还！");
         }else{
             return rm.errorMsg("该图书以借完");
@@ -563,7 +590,7 @@ public class BookController {
         //创建一个Trigger触发器的实例，定义该job每天0点执行
         CronTrigger cronTrigger = TriggerBuilder.newTrigger()
                 .withIdentity("cronTrigger1")
-                .withSchedule(CronScheduleBuilder.cronSchedule("0 12 10 * * ?"))
+                .withSchedule(CronScheduleBuilder.cronSchedule("0 44 14 * * ?"))
                 .build();
         //创建Scheduler实例
         StdSchedulerFactory stdSchedulerFactory = new StdSchedulerFactory();
@@ -580,17 +607,11 @@ public class BookController {
     @ResponseBody
     public RestMsg<Object> randomBook(){
         RestMsg<Object> rm = new RestMsg<>();
-//        List<Book> list = bookService.randomBook();
-//
         Jedis jedis = RedisPool.getJedis();
-//        byte[] value = SerialoizebleUtil.serializeList(list);
         String k = "tushu";
         byte[] key = k.getBytes();
-//        jedis.set(key,value);
-
         byte[] b = jedis.get(key);
         List<Book> book = (List<Book>) SerialoizebleUtil.unserializeList(b);
-        System.out.println("book----->"+book);
         rm.setResult(book);
         return rm.successMsg();
     }

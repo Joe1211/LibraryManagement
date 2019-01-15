@@ -15,12 +15,10 @@ public interface BookPeriodicalsMapper {
 
     int updateByPrimaryKey(BookPeriodicals record);
 
-    /**
-     * 将ISBN添加到book_periodicals表中
-     * @param isbn
-     * @return
-     */
     int insertISBN(BookPeriodicals bp);
 
+    int updateClick(int bookId);
+
+    int updateBorrow(int bookId);
 
 }

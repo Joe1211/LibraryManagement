@@ -55,6 +55,7 @@
         <!--右侧区域-->
         <div class="row col-md-9 left_1 " style="height: calc(100% - 55px);">
             <%--图书信息--%>
+
             <div id="bod" style="height: calc(100% - 55px);">
                 <iframe src="xinxi.jsp" width="100%" height="100%" frameborder="0" name="showiframe"></iframe>
                 <%--<iframe src="updata.jsp" width="100%" height="300px" frameborder="0" name="showiframe1"></iframe>--%>

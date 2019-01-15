@@ -3,6 +3,8 @@ package com.wonders.shixi.pojo;
 public class BookPeriodicals {
     private Integer bookPeriodicalsId;
 
+    private Integer bookId;
+
     private String bookPeriodicals;
 
     private Integer bookBorrow;
@@ -17,6 +19,14 @@ public class BookPeriodicals {
 
     public void setBookPeriodicalsId(Integer bookPeriodicalsId) {
         this.bookPeriodicalsId = bookPeriodicalsId;
+    }
+
+    public Integer getBookId() {
+        return bookId;
+    }
+
+    public void setBookId(Integer bookId) {
+        this.bookId = bookId;
     }
 
     public String getBookPeriodicals() {

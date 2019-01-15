@@ -7,10 +7,8 @@
     <meta charset="UTF-8">
     <title>test</title>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" href="css/score.css"/>
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/lq-score.js"></script>
 
     <style>
         #kuan{
@@ -30,54 +28,24 @@
         .distance{
             margin-bottom: 10px;
         }
-        .score{
-            hight:50px;
-            line-height: 50px;
-        }
-        div.lq-score{
-            float: left;
-        }
-        .score-tip{
-            padding: 0 8px;
-            float: left;
-        }
-        .lq-score-tip{
-            margin: 0px;
-        }
-        div.lq-score>ul>li {
-            font-size: 25px;
-        }
     </style>
 </head>
 <body>
 <div class="contrainer panel panel-collapse">
+
     <div class="panel-body">
         <%--图书详情--%>
-        <div class="container-fluid">
+        <div class="container">
             <div class="panel panel-default">
                 <div class="panel-heading">图书详情</div>
                 <div class="panel-body">
-                    <div class="col-md-4">
-                        <img src="api/books/findBookCover?id=${msg.bookId}" class="tupian2"/>
+
+                    <div class="col-md-3">
+                        <img src="/api/books/findBookCover?id=${msg.bookId}" class="tupian2"/>
                     </div>
                     <div class="col-md-8">
-                        <input id="bookId" type="hidden" class="bid" value=${msg.bookId}>
                         <h3>&nbsp&nbsp&nbsp${msg.bookName}</h3>
-                        <div class="col-md-12 distance">
-                            <div class="col-md-1">
-                                <img src="img/icon/rate.png" alt="" class="icon">
-                            </div>
-                            <div class="col-md-11">
-                                <div id="score2" style="float:left;height: 20px;line-height: 20px;">
-                                    <div id="rate2">
-                                    </div>
-                                    <div class="score-tip">
-                                        <span id="tip2" class="lq-score-tip"></span>&nbsp;&nbsp;<span id="scoreNum"></span>
-                                    </div>
-                                </div>
-                                <div style="clear:both;"></div>
-                            </div>
-                        </div>
+                        <input type="hidden" class="bid" value=${msg.bookId}>
                         <div class="col-md-12 distance">
                             <div class="col-md-1">
                                 <img src="img/icon/writer.png" alt=""class="icon">
@@ -116,38 +84,23 @@
         </div>
         <%--图书详情--%>
         <%--评论--%>
-        <div class="container-fluid">
+        <div class="container">
             <div class="panel panel-default">
                 <div class="panel-heading">图书评论</div>
                 <div class="panel-body">
                     <div id="bod">
-                        <%--<c:forEach items="${comm}" var="com">--%>
-                            <%--<div class="col-md-12 distance">--%>
-                                <%--<div class="col-md-2">--%>
-                                        <%--${com.readerName}:</br>--%>
-                                        <%--${com.updateTime}--%>
-                                <%--</div>--%>
-                                <%--<div class="col-md-10">--%>
-                                        <%--${com.comment}--%>
-                                <%--</div>--%>
-                            <%--</div>--%>
+                        <%--<c:forEach items="${comm.list}" var="com">--%>
+                        <%--<div class="col-md-12 distance">--%>
+                        <%--<div class="col-md-2">--%>
+                        <%--${com.readerName}:</br>--%>
+                        <%--${com.updateTime}--%>
+                        <%--</div>--%>
+                        <%--<div class="col-md-10">--%>
+                        <%--${com.comment}--%>
+                        <%--</div>--%>
+                        <%--</div>--%>
                         <%--</c:forEach>--%>
                     </div>
-                    <form class="textare" id="myform">
-                        <div style="height: 50px;;line-height: 50px;">
-                            <p style="float: left;margin-bottom:0;margin-right: 20px;">说点什么...</p>
-                            <div id="score" class="score" style="float:left;height: 20px;">
-                                <div id="rate" class="lq-score">
-                                </div>
-                                <div class="score-tip">
-                                    <span id="tip1" class="lq-score-tip"></span>
-                                </div>
-                            </div>
-                            <div style="clear:both;"></div>
-                        </div>
-                        <textarea name="say" rows="3" cols="120" class="t"></textarea>
-                        <button class="btn btn-primary col-md-2 col-md-offset-10 form-group" id="sub" type="button">确定</button>
-                    </form>
                 </div>
             </div>
         </div>
@@ -157,74 +110,7 @@
 
 
 <script>
-    $(function(){
-        $.ajax({
-            type:"get",
-            url:"api/bookScore/selectBookScoreByBookAndReader",
-            data:{bookId:$("#bookId").val()},
-            success:function(data){
-                if(data!=null&&data.code==1){
-                    $("#rate").lqScore({
-                        fontSize:"25px",
-                        $tipEle:$("#tip1"),
-                        tips: ["不推荐", "一般", "不错", "很棒", "极力推荐！"],
-                        score:data.result.score,
-                        isScoreFinish:true
-                    });
-                }else{
-                    $("#rate").lqScore({
-                        fontSize:"25px",
-                        $tipEle:$("#tip1"),
-                        zeroTip:"未评论",
-                        tips: ["不推荐", "一般", "不错", "很棒", "极力推荐！"],
-                        afterScore:function(ele,score){
-                            $.ajax({
-                                type:"get",
-                                url:"api/bookScore/insertBookScore",
-                                data:{bookId:$("#bookId").val(),score:score},
-                                success:function(data){
-                                    if(data!=null&&data.code==1){
-                                        alert(data.msg);
-                                    }else{
-                                        alert(data.msg);
-                                    }
-                                }
-                            });
-                        }
-                    });
-                }
-            }
-        });
-        $.ajax({
-            type:"get",
-            url:"api/bookScore/getBookScoreVO",
-            data:{bookId:${msg.bookId}},
-            success:function(data){
-                if(data!=null&&data.code==1){
-                    var result=data.result.scoreAvg.toFixed(1);
-                    $("#rate2").lqScore({
-                        $tipEle:$("#tip2"),
-                        fontsize:"17px",
-                        zeroTip: result+"分",
-                        tips:[result+"分",result+"分",result+"分",result+"分",result+"分"],
-                        score:result,
-                        isScoreFinish:true
-                    });
-                    $("#scoreNum").html("共"+data.result.scoreNum+"人评价");
-                }else{
-                    $("#rate2").lqScore({
-                        $tipEle:$("#tip2"),
-                        fontsize:"17px",
-                        zeroTip: "暂无评分",
-                        score:0,
-                        isScoreFinish: true
-                    });
-                }
-            }
-        });
-    });
     window.onload=function(){
-
         //评论
         $.ajax({
             type:'get',
@@ -232,10 +118,10 @@
             success:function (data) {
                 if(data.code == 1 ){
                     loadInfo(data);
+                }else{
+                    $("#bod").html("该书还没有评论！");
                 }
-                else{
-                    $("#bod").html(data.msg);
-                }
+
             }
         })
     }
@@ -304,28 +190,26 @@
         })
     }
 
-
-    $(document).on('click', '#sub',function() {
-        var idis=${reader.readerId};
-        var pinglun=$("textarea[name='say']").val();
-        var data = "readerId="+idis+"&say="+pinglun+ "&bookId="+${msg.bookId};
-        $.ajax({
-            "url":'api/bookcomment/insert',
-            "data":data,
-            "type":'post',
-            "dataType":"json",
-            "success":function (result) {
-                if(result==1){
-                    loadFindComm()
-                    alert("评论成功")
-                    $(".t").val("");
-                    loadData(1);
-                }else {
-                    alert("评论失败")
-                };
-            },
-        })
-    });
+    <%--$(document).on('click', '#sub',function() {--%>
+    <%--var idis=${reader.readerId};--%>
+    <%--var pinglun=$("textarea[name='say']").val();--%>
+    <%--var data = "readerId="+idis+"&say="+pinglun+ "&bookId="+${msg.bookId};--%>
+    <%--$.ajax({--%>
+    <%--"url":'api/bookcomment/insert',--%>
+    <%--"data":data,--%>
+    <%--"type":'post',--%>
+    <%--"dataType":"json",--%>
+    <%--"success":function (result) {--%>
+    <%--if(result==1){--%>
+    <%--loadFindComm()--%>
+    <%--alert("评论成功")--%>
+    <%--$(".t").val("");--%>
+    <%--}else {--%>
+    <%--alert("评论失败")--%>
+    <%--};--%>
+    <%--},--%>
+    <%--})--%>
+    <%--});--%>
 
     function loadFindComm(){
         $.ajax({
@@ -471,6 +355,7 @@
             }
         })
     })
+
 </script>
 
 </body>

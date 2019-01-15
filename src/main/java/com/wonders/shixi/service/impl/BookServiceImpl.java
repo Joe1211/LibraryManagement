@@ -2,10 +2,7 @@ package com.wonders.shixi.service.impl;
 
 
 import com.wonders.shixi.mapper.BookMapper;
-import com.wonders.shixi.pojo.Book;
-import com.wonders.shixi.pojo.BookBorrowModel;
-import com.wonders.shixi.pojo.BookRecordModel;
-import com.wonders.shixi.pojo.BookResidueTimeModel;
+import com.wonders.shixi.pojo.*;
 import com.wonders.shixi.service.IBookService;
 import com.wonders.shixi.util.RestMsg;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,13 +43,11 @@ public class BookServiceImpl implements IBookService {
 
     /**
      * 图书入库时添加标签
-     * @param bookId
-     * @param bookLabelId
      * @return
      */
     @Override
-    public int bookLabelAdd(int bookId, int bookLabelId) {
-        return bookMapper.bookLabelAdd(bookId,bookLabelId);
+    public int bookLabelAdd(BookLabelRelation br) {
+        return bookMapper.bookLabelAdd(br);
     }
 
     /**

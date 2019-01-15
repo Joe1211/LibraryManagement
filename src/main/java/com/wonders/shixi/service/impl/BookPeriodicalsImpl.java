@@ -30,4 +30,14 @@ public class BookPeriodicalsImpl implements IBookPeriodicalsService {
     public int insertISBN(BookPeriodicals bp) {
         return bookPeriodicalsMapper.insertISBN(bp);
     }
+
+    @Override
+    public int updateClick(int bookId) {
+        return bookPeriodicalsMapper.updateClick(bookId);
+    }
+
+    @Override
+    public int updateBorrow(int bookId) {
+        return bookPeriodicalsMapper.updateBorrow(bookId);
+    }
 }

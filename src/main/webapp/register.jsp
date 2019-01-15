@@ -15,6 +15,18 @@
     <link rel="stylesheet" href="css/bootstrap.min.css"/>
     <title>注册</title>
     <style>
+        html,body{
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            width: 100%;
+        }
+        body{
+            background: -webkit-linear-gradient(45deg, #0e90d2 20%, #cad8df 50%,#cad8df 70%,#96b6c5);
+            background: -o-linear-gradient(45deg, #0e90d2 20%, #cad8df 50%,#cad8df 70%,#96b6c5);
+            background: -moz-linear-gradient(45deg, #0e90d2 20%, #cad8df 50%,#cad8df 70%,#96b6c5);
+            background: linear-gradient(45deg, #0e90d2 20%, #cad8df 50%,#cad8df 70%,#96b6c5);
+        }
         #rightArea{
             padding-top: 50px;
         }

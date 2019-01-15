@@ -76,4 +76,12 @@
         insert into book_score(score,update_time,book_id,reader_id)
             values(#{score,jdbcType=INTEGER},#{updateTime,jdbcType=TIMESTAMP},#{book.bookId,jdbcType=INTEGER},#{reader.readerId,jdbcType=INTEGER})
     </insert>
+    <resultMap id="bookScoreVO" type="com.wonders.shixi.controller.vo.BookScoreVO">
+        <result property="bookId" column="book_id"/>
+        <result property="scoreAvg" column="avg"/>
+        <result property="scoreNum" column="count(1)"/>
+    </resultMap>
+    <select id="selectBookScoreVOByBookId" parameterType="int" resultMap="bookScoreVO">
+        select book_id,avg(score) as avg,count(1) from book_score where book_id=#{bookId}
+    </select>
 </mapper>

@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="css/score.css"/>
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/score.js"></script>
+    <script src="js/lq-score.js"></script>
 
     <style>
         #kuan{
@@ -30,14 +30,14 @@
         .distance{
             margin-bottom: 10px;
         }
-        #score{
+        .score{
             hight:50px;
             line-height: 50px;
         }
         div.lq-score{
             float: left;
         }
-        #score-tip{
+        .score-tip{
             padding: 0 8px;
             float: left;
         }
@@ -57,13 +57,27 @@
             <div class="panel panel-default">
                 <div class="panel-heading">图书详情</div>
                 <div class="panel-body">
-
                     <div class="col-md-4">
                         <img src="api/books/findBookCover?id=${msg.bookId}" class="tupian2"/>
                     </div>
                     <div class="col-md-8">
                         <input id="bookId" type="hidden" class="bid" value=${msg.bookId}>
                         <h3>&nbsp&nbsp&nbsp${msg.bookName}</h3>
+                        <div class="col-md-12 distance">
+                            <div class="col-md-1">
+                                <img src="img/icon/rate.png" alt="" class="icon">
+                            </div>
+                            <div class="col-md-11">
+                                <div id="score2" style="float:left;height: 20px;line-height: 20px;">
+                                    <div id="rate2">
+                                    </div>
+                                    <div class="score-tip">
+                                        <span id="tip2" class="lq-score-tip"></span>&nbsp;&nbsp;<span id="scoreNum"></span>
+                                    </div>
+                                </div>
+                                <div style="clear:both;"></div>
+                            </div>
+                        </div>
                         <div class="col-md-12 distance">
                             <div class="col-md-1">
                                 <img src="img/icon/writer.png" alt=""class="icon">
@@ -122,11 +136,11 @@
                     <form class="textare" id="myform">
                         <div style="height: 50px;;line-height: 50px;">
                             <p style="float: left;margin-bottom:0;margin-right: 20px;">说点什么...</p>
-                            <div id="score" style="float:left;">
-                                <div class="lq-score">
+                            <div id="score" class="score" style="float:left;height: 20px;">
+                                <div id="rate" class="lq-score">
                                 </div>
-                                <div id="score-tip">
-                                    <span class="lq-score-tip"></span>
+                                <div class="score-tip">
+                                    <span id="tip1" class="lq-score-tip"></span>
                                 </div>
                             </div>
                             <div style="clear:both;"></div>
@@ -144,32 +158,67 @@
 
 <script>
     $(function(){
-        var bookScore=new LQScore({
-            tips: ["不推荐", "一般", "不错", "很棒", "极力推荐！"],
-            afterScore:function(score){
-                //向后台传输评价数据
-                $.ajax({
-                    type:"get",
-                    url:"api/bookScore/insertBookScore",
-                    data:{bookId:$("#bookId").val(),score:score},
-                    success:function(data){
-                        if(data!=null&&data.code==1){
-                            alert(data.msg);
-                        }else{
-                            alert(data.msg);
-                        }
-                    }
-                });
-            }
-        });
-        bookScore.init();
         $.ajax({
             type:"get",
             url:"api/bookScore/selectBookScoreByBookAndReader",
             data:{bookId:$("#bookId").val()},
             success:function(data){
                 if(data!=null&&data.code==1){
-                    bookScore.setScore(data.result.score,false);
+                    $("#rate").lqScore({
+                        fontSize:"25px",
+                        $tipEle:$("#tip1"),
+                        tips: ["不推荐", "一般", "不错", "很棒", "极力推荐！"],
+                        score:data.result.score,
+                        isScoreFinish:true
+                    });
+                }else{
+                    $("#rate").lqScore({
+                        fontSize:"25px",
+                        $tipEle:$("#tip1"),
+                        zeroTip:"未评论",
+                        tips: ["不推荐", "一般", "不错", "很棒", "极力推荐！"],
+                        afterScore:function(ele,score){
+                            $.ajax({
+                                type:"get",
+                                url:"api/bookScore/insertBookScore",
+                                data:{bookId:$("#bookId").val(),score:score},
+                                success:function(data){
+                                    if(data!=null&&data.code==1){
+                                        alert(data.msg);
+                                    }else{
+                                        alert(data.msg);
+                                    }
+                                }
+                            });
+                        }
+                    });
+                }
+            }
+        });
+        $.ajax({
+            type:"get",
+            url:"api/bookScore/getBookScoreVO",
+            data:{bookId:${msg.bookId}},
+            success:function(data){
+                if(data!=null&&data.code==1){
+                    var result=data.result.scoreAvg.toFixed(1);
+                    $("#rate2").lqScore({
+                        $tipEle:$("#tip2"),
+                        fontsize:"17px",
+                        zeroTip: result+"分",
+                        tips:[result+"分",result+"分",result+"分",result+"分",result+"分"],
+                        score:result,
+                        isScoreFinish:true
+                    });
+                    $("#scoreNum").html("共"+data.result.scoreNum+"人评价");
+                }else{
+                    $("#rate2").lqScore({
+                        $tipEle:$("#tip2"),
+                        fontsize:"17px",
+                        zeroTip: "暂无评分",
+                        score:0,
+                        isScoreFinish: true
+                    });
                 }
             }
         });

@@ -1,5 +1,6 @@
 package com.wonders.shixi.mapper;
 
+import com.wonders.shixi.controller.vo.BookScoreVO;
 import com.wonders.shixi.pojo.BookScore;
 
 /**
@@ -8,4 +9,5 @@ import com.wonders.shixi.pojo.BookScore;
 public interface BookScoreMapper {
     BookScore selectByBookIdAndReaderId(BookScore bookScore);
     int insertBookScore(BookScore bookScore);
+    BookScoreVO selectBookScoreVOByBookId(int bookId);
 }

@@ -15,36 +15,3 @@ div.lq-score>ul:after{
     display: block;
     clear: both;
 }
-.lq-score-unselect{
-    color:#ccc;
-}
-.lq-score-mouseover-c1{
-    color: rgb(91, 91, 255);
-}
-.lq-score-mouseover-c2{
-    color: rgb(72, 121, 72);
-}
-.lq-score-mouseover-c3{
-    color: rgb(255, 231, 95);
-}
-.lq-score-mouseover-c4{
-    color: rgb(255, 199, 94);
-}
-.lq-score-mouseover-c5{
-    color: rgb(255, 71, 71);
-}
-.lq-score-select-c1{
-    color:rgb(53, 53, 255);
-}
-.lq-score-select-c2{
-    color:green;
-}
-.lq-score-select-c3{
-    color:rgb(255, 238, 0);
-}
-.lq-score-select-c4{
-    color:orange;
-}
-.lq-score-select-c5{
-    color:red;
-}

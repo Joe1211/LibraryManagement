@@ -1,5 +1,6 @@
 package com.wonders.shixi.service.impl;
 
+import com.wonders.shixi.controller.vo.BookScoreVO;
 import com.wonders.shixi.mapper.BookScoreMapper;
 import com.wonders.shixi.pojo.BookScore;
 import com.wonders.shixi.service.IBookScoreService;
@@ -39,6 +40,18 @@ public class BookScoreServiceImpl implements IBookScoreService {
             return msg.successMsg("评分成功");
         }else{
             return msg.errorMsg("评分失败");
+        }
+    }
+
+    @Override
+    public RestMsg<BookScoreVO> selectBookScoreVOByBookId(int bookId) {
+        RestMsg<BookScoreVO> restMsg=new RestMsg<BookScoreVO>();
+        BookScoreVO vo=bookScoreMapper.selectBookScoreVOByBookId(bookId);
+        if(vo!=null&&vo.getScoreAvg()!=null){
+            restMsg.setResult(vo);
+            return restMsg.successMsg("获取成功");
+        }else{
+            return restMsg.errorMsg("获取失败");
         }
     }
 }

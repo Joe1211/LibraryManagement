@@ -175,7 +175,7 @@
     <div class="container-fluid">
         <!--logo-->
         <div class="navbar-header col-sm-2 ">
-            <a href=" " class="navbar-header ">
+            <a href="index.jsp" class="navbar-header ">
                 <img src="img/logo.jpg">
             </a>
         </div>

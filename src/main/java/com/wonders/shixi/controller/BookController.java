@@ -563,7 +563,7 @@ public class BookController {
         //创建一个Trigger触发器的实例，定义该job每天0点执行
         CronTrigger cronTrigger = TriggerBuilder.newTrigger()
                 .withIdentity("cronTrigger1")
-                .withSchedule(CronScheduleBuilder.cronSchedule("0 40 9 * * ?"))
+                .withSchedule(CronScheduleBuilder.cronSchedule("0 12 10 * * ?"))
                 .build();
         //创建Scheduler实例
         StdSchedulerFactory stdSchedulerFactory = new StdSchedulerFactory();

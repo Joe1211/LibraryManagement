@@ -10,6 +10,13 @@
     <link rel="stylesheet" href="css/amazeui.min.css"/>
     <%--<link rel="stylesheet" href="css/app1.css"/>--%>
     <style>
+        html {
+            background: -webkit-linear-gradient(45deg, #0e90d2 20%, #cad8df 50%,#cad8df 70%,#96b6c5);
+            background: -o-linear-gradient(45deg, #0e90d2 20%, #cad8df 50%,#cad8df 70%,#96b6c5);
+            background: -moz-linear-gradient(45deg, #0e90d2 20%, #cad8df 50%,#cad8df 70%,#96b6c5);
+            background: linear-gradient(45deg, #0e90d2 20%, #cad8df 50%,#cad8df 70%,#96b6c5);
+        }
+
         .log {
             top: 100px;
         }
@@ -120,26 +127,26 @@
             url: "api/readermanagement/login",
             data: $("#loginForm").serialize(),
             success: function (data) {
-                if(data!=null&&data.code==1&&data.result!=null){
-                    switch(data.result.role){
+                if (data != null && data.code == 1 && data.result != null) {
+                    switch (data.result.role) {
                         case 0:
-                            location.href="/index.jsp";
+                            location.href = "/index.jsp";
                             break;
                         case 1:
-                            location.href="/admin.jsp";
+                            location.href = "/admin.jsp";
                             break;
                         case 2:
-                            if($("input#reader").prop("checked")){
-                                location.href="/index.jsp";
-                            }else{
-                                location.href="/admin.jsp";
+                            if ($("input#reader").prop("checked")) {
+                                location.href = "/index.jsp";
+                            } else {
+                                location.href = "/admin.jsp";
                             }
                             break;
                         default:
                             alert("身份错误");
                             break;
                     }
-                }else{
+                } else {
                     alert(data.msg);
                 }
             },

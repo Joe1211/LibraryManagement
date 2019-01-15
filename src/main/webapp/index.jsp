@@ -101,6 +101,10 @@
             width: 160px;
             height: 200px;
         }
+        .tupian3{
+            width: 20px;
+            height: 20px;
+        }
         .tuijian{
             margin-top: 5px;
             margin-bottom: 20px;
@@ -318,11 +322,17 @@
     <div id="bod">
     </div>
 
+
+    <br>
+    <h3 class="" style="margin-left: 45%;">---借阅排行榜---</h3>
+    <div id="bod1">
+    </div>
     <div class="col-md-4 col-lg-offset-9">
         <h3>
             <a href="search.jsp"><button class="btn-info">查看更多---></button></a>
         </h3>
     </div>
+
 </div>
 <!--关于我们-->
 <div class="col-md-12 dibu">
@@ -364,7 +374,6 @@
                 if(data.code == 1){
                     var html = '';
                     $.each(data.result,function (i,item) {
-
                         html+='<div class="col-md-4 tuijian">';
                         html+='<div class="col-md-5">';
                         html+='<a href="javascript:load('+item.bookId+')">';
@@ -381,8 +390,42 @@
                         html+='</div>';
                         html+='</div>';
 
-                    })
+                    });
+                    html+='<div style="clear: both;"></div>';
                    $("#bod").html(html);
+                }
+            }
+        })
+        // 图书借阅排行榜
+        $.ajax({
+            type:'get',
+            url:'api/books/borrowtop',
+            success:function (data) {
+                if(data.code == 1){
+                    var html = '';
+                    $.each(data.result,function (i,item) {
+                        html+='<div class="col-md-12">';
+                        html+='<div class="col-md-1">';
+                        html+=''+item.bookBorrow+'';
+                        html+='</div>';
+                        html+='<div class="col-md-11 tuijian">';
+                        html+='<div class="col-md-2">';
+                        html+='<a href="javascript:load('+item.bookId+')">';
+                        html+='<img class="tupian2"src="/api/books/findBookCover?id='+item.bookId+'"/>';
+                        html+='</a>'
+                        html+='</div>';
+                        html+='<div class="col-md-10 info">';
+                        html+='<a href="javascript:load('+item.bookId+')">';
+                        html+='<h3>'+item.bookName+'</h3>';
+                        html+='</a>'
+                        html+='<p>'+item.bookWriter+'</p>';
+                        html+='<p>'+item.bookPress+'</p>';
+                        html+='<p>'+item.bookInfo+'</p>';
+                        html+='</div>';
+                        html+='</div>';
+                        html+='</div>';
+                    });
+                    $("#bod1").html(html);
                 }
             }
         })

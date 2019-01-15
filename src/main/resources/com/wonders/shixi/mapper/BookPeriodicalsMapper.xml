@@ -112,4 +112,5 @@
   <update id="updateBorrow" parameterType="java.lang.Integer">
     update book_periodicals set book_borrow = book_borrow+1 where book_id = #{bookId}
   </update>
+
 </mapper>

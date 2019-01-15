@@ -136,5 +136,9 @@ public interface BookMapper {
      */
     List<Book> randomBook();
 
-
+    /**
+     * 图书借阅排行榜
+     * @return
+     */
+    List<BookBorrowTopModel> borrowTop();
 }

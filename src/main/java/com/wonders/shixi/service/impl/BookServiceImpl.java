@@ -198,8 +198,23 @@ public class BookServiceImpl implements IBookService {
      */
     @Override
     public List<Book> randomBook(){
-        RestMsg<Object> rm =new RestMsg<>();
         List<Book> list = bookMapper.randomBook();
         return list;
+    }
+
+    /**
+     * 图书借阅排行榜
+     * @return
+     */
+    @Override
+    public RestMsg<Object> borrowTop(){
+        RestMsg<Object> rm = new RestMsg<>();
+        List<BookBorrowTopModel> list = bookMapper.borrowTop();
+        if (list.size()!=0){
+            rm.setResult(list);
+            return rm.successMsg();
+        }else{
+            return rm.errorMsg("暂无排行榜");
+        }
     }
 }

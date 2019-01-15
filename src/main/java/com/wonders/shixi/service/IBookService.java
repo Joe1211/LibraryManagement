@@ -102,4 +102,9 @@ public interface IBookService {
      */
     List<Book> randomBook();
 
+    /**
+     * 图书借阅排行榜
+     * @return
+     */
+    RestMsg<Object> borrowTop();
 }

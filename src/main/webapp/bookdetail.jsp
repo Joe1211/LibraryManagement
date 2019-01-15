@@ -190,7 +190,7 @@
             data:{bookId:${msg.bookId}},
             success:function(data){
                 if(data!=null&&data.code==1){
-                    var result=data.result.score.toFixed(1);
+                    var result=data.result.scoreAvg.toFixed(1);
                     $("#rate").lqScore({
                         $tipEle:$("#tip1"),
                         fontsize:"17px",

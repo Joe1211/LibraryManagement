@@ -591,6 +591,8 @@ public class BookController {
         CronTrigger cronTrigger = TriggerBuilder.newTrigger()
                 .withIdentity("cronTrigger1")
                 .withSchedule(CronScheduleBuilder.cronSchedule("0 44 14 * * ?"))
+
+
                 .build();
         //创建Scheduler实例
         StdSchedulerFactory stdSchedulerFactory = new StdSchedulerFactory();
@@ -614,5 +616,15 @@ public class BookController {
         List<Book> book = (List<Book>) SerialoizebleUtil.unserializeList(b);
         rm.setResult(book);
         return rm.successMsg();
+    }
+
+    /**
+     * 图书借阅排行榜
+     * @return
+     */
+    @GetMapping("borrowtop")
+    @ResponseBody
+    public RestMsg<Object> borrowTop(){
+        return bookService.borrowTop();
     }
 }

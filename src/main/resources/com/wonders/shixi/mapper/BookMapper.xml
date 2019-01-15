@@ -62,6 +62,22 @@
     <result column="reader_email" jdbcType="VARCHAR" property="readerEmail" />
     <result column="book_name" jdbcType="VARCHAR" property="bookName" />
   </resultMap>
+  <resultMap id="BaseResultMap5" type="com.wonders.shixi.pojo.BookBorrowTopModel">
+    <id column="book_id" jdbcType="INTEGER" property="bookId" />
+    <result column="book_name" jdbcType="VARCHAR" property="bookName" />
+    <result column="book_periodicals" jdbcType="VARCHAR" property="bookPeriodicals" />
+    <result column="book_callnum" jdbcType="VARCHAR" property="bookCallnum" />
+    <result column="book_writer" jdbcType="VARCHAR" property="bookWriter" />
+    <result column="book_press" jdbcType="VARCHAR" property="bookPress" />
+    <result column="book_cover" jdbcType="VARCHAR" property="bookCover" />
+    <result column="book_info" jdbcType="VARCHAR" property="bookInfo" />
+    <result column="book_time" jdbcType="TIMESTAMP" property="bookTime" />
+    <result column="book_updata" jdbcType="TIMESTAMP" property="bookUpdata" />
+    <result column="type_two_value" jdbcType="VARCHAR" property="typeTwoValue" />
+    <result column="book_state" jdbcType="VARCHAR" property="bookState" />
+    <result column="library_id" jdbcType="INTEGER" property="libraryId" />
+    <result column="book_borrow" jdbcType="INTEGER" property="bookBorrow" />
+  </resultMap>
 
   <sql id="Base_Column_List">
     book_id, book_name, book_periodicals, book_callnum, book_writer, book_press, book_cover, 
@@ -367,6 +383,14 @@ where book_id = #{bookId,jdbcType=INTEGER}
 
   <!--首页每日推荐8本图书-->
   <select id="randomBook" resultMap="BaseResultMap">
-    SELECT * FROM book  ORDER BY  RAND() LIMIT 8
+    SELECT b.<include refid="Base_Column_List" />  FROM book  ORDER BY  RAND() LIMIT 8
   </select>
+
+  <!--借书排行榜-->
+  <select id="borrowTop" resultMap="BaseResultMap5">
+    select b.book_id, b.book_name, b.book_periodicals, b.book_callnum, b.book_writer, b.book_press, b.book_cover,
+           b.book_info, b.book_time, b.book_updata, b.type_two_value, b.book_state, b.library_id,bp.book_borrow
+    from book_periodicals as bp,book as b  where b.book_id = bp.book_id order by bp.book_borrow desc limit 8
+  </select>
+
 </mapper>

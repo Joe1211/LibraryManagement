@@ -476,6 +476,8 @@ public class BookController {
         List<BookBorrowModel> list = bookService.selectByBorrowAll();
         //使用PageInfo包装查询结果，只需要将pageInfo交给页面就可以
         PageInfo pageInfo = new PageInfo<>(list,5);
+
+
             //pageINfo封装了分页的详细信息，也可以指定连续显示的页数
             if (pageInfo.getList().size() != 0){
                 rm.setResult(pageInfo);
@@ -499,8 +501,6 @@ public class BookController {
         CronTrigger cronTrigger = TriggerBuilder.newTrigger()
                 .withIdentity("cronTrigger1")
                 .withSchedule(CronScheduleBuilder.cronSchedule("0 44 14 * * ?"))
-
-
                 .build();
         //创建Scheduler实例
         StdSchedulerFactory stdSchedulerFactory = new StdSchedulerFactory();

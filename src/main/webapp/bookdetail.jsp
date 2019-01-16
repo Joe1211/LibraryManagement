@@ -180,7 +180,11 @@
             type: 'get',
             url: 'api/books/comments' + '?bookId=' + $(".bid").val(),
             success: function (data) {
-                loadInfo(data);
+                if(data.code == 1 ){
+                    loadInfo(data);
+                }else{
+                    $("#bod").html("该书还没有评论！");
+                }
             }
         })
 

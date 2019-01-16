@@ -125,6 +125,17 @@
             -webkit-line-clamp: 4;
             -webkit-box-orient: vertical;
         }
+        .top{
+            font-size: 4em;
+            font-family: 楷体;
+            color: #0f9ae0;
+            margin:20px 0 0 20px ;
+        }
+        .num{
+            font-size: 1em;
+            color: #0f9ae0;
+            margin:0;
+        }
     </style>
 </head>
 
@@ -406,7 +417,8 @@
                     $.each(data.result,function (i,item) {
                         html+='<div class="col-md-12">';
                         html+='<div class="col-md-1">';
-                        html+=''+item.bookBorrow+'';
+                        html+='<p class="top">'+(i+1)+'</p>'
+                        html+='<p class="num">'+"借阅次数："+item.bookBorrow+'</p>';
                         html+='</div>';
                         html+='<div class="col-md-11 tuijian">';
                         html+='<div class="col-md-2">';
@@ -425,6 +437,7 @@
                         html+='</div>';
                         html+='</div>';
                     });
+                    html+='<div style="clear: both;"></div>';
                     $("#bod1").html(html);
                 }
             }

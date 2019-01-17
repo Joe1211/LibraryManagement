@@ -3,6 +3,7 @@ package com.wonders.shixi.service;/*
     @date 2018/12/19
 */
 
+import com.wonders.shixi.controller.vo.BookTypeBorrowVO;
 import com.wonders.shixi.pojo.Book;
 import com.wonders.shixi.pojo.InformationDemo;
 import com.wonders.shixi.pojo.TypeTwo;
@@ -22,4 +23,6 @@ public interface IInformationService {
     public List<InformationDemo> findhostbook();
 
     public List<InformationDemo> findclickbook();
+
+    public List<BookTypeBorrowVO> findBookTypeBorrowSum();
 }

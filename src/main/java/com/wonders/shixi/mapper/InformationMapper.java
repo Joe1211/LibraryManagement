@@ -3,6 +3,7 @@ package com.wonders.shixi.mapper;/*
     @date 2018/12/19
 */
 
+import com.wonders.shixi.controller.vo.BookTypeBorrowVO;
 import com.wonders.shixi.pojo.Book;
 import com.wonders.shixi.pojo.InformationDemo;
 import com.wonders.shixi.pojo.TypeTwo;
@@ -50,4 +51,8 @@ public interface InformationMapper {
     @Results(value = {@Result(property = "bookName",column = "book_name"),
             @Result(property = "bookClick",column = "book_click")})
     public List<InformationDemo> findclickbook();
+
+    @Select("select book_type.book_type_id,book_type.book_type_name,sum(book_periodicals.book_borrow) book_borrow_sum from book,type_one,type_two,book_type,book_periodicals where book.type_two_value=type_two.type_two_value and type_two.type_one_id=type_one.type_one_id and book_type.book_type_id=type_one.book_type_id and book_periodicals.book_periodicals=book.book_periodicals and book_periodicals.book_borrow!=0 GROUP BY book_type.book_type_id")
+    @Results({@Result(property = "bookTypeId",column = "book_type_id"),@Result(property = "bookTypeName",column = "book_type_name"),@Result(property = "borrowSum",column = "book_borrow_sum")})
+    public List<BookTypeBorrowVO> findBookTypeBorrowVO();
 }

@@ -6,6 +6,7 @@ package com.wonders.shixi.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.wonders.shixi.controller.vo.BookTypeBorrowVO;
 import com.wonders.shixi.pojo.Book;
 import com.wonders.shixi.pojo.InformationDemo;
 import com.wonders.shixi.pojo.TypeTwo;
@@ -101,5 +102,11 @@ public class InformationController {
     @ResponseBody
     public  List<InformationDemo> findclickbook(){
         return informationService.findclickbook();
+    }
+
+    @RequestMapping(value = "/findBookTypeBorrowSum",method = {RequestMethod.POST,RequestMethod.GET})
+    @ResponseBody
+    public  List<BookTypeBorrowVO> findBookTypeBorrowSum(){
+        return informationService.findBookTypeBorrowSum();
     }
 }

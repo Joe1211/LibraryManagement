@@ -34,10 +34,9 @@
     <div class="container-fluid am-cf">
         <div class="row">
             <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
-                <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span> 图表
+                <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span> 图表统计
                     <small>LibraryManagement</small>
                 </div>
-                <p class="page-header-description">图表组件使用的是 <a href="http://echarts.baidu.com">echarts</a>。</p>
             </div>
         </div>
     </div>
@@ -48,6 +47,10 @@
     </div>
 
     <div id="main2" style="width: 1000px;height:400px;">
+
+    </div>
+
+    <div id="main3" style="width: 1000px;height:400px;">
 
     </div>
 
@@ -146,6 +149,35 @@
                 }
             }]
         };
+        myChart.setOption(option);
+    });
+
+    $.post("${pageContext.request.contextPath}/admin/findBookTypeBorrowSum",function(data){
+        var legendArr=[];
+        var dataArr=[];
+        for(var i=0;i<data.length;i++){
+            legendArr.push(data[i].bookTypeName);
+            dataArr.push({name:data[i].bookTypeName,value:data[i].borrowSum});
+        }
+        var myChart=echarts.init(document.getElementById("main3"));
+        var option={
+            title:{
+                text:"各类图书借阅情况"
+            },
+            tooltip:{},
+            legend:{
+                type:"scroll",
+                data:legendArr,
+                orient: 'vertical',
+                left: 10,
+                top: 30,
+            },
+            series:[{
+                type:"pie",
+                name:"类别",
+                data:dataArr
+            }]
+        }
         myChart.setOption(option);
     });
 

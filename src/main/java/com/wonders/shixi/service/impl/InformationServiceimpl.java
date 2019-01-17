@@ -3,6 +3,7 @@ package com.wonders.shixi.service.impl;/*
     @date 2018/12/19
 */
 
+import com.wonders.shixi.controller.vo.BookTypeBorrowVO;
 import com.wonders.shixi.mapper.InformationMapper;
 import com.wonders.shixi.pojo.Book;
 import com.wonders.shixi.pojo.InformationDemo;
@@ -46,5 +47,10 @@ public class InformationServiceimpl implements IInformationService {
     @Override
     public List<InformationDemo> findclickbook() {
         return informationMapper.findclickbook();
+    }
+
+    @Override
+    public List<BookTypeBorrowVO> findBookTypeBorrowSum() {
+        return informationMapper.findBookTypeBorrowVO();
     }
 }

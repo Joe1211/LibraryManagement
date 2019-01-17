@@ -44,12 +44,15 @@
     <div class="container-fluid " style="height: calc(100% - 55px);">
         <!--左侧区域 -->
         <div class="row col-md-3 ">
-            <table class="table table-hover">
-                <tr><td><a href="xinxi.jsp" target="showiframe">基本信息</a></td></tr>
-                <tr><td><a href="updata.jsp" target="showiframe">修改密码</a></td></tr>
-                <tr><td><a href="borrow.jsp" target="showiframe">我的借阅</a></td></tr>
-                <tr><td><a href="repay.jsp" target="showiframe">已还图书</a></td></tr>
-            </table>
+            <div class="list-group">
+                <a href="#" class="list-group-item disabled">
+                    个人主页
+                </a>
+                <a href="xinxi.jsp" target="showiframe" class="list-group-item">基本信息</a>
+                <a href="updata.jsp" target="showiframe" class="list-group-item">修改密码</a>
+                <a href="borrow.jsp" target="showiframe" class="list-group-item">我的借阅</a>
+                <a href="repay.jsp" target="showiframe" class="list-group-item">已还图书</a>
+            </div>
         </div>
 
         <!--右侧区域-->

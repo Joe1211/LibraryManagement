@@ -19,6 +19,7 @@ $(function () {
                     } else {
                         //上传失败
                         alert(data.msg);
+                        form.rest();
                     }
                 },
                 error: function () {

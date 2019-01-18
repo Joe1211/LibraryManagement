@@ -58,6 +58,7 @@ public class BookController {
         @PostMapping("/add")
         @ResponseBody
         public RestMsg<Object> addBook(HttpServletRequest request, @RequestParam("bookCover") CommonsMultipartFile bookCover){
+            RestMsg<Object> rm =new RestMsg<Object>();
             //获取页面参数
             String bookName = request.getParameter("bookName");
             String bookPeriodicals = request.getParameter("bookPeriodicals");
@@ -112,6 +113,13 @@ public class BookController {
                     }
                 }
             }
+
+            //通过ISBN检查图书是否已存在
+            int isbn = bookService.findISBN(bookPeriodicals);
+            if (isbn!=0){
+                return rm.errorMsg("该书以存在！");
+            }
+
             //添加图书信息，返回bookId
             int num=bookService.insertBook(b);
             int bookId = b.getBookId();
@@ -125,8 +133,6 @@ public class BookController {
             bp.setBookNumber(Integer.parseInt(bookNumber));
             bp.setBookId(bookId);
             bookPeriodicalsService.insertISBN(bp);
-
-            RestMsg<Object> rm =new RestMsg<Object>();
             if(num>0){
                 rm.successMsg("图书上传成功,可以继续上传");
             }else{

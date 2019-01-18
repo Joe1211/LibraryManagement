@@ -217,4 +217,9 @@ public class BookServiceImpl implements IBookService {
             return rm.errorMsg("暂无排行榜");
         }
     }
+
+    @Override
+    public int findISBN(String isbn){
+        return bookMapper.findISBN(isbn);
+    }
 }

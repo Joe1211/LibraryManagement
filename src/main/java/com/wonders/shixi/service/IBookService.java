@@ -107,4 +107,6 @@ public interface IBookService {
      * @return
      */
     RestMsg<Object> borrowTop();
+
+    int findISBN(String isbn);
 }

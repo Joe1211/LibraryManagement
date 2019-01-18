@@ -393,4 +393,8 @@ where book_id = #{bookId,jdbcType=INTEGER}
     from book_periodicals as bp,book as b  where b.book_id = bp.book_id order by bp.book_borrow desc limit 8
   </select>
 
+  <!--根据ISBN查询图书是否存在-->
+  <select id="findISBN" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select book_id from book where book_periodicals=#{isbn}
+  </select>
 </mapper>

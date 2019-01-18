@@ -219,7 +219,7 @@ public class BookServiceImpl implements IBookService {
     }
 
     @Override
-    public int findISBN(String isbn){
+    public Integer findISBN(String isbn){
         return bookMapper.findISBN(isbn);
     }
 }

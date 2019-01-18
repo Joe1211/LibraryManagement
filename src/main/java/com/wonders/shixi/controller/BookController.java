@@ -82,7 +82,7 @@ public class BookController {
             b.setTypeTwoValue(typeTwoValue);
             b.setLibraryId(Integer.parseInt(libraryId));
             b.setBookState(bookState);
-            System.out.println(b);
+//            System.out.println(b);
 
             /**
              * 商品图片表
@@ -115,8 +115,8 @@ public class BookController {
             }
 
             //通过ISBN检查图书是否已存在
-            int isbn = bookService.findISBN(bookPeriodicals);
-            if (isbn!=0){
+            Integer isbn = bookService.findISBN(bookPeriodicals);
+            if (isbn != null){
                 return rm.errorMsg("该书以存在！");
             }
 
@@ -369,19 +369,19 @@ public class BookController {
     @ResponseBody
     public RestMsg<Object> borrowBook(String bookId,String readerId){
         RestMsg<Object> rm = new RestMsg<>();
-        System.out.println(bookId+"--->"+readerId);
+//        System.out.println(bookId+"--->"+readerId);
         if(bookId==null){
             System.out.println("没登陆");
         }
         int id = Integer.parseInt(bookId);
         int rid = Integer.parseInt(readerId);
         int num = bookService.selectNum(id);
-        System.out.println("图书数量为："+num);
+//        System.out.println("图书数量为："+num);
 //        图书可借数量>=1为可借
         if(num>=1){
             //根据图书id获取书刊号，再将书刊信息表(book_periodicals)里可借图书数量减1
             int n = bookService.updataByNumber(id);
-            System.out.println("图书减1：");
+//            System.out.println("图书减1：");
             //将减借书记录存放到以借书目表中(book_reader_record)并返回id
             int brrId = bookService.addBookRecord(id,rid);
 //            System.out.println("成功");
@@ -506,7 +506,7 @@ public class BookController {
         //创建一个Trigger触发器的实例，定义该job每天0点执行
         CronTrigger cronTrigger = TriggerBuilder.newTrigger()
                 .withIdentity("cronTrigger1")
-                .withSchedule(CronScheduleBuilder.cronSchedule("0 44 14 * * ?"))
+                .withSchedule(CronScheduleBuilder.cronSchedule("0 57 10 * * ?"))
                 .build();
         //创建Scheduler实例
         StdSchedulerFactory stdSchedulerFactory = new StdSchedulerFactory();

@@ -5,6 +5,7 @@ package com.wonders.shixi.service;
 
 import com.wonders.shixi.pojo.*;
 import com.wonders.shixi.util.RestMsg;
+import io.swagger.models.auth.In;
 
 import java.util.Date;
 import java.util.List;
@@ -108,5 +109,5 @@ public interface IBookService {
      */
     RestMsg<Object> borrowTop();
 
-    int findISBN(String isbn);
+    Integer findISBN(String isbn);
 }

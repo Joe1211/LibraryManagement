@@ -142,5 +142,5 @@ public interface BookMapper {
      */
     List<BookBorrowTopModel> borrowTop();
 
-    int findISBN(String isbn);
+    Integer findISBN(String isbn);
 }

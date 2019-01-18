@@ -383,7 +383,7 @@ where book_id = #{bookId,jdbcType=INTEGER}
 
   <!--首页每日推荐8本图书-->
   <select id="randomBook" resultMap="BaseResultMap">
-    SELECT b.<include refid="Base_Column_List" />  FROM book  ORDER BY  RAND() LIMIT 8
+    SELECT <include refid="Base_Column_List" />  FROM book  ORDER BY  RAND() LIMIT 8
   </select>
 
   <!--借书排行榜-->

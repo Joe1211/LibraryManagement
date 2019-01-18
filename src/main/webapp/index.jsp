@@ -136,6 +136,15 @@
             color: #0f9ae0;
             margin:0;
         }
+        .top-1{
+            color:#f54545;
+        }
+        .top-2{
+            color:#ff8547;
+        }
+        .top-3{
+            color:#ffac38;
+        }
     </style>
 </head>
 
@@ -417,8 +426,8 @@
                     $.each(data.result,function (i,item) {
                         html+='<div class="col-md-12">';
                         html+='<div class="col-md-1">';
-                        html+='<p class="top">'+(i+1)+'</p>'
-                        html+='<p class="num">'+"借阅次数："+item.bookBorrow+'</p>';
+                        html+='<p class="top top-'+(i+1)+'">'+(i+1)+'</p>'
+                        html+='<p class="num top-'+(i+1)+'">'+"借阅次数："+item.bookBorrow+'</p>';
                         html+='</div>';
                         html+='<div class="col-md-11 tuijian">';
                         html+='<div class="col-md-2">';

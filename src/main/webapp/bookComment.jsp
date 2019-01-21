@@ -243,13 +243,21 @@
         var html = '';
         $.each(data.result.list,function (i,item) {
             html+='<div class="col-md-12 distance">';
-            html+=' <div class="col-md-2">';
-            html+=''+item.readerName+'</br>';
+            html+=' <div>';
+            html+=''+item.ReaderName+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
             html+=''+item.updateTime+'';
             html+='  </div>';
-            html+=' <div class="col-md-10">';
+            html+=' <p>';
             html+=''+item.comment+'';
-            html+='</div>';
+            html+='</p>';
+            if(item.status==1){
+                //已点赞
+                html+='<div style="height:16px;line-height: 16px;"><a href="javascript:void(0)" data-isLike="true" onclick="likeToggle(this)"><img src="img/icon/like.png" style="width:16px;height: 16px;"/></a>';
+            }else{
+                //未点赞
+                html+='<div style="height:16px;line-height: 16px;"><a href="javascript:void(0)" data-isLike="false" onclick="likeToggle(this)"><img src="img/icon/nolike.png" style="width:16px;height: 16px;"/></a>';
+            }
+            html+='&nbsp;&nbsp;<span>'+item.likeCount+'</span></div>';
             html+='</div>';
 
         })
@@ -302,6 +310,45 @@
                 loadInfo(data);
             }
         })
+    }
+
+    //点赞切换
+    function likeToggle(obj){
+        if(obj.dataset.isLike=="true"){
+            //取消点赞
+            $.ajax({
+                type:"post",
+                dataType:"json",
+                url:"",
+                success:function(data){
+                    if(data!=null&&data.code==1){
+                        obj.getElementsByTagName("img")[0].src="img/icon/nolike.png";
+                        obj.parentElement.getElementsByTagName("span")[0].innerText=Number(obj.parentElement.getElementsByTagName("span")[0].innerText)-1;
+                        obj.dataset.isLike="false";
+                    }
+                },
+                error:function(){
+                    console.log("服务器错误");
+                }
+            });
+        }else{
+            //点赞
+            $.ajax({
+                type:"post",
+                dataType:"json",
+                url:"",
+                success:function(data){
+                    if(data!=null&&data.code==1){
+                        obj.getElementsByTagName("img")[0].src="img/icon/like.png";
+                        obj.parentElement.getElementsByTagName("span")[0].innerText=Number(obj.parentElement.getElementsByTagName("span")[0].innerText)+1;
+                        obj.dataset.isLike="true";
+                    }
+                },
+                error:function(){
+                    console.log("服务器错误");
+                }
+            });
+        }
     }
 
 

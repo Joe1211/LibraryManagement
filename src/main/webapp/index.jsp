@@ -349,7 +349,7 @@
     </div>
     <div class="col-md-4 col-lg-offset-9">
         <h3>
-            <a href="search.jsp"><button class="btn-info">查看更多---></button></a>
+            <a href="rank.jsp"><button class="btn-info">查看更多---></button></a>
         </h3>
     </div>
 

@@ -123,7 +123,7 @@
 <div class="btn-group col-md-4 col-md-offset-1 col-sm-8 ver2 ">
 
     <div class="input-group input-group-md ">
-        <input type="text " class="form-control " placeholder="请输入索书号、书名、作者等 " id="content"/>
+        <input type="text " class="form-control " placeholder="请输入书名、作者 " id="content"/>
         <span class="input-group-btn ">
             <button class="btn btn-primary " id="select">检索</button>
         </span>

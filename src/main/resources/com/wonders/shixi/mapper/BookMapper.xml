@@ -259,7 +259,7 @@
     from book
     <where>
       <if test="bookName != null">
-        book_name like '%${bookName}%'
+        book_name like '%${bookName}%' or book_writer like '%${bookName}%'
       </if>
     </where>
   </select>

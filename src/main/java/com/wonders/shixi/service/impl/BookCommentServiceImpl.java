@@ -2,6 +2,7 @@ package com.wonders.shixi.service.impl;
 
 import com.wonders.shixi.mapper.BookCommentMapper;
 import com.wonders.shixi.pojo.BookComment;
+import com.wonders.shixi.pojo.BookCommentModel;
 import com.wonders.shixi.pojo.Model;
 import com.wonders.shixi.service.IBookCommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,19 @@ public class BookCommentServiceImpl implements IBookCommentService {
     @Autowired
     BookCommentMapper mapper;
     @Override
-    public List<Model> selectAllById(int bookId) {
-        return mapper.selectAllByBookId(bookId);
+    public List<BookCommentModel> selectAllById(int bookId,int readerId) {
+        List<BookCommentModel> list = mapper.selectAllByBookId(bookId);
+        for (BookCommentModel bcm:list) {
+            if(bcm.getLikeCount()>0){
+               int bcmId = bcm.getId();
+               Integer i = mapper.findIsComment(bcmId,readerId);
+               if (i!=null){
+                    bcm.setStatus(1);
+               }
+            }
+        }
+
+        return list;
     }
 
     @Override

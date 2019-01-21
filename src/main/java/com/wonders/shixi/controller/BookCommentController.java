@@ -4,7 +4,9 @@ package com.wonders.shixi.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.wonders.shixi.pojo.BookComment;
+import com.wonders.shixi.pojo.BookCommentModel;
 import com.wonders.shixi.pojo.Model;
+import com.wonders.shixi.pojo.Reader;
 import com.wonders.shixi.service.impl.BookCommentServiceImpl;
 import com.wonders.shixi.service.impl.ReaderServiceImpl;
 import com.wonders.shixi.util.RestMsg;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -33,8 +36,10 @@ public class BookCommentController {
      */
     @RequestMapping("/select")
     @ResponseBody
-    public List<Model> select(int bookId){
-        List<Model> list=bookCommentService.selectAllById(bookId);
+    public List<BookCommentModel> select(int bookId, HttpSession session){
+        Reader reader = (Reader) session.getAttribute("reader");
+        int readerId = reader.getReaderId();
+        List<BookCommentModel> list=bookCommentService.selectAllById(bookId,readerId);
         return list;
     }
 

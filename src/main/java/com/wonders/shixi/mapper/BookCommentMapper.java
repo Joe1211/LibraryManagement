@@ -1,7 +1,10 @@
 package com.wonders.shixi.mapper;
 
 import com.wonders.shixi.pojo.BookComment;
+import com.wonders.shixi.pojo.BookCommentModel;
 import com.wonders.shixi.pojo.Model;
+import io.swagger.models.auth.In;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -30,7 +33,9 @@ public interface BookCommentMapper {
      */
     List<BookComment> selectByBookId(Integer bookId);
 
-    List<Model> selectAllByBookId(Integer bookId);
+    List<BookCommentModel> selectAllByBookId(Integer bookId);
 
     List<BookComment> selectCommentAll();
+
+    Integer findIsComment(@Param("id")int id,@Param("readerId") int readerId);
 }

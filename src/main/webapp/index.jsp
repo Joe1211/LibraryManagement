@@ -435,6 +435,8 @@
                         html+='<img class="tupian2"src="/api/books/findBookCover?id='+item.bookId+'"/>';
                         html+='</a>'
                         html+='</div>';
+
+
                         html+='<div class="col-md-10 info">';
                         html+='<a href="javascript:load('+item.bookId+')">';
                         html+='<h3>'+item.bookName+'</h3>';

@@ -9,22 +9,15 @@
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
 
-  <resultMap id="BaseResultMap2" type="com.wonders.shixi.pojo.Model">
+  <resultMap id="BaseResultMap2" type="com.wonders.shixi.pojo.BookCommentModel">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="book_id" jdbcType="INTEGER" property="bookId" />
     <result column="reader_id" jdbcType="INTEGER" property="readerId" />
+    <result column="reader_name" jdbcType="VARCHAR" property="readerName" />
     <result column="comment" jdbcType="VARCHAR" property="comment" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <!--<collection property="reader" ofType="com.wonders.shixi.pojo.Model">-->
-      <!--<id column="reader_id" jdbcType="INTEGER" property="readerId" />-->
-      <result column="reader_name" jdbcType="VARCHAR" property="readerName" />
-      <result column="reader_phone" jdbcType="VARCHAR" property="readerPhone" />
-      <result column="reader_email" jdbcType="VARCHAR" property="readerEmail" />
-      <result column="reader_blacklist" jdbcType="INTEGER" property="readerBlacklist" />
-      <result column="reader_update" jdbcType="TIMESTAMP" property="readerUpdate" />
-      <result column="reader_state" jdbcType="INTEGER" property="readerState" />
-      <result column="reader_balance" jdbcType="DOUBLE" property="readerBalance" />
-      <result column="reader_password" jdbcType="VARCHAR" property="readerPassword" />
+    <result column="like_count" jdbcType="INTEGER" property="likeCount" />
+    <!--<result column="status" jdbcType="INTEGER" property="status" />-->
     <!--</collection>-->
   </resultMap>
   <sql id="Base_Column_List2">
@@ -126,23 +119,30 @@
 
   <select id="selectAllByBookId" parameterType="java.lang.Integer" resultMap="BaseResultMap2">
     select
-    b.book_id as book_id,
-    b.id as id,
-    b.reader_id as reader_id,
-    b.comment as comment,
-    b.update_time as update_time,
-    r.reader_name as reader_name,
-    r.reader_phone as reader_phone,
-    r.reader_email as reader_email,
-    r.reader_blacklist as reader_blacklist,
-    r.reader_update as reader_update,
-    r.reader_state as reader_state,
-    r.reader_balance as reader_balance,
-    r.reader_password as reader_password
-    from book_comment as b left join reader as r on b.reader_id=r.reader_id
-    where book_id = #{bookId,jdbcType=INTEGER} order by b.update_time desc
+      a.id,
+      a.book_id,
+      a.reader_id,
+      a.reader_name,
+      a.`comment`,
+      a.update_time,
+      count(b.book_comment_id) like_count
+    from
+      (
+        SELECT
+          book_comment.id,
+          book_comment.book_id,
+          book_comment.reader_id,
+          reader.reader_name,
+          book_comment.`comment`,
+          book_comment.update_time
+        FROM
+          book_comment,reader where book_comment.book_id=#{bookId} and book_comment.reader_id=reader.reader_id) a
+        LEFT JOIN book_comment_like b on a.id=b.book_comment_id group by b.book_comment_id
   </select>
 
+  <select id="findIsComment" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select book_comment_like_id from book_comment_like where book_comment_id=#{id} and reader_id =#{readerId}
+  </select>
   <!--查找所有评论-->
   <select id="selectCommentAll" resultMap="BaseResultMap">
     select

@@ -24,6 +24,7 @@ import redis.clients.jedis.Jedis;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.util.List;
 import java.text.SimpleDateFormat;
@@ -342,12 +343,14 @@ public class BookController {
      */
     @GetMapping("/comments")
     @ResponseBody
-    public RestMsg<Object> selectCommentAll(String bookId,@RequestParam(required = false,defaultValue = "1",value = "pn")Integer pn){
+    public RestMsg<Object> selectCommentAll(String bookId, @RequestParam(required = false,defaultValue = "1",value = "pn")Integer pn, HttpSession session){
         RestMsg<Object> rm = new RestMsg<>();
+        Reader reader = (Reader) session.getAttribute("reader");
+        int readerId = reader.getReaderId();
         //在查询之前传入当前页，然后多少记录
         PageHelper.startPage(pn,5);
         //startPage后紧跟的这个查询就是分页查询
-        List<Model> list=bookCommentService.selectAllById(Integer.parseInt(bookId));
+        List<BookCommentModel> list=bookCommentService.selectAllById(Integer.parseInt(bookId),readerId);
         //使用PageInfo包装查询结果，只需要将pageInfo交给页面就可以
         PageInfo pageInfo = new PageInfo<>(list,5);
         //pageINfo封装了分页的详细信息，也可以指定连续显示的页数

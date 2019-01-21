@@ -427,9 +427,6 @@
         $("#bod").html(html);
     }
 
-
-
-
     function  showInfo() {
 
         <%--var html='';--%>

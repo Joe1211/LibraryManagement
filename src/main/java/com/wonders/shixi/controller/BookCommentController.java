@@ -3,10 +3,7 @@ package com.wonders.shixi.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.wonders.shixi.pojo.BookComment;
-import com.wonders.shixi.pojo.BookCommentModel;
-import com.wonders.shixi.pojo.Model;
-import com.wonders.shixi.pojo.Reader;
+import com.wonders.shixi.pojo.*;
 import com.wonders.shixi.service.impl.BookCommentServiceImpl;
 import com.wonders.shixi.service.impl.ReaderServiceImpl;
 import com.wonders.shixi.util.RestMsg;
@@ -103,5 +100,25 @@ public class BookCommentController {
         }else {
             return  rm.errorMsg("删除评论失败！");
         }
+    }
+
+    /**
+     * 给评论点赞
+     * @param id
+     */
+    @GetMapping("/like")
+    public void addLike(String id){
+        BookCommentLike bcl = new BookCommentLike();
+        bookCommentService.addLike(bcl);
+    }
+
+    /**
+     * 取消点赞
+     */
+    @GetMapping("/deletelike")
+    public void deletelike(String id,HttpSession session){
+        Reader reader = (Reader)session.getAttribute("reader");
+        int rid = reader.getReaderId();
+        bookCommentService.deleteLike(Integer.parseInt(id),rid);
     }
 }

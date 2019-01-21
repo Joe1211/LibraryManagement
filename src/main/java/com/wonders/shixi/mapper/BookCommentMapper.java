@@ -1,6 +1,7 @@
 package com.wonders.shixi.mapper;
 
 import com.wonders.shixi.pojo.BookComment;
+import com.wonders.shixi.pojo.BookCommentLike;
 import com.wonders.shixi.pojo.BookCommentModel;
 import com.wonders.shixi.pojo.Model;
 import io.swagger.models.auth.In;
@@ -37,5 +38,26 @@ public interface BookCommentMapper {
 
     List<BookComment> selectCommentAll();
 
+    /**
+     * 根据图书id查询评论和评论点赞数量
+     * @param id
+     * @param readerId
+     * @return
+     */
     Integer findIsComment(@Param("id")int id,@Param("readerId") int readerId);
+
+    /**
+     * 给评论点赞
+     * @param bcl
+     * @return
+     */
+    int addLike(BookCommentLike bcl);
+
+    /**
+     * 取消点赞
+     * @param bookCommentId
+     * @param readerId
+     * @return
+     */
+    int deleteLike(@Param("bookCommentId")int bookCommentId,@Param("readerId") int readerId);
 }

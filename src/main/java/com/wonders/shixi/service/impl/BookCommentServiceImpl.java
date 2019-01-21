@@ -2,6 +2,7 @@ package com.wonders.shixi.service.impl;
 
 import com.wonders.shixi.mapper.BookCommentMapper;
 import com.wonders.shixi.pojo.BookComment;
+import com.wonders.shixi.pojo.BookCommentLike;
 import com.wonders.shixi.pojo.BookCommentModel;
 import com.wonders.shixi.pojo.Model;
 import com.wonders.shixi.service.IBookCommentService;
@@ -44,4 +45,15 @@ public class BookCommentServiceImpl implements IBookCommentService {
     public int deleteComment(int id) {
         return mapper.deleteByPrimaryKey(id);
     }
+
+    @Override
+    public int addLike(BookCommentLike bcl) {
+        return mapper.addLike(bcl);
+    }
+
+    @Override
+    public int deleteLike(int bookCommentId, int readerId) {
+        return mapper.deleteLike(bookCommentId, readerId);
+    }
+
 }

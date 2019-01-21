@@ -117,6 +117,7 @@
     where book_id = #{bookId,jdbcType=INTEGER}
   </select>
 
+  <!--根据id查询评论和该评论的点赞数量-->
   <select id="selectAllByBookId" parameterType="java.lang.Integer" resultMap="BaseResultMap2">
     select
       a.id,
@@ -139,7 +140,7 @@
           book_comment,reader where book_comment.book_id=#{bookId} and book_comment.reader_id=reader.reader_id) a
         LEFT JOIN book_comment_like b on a.id=b.book_comment_id group by b.book_comment_id
   </select>
-
+<!--是否为该评论点过赞-->
   <select id="findIsComment" parameterType="java.lang.Integer" resultType="java.lang.Integer">
     select book_comment_like_id from book_comment_like where book_comment_id=#{id} and reader_id =#{readerId}
   </select>
@@ -149,4 +150,12 @@
     <include refid="Base_Column_List"/>
     from book_comment
   </select>
+  <!--给评论点赞-->
+  <insert id="addLike" parameterMap="com.wonders.shixi.pojo.BookCommentLike">
+    insert into book_comment_like(book_comment_id,reader_id) VALUES(#{bookCommentId},#{readerId})
+  </insert>
+  <!--删除评论点赞-->
+  <delete id="deleteLike" parameterType="java.lang.Integer">
+    delete from book_comment_like where book_comment_id=#{bookCommentId} and reader_id=#{readerId}
+  </delete>
 </mapper>

@@ -151,7 +151,7 @@
     from book_comment
   </select>
   <!--给评论点赞-->
-  <insert id="addLike" parameterMap="com.wonders.shixi.pojo.BookCommentLike">
+  <insert id="addLike" parameterType="com.wonders.shixi.pojo.BookCommentLike">
     insert into book_comment_like(book_comment_id,reader_id) VALUES(#{bookCommentId},#{readerId})
   </insert>
   <!--删除评论点赞-->

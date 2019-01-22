@@ -244,7 +244,8 @@
         $.each(data.result.list,function (i,item) {
             html+='<div class="col-md-12 distance">';
             html+=' <div>';
-            html+=''+item.ReaderName+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+            html+=''+item.readerName+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+            html+='<input class="hidden" id="bclid" value="'+item.id+'">'
             html+=''+item.updateTime+'';
             html+='  </div>';
             html+=' <p>';
@@ -319,7 +320,7 @@
             $.ajax({
                 type:"post",
                 dataType:"json",
-                url:"",
+                url:"api/bookcomment/deletelike?id="+$('#bclid').val(),
                 success:function(data){
                     if(data!=null&&data.code==1){
                         obj.getElementsByTagName("img")[0].src="img/icon/nolike.png";
@@ -336,7 +337,7 @@
             $.ajax({
                 type:"post",
                 dataType:"json",
-                url:"",
+                url:"api/bookcomment/like?id="+$('#bclid').val(),
                 success:function(data){
                     if(data!=null&&data.code==1){
                         obj.getElementsByTagName("img")[0].src="img/icon/like.png";

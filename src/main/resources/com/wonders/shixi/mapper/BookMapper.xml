@@ -390,7 +390,7 @@ where book_id = #{bookId,jdbcType=INTEGER}
   <select id="borrowTop" resultMap="BaseResultMap5">
     select b.book_id, b.book_name, b.book_periodicals, b.book_callnum, b.book_writer, b.book_press, b.book_cover,
            b.book_info, b.book_time, b.book_updata, b.type_two_value, b.book_state, b.library_id,bp.book_borrow
-    from book_periodicals as bp,book as b  where b.book_id = bp.book_id order by bp.book_borrow desc limit 8
+    from book_periodicals as bp,book as b  where b.book_id = bp.book_id order by bp.book_borrow desc
   </select>
 
   <!--根据ISBN查询图书是否存在-->

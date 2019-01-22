@@ -1,6 +1,8 @@
 package com.wonders.shixi.service.impl;
 
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.wonders.shixi.mapper.BookMapper;
 import com.wonders.shixi.pojo.*;
 import com.wonders.shixi.service.IBookService;
@@ -8,7 +10,6 @@ import com.wonders.shixi.util.RestMsg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 /**
  * @ClassName 图书查询控制器
@@ -207,11 +208,13 @@ public class BookServiceImpl implements IBookService {
      * @return
      */
     @Override
-    public RestMsg<Object> borrowTop(){
+    public RestMsg<Object> borrowTop(int currentPage,int pageSize){
         RestMsg<Object> rm = new RestMsg<>();
+        PageHelper.startPage(currentPage,pageSize);
         List<BookBorrowTopModel> list = bookMapper.borrowTop();
         if (list.size()!=0){
-            rm.setResult(list);
+            PageInfo<BookBorrowTopModel> pageInfo=new PageInfo<BookBorrowTopModel>(list);
+            rm.setResult(pageInfo);
             return rm.successMsg();
         }else{
             return rm.errorMsg("暂无排行榜");

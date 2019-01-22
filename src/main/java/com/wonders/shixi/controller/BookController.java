@@ -541,7 +541,7 @@ public class BookController {
      */
     @GetMapping("borrowtop")
     @ResponseBody
-    public RestMsg<Object> borrowTop(){
-        return bookService.borrowTop();
+    public RestMsg<Object> borrowTop(int currentPage,int pageSize){
+        return bookService.borrowTop(currentPage,pageSize);
     }
 }

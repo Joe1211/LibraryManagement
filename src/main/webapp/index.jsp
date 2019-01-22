@@ -419,11 +419,11 @@
         // 图书借阅排行榜
         $.ajax({
             type:'get',
-            url:'api/books/borrowtop',
+            url:'api/books/borrowtop?currentPage=1&pageSize=8',
             success:function (data) {
                 if(data.code == 1){
                     var html = '';
-                    $.each(data.result,function (i,item) {
+                    $.each(data.result.list,function (i,item) {
                         html+='<div class="col-md-12">';
                         html+='<div class="col-md-1">';
                         html+='<p class="top top-'+(i+1)+'">'+(i+1)+'</p>'

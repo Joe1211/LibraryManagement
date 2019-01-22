@@ -3,11 +3,12 @@ package com.wonders.shixi.service;
 
 
 
-import com.wonders.shixi.pojo.*;
+import com.wonders.shixi.pojo.Book;
+import com.wonders.shixi.pojo.BookBorrowModel;
+import com.wonders.shixi.pojo.BookLabelRelation;
+import com.wonders.shixi.pojo.BookResidueTimeModel;
 import com.wonders.shixi.util.RestMsg;
-import io.swagger.models.auth.In;
 
-import java.util.Date;
 import java.util.List;
 /**
  * @ClassName 图书查询控制器
@@ -107,7 +108,7 @@ public interface IBookService {
      * 图书借阅排行榜
      * @return
      */
-    RestMsg<Object> borrowTop();
+    RestMsg<Object> borrowTop(int currentPage,int pageSize);
 
     Integer findISBN(String isbn);
 }

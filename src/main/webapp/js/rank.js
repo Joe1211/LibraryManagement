@@ -39,31 +39,66 @@ function getClientHeight(){
 function getScrollHeight() {
     return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
 }
+$("#returnTop").on("click",function(){
+    isReturnToping=true;
+    if ($('html').scrollTop()) {
+        $('html').animate({ scrollTop: 0 }, 600);
+        $("#returnTop").fadeOut(600,function(){
+            isReturnToping=false;
+        });
+        return;
+    }
+    $('body').animate({ scrollTop: 0 }, 600);
+    $("#returnTop").fadeOut(600,function(){
+        isReturnToping=false;
+    });
+    return;
+});
+var currentPage=2;//当前页
+var index=8;//当前排名
+var isScrollEnd=false;
+var isReturnToping=false;//是否正在返回顶部
+var isShowReturnTop=false;//'返回顶部'是否显示
 window.onscroll=function(){
-    if(getScrollTop()+getClientHeight()+10>getScrollHeight()){
+    if(isReturnToping==false){
+        if(getScrollTop()>10&&isShowReturnTop==false){
+            $("#returnTop").fadeIn(600,function(){
+                isShowReturnTop=true;
+            });
+        }else if(getScrollTop()<10&&isShowReturnTop==true){
+            $("#returnTop").fadeOut(600,function(){
+                isShowReturnTop=false;
+            });
+        }
+    }
+    if(getScrollTop()+getClientHeight()+10>getScrollHeight()&&!isScrollEnd){
         $.ajax({
             type:"get",
             dataType:"json",
+            timeout:3000,
+            async:false,
             url:"api/books/borrowtop",
+            data:{currentPage:currentPage,pageSize:8},
             success:function(data){
                 if(data!=null&&data.code==1){
                     var html = '';
-                    $.each(data.result,function (i,item) {
+                    $.each(data.result.list,function (i,item) {
                         html+='<div class="col-md-12">';
                         html+='<div class="col-md-1">';
-                        html+='<p class="top top-'+(i+1)+'">'+(i+1)+'</p>'
-                        html+='<p class="num top-'+(i+1)+'">'+"借阅次数："+item.bookBorrow+'</p>';
+                        ++index;
+                        html+='<p class="top">'+index+'</p>';
+                        html+='<p class="num">'+"借阅次数："+item.bookBorrow+'</p>';
                         html+='</div>';
                         html+='<div class="col-md-11 tuijian">';
                         html+='<div class="col-md-2">';
                         html+='<a href="javascript:load('+item.bookId+')">';
                         html+='<img class="tupian2"src="/api/books/findBookCover?id='+item.bookId+'"/>';
-                        html+='</a>'
+                        html+='</a>';
                         html+='</div>';
                         html+='<div class="col-md-10 info">';
                         html+='<a href="javascript:load('+item.bookId+')">';
                         html+='<h3>'+item.bookName+'</h3>';
-                        html+='</a>'
+                        html+='</a>';
                         html+='<p>'+item.bookWriter+'</p>';
                         html+='<p>'+item.bookPress+'</p>';
                         html+='<p>'+item.bookInfo+'</p>';
@@ -73,11 +108,20 @@ window.onscroll=function(){
                     });
                     html+='<div style="clear: both;"></div>';
                     $("#bod1").append(html);
+                    ++currentPage;
+                }else{
+                    $("#bod1").append("<h3 style='text-align: center;'>---到底了---</h3>");
+                    isScrollEnd=true;
                 }
             },
             error:function(){
                 alert("服务器异常");
+            },
+            complete:function(XMLHttpRequest,status){
+            if(status=='timeout'){
+                alert("请求超时");
             }
+        }
         });
     }
-}
+};

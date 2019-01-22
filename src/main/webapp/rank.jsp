@@ -52,6 +52,27 @@
         .top-3{
             color:#ffac38;
         }
+        #returnTop{
+            position: fixed;
+            width: 50px;
+            height: 50px;
+            right: 2%;
+            bottom: 20%;
+            background: #0f9ae0;
+            border-radius: 50px;
+            cursor: pointer;
+            line-height: 50px;
+            text-align: center;
+            display: none;
+            transition: box-shadow .3s ease-in;
+        }
+        #returnTop:hover{
+            box-shadow: 3px 3px 7px #c2c2c2;
+        }
+        #returnTop>img{
+            width: 40px;
+            height: 40px;
+        }
     </style>
 </head>
 <body>
@@ -164,16 +185,9 @@
             </a>
         </div>
 
-        <%--<!--搜索框-->--%>
-        <%--<div class="btn-group col-md-4 col-md-offset-1 col-sm-8 ver2 ">--%>
-
-            <%--<div class="input-group input-group-md ">--%>
-                <%--<input type="text " class="form-control " placeholder="请输入索书号、书名、作者等 " id="content"/>--%>
-                <%--<span class="input-group-btn ">--%>
-            <%--<button class="btn btn-primary " id="select">检索</button>--%>
-        <%--</span>--%>
-            <%--</div>--%>
-        <%--</div>--%>
+        <!--搜索框-->
+        <div class="btn-group col-md-4 col-md-offset-1 col-sm-8 ver2 ">
+        </div>
 
         <!--用户信息-->
         <form class="btn-group col-md-4 col-sm-4 ver col-md-offset-1 ">
@@ -224,6 +238,7 @@
     <div id="bod1">
     </div>
 </div>
+<div id="returnTop"><img alt="返回顶部" src="img/icon/returnTop.png"/></div>
 
 
 <script src="js/jquery-3.3.1.min.js"></script>
@@ -235,11 +250,11 @@
     // 图书借阅排行榜
     $.ajax({
         type:'get',
-        url:'api/books/borrowtop',
+        url:'api/books/borrowtop?currentPage=1&pageSize=8',
         success:function (data) {
             if(data.code == 1){
                 var html = '';
-                $.each(data.result,function (i,item) {
+                $.each(data.result.list,function (i,item) {
                     html+='<div class="col-md-12">';
                     html+='<div class="col-md-1">';
                     html+='<p class="top top-'+(i+1)+'">'+(i+1)+'</p>'

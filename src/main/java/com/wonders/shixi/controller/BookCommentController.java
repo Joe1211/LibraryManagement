@@ -106,19 +106,35 @@ public class BookCommentController {
      * 给评论点赞
      * @param id
      */
-    @GetMapping("/like")
-    public void addLike(String id){
+    @PostMapping("/like")
+    @ResponseBody
+    public RestMsg<Object> addLike(@RequestParam("id")String id,HttpSession session){
+        RestMsg<Object> rm = new RestMsg<>();
+        Reader r = (Reader)session.getAttribute("reader");
+        int rid = (int)r.getReaderId();
         BookCommentLike bcl = new BookCommentLike();
-        bookCommentService.addLike(bcl);
+        bcl.setBookCommentId(Integer.parseInt(id));
+        bcl.setReaderId(rid);
+        int i = bookCommentService.addLike(bcl);
+        if (i>0){
+            return rm.successMsg("点赞成功");
+        }
+        return rm.errorMsg("点赞失败");
     }
 
     /**
      * 取消点赞
      */
-    @GetMapping("/deletelike")
-    public void deletelike(String id,HttpSession session){
+    @PostMapping("/deletelike")
+    @ResponseBody
+    public RestMsg<Object> deletelike(String id,HttpSession session){
+        RestMsg<Object> rm = new RestMsg<>();
         Reader reader = (Reader)session.getAttribute("reader");
         int rid = reader.getReaderId();
-        bookCommentService.deleteLike(Integer.parseInt(id),rid);
+        int i = bookCommentService.deleteLike(Integer.parseInt(id),rid);
+        if (i>0){
+            return rm.successMsg("点赞成功");
+        }
+        return rm.errorMsg("点赞失败");
     }
 }

@@ -177,7 +177,7 @@
                         $tipEle:$("#tip1"),
                         zeroTip:"未评论",
                         tips: ["不推荐", "一般", "不错", "很棒", "极力推荐！"],
-                        afterScore:function(ele,score){
+                        afterScoreHandler:function(ele,score){
                             $.ajax({
                                 type:"get",
                                 url:"api/bookScore/insertBookScore",

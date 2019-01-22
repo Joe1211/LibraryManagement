@@ -108,12 +108,12 @@ public class BookCommentController {
      */
     @PostMapping("/like")
     @ResponseBody
-    public RestMsg<Object> addLike(@RequestParam("id")String id,HttpSession session){
+    public RestMsg<Object> addLike(@RequestParam("id")int id,HttpSession session){
         RestMsg<Object> rm = new RestMsg<>();
         Reader r = (Reader)session.getAttribute("reader");
         int rid = (int)r.getReaderId();
         BookCommentLike bcl = new BookCommentLike();
-        bcl.setBookCommentId(Integer.parseInt(id));
+        bcl.setBookCommentId(id);
         bcl.setReaderId(rid);
         int i = bookCommentService.addLike(bcl);
         if (i>0){
@@ -127,11 +127,11 @@ public class BookCommentController {
      */
     @PostMapping("/deletelike")
     @ResponseBody
-    public RestMsg<Object> deletelike(String id,HttpSession session){
+    public RestMsg<Object> deletelike(int id,HttpSession session){
         RestMsg<Object> rm = new RestMsg<>();
         Reader reader = (Reader)session.getAttribute("reader");
         int rid = reader.getReaderId();
-        int i = bookCommentService.deleteLike(Integer.parseInt(id),rid);
+        int i = bookCommentService.deleteLike(id,rid);
         if (i>0){
             return rm.successMsg("点赞成功");
         }

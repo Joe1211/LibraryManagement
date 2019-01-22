@@ -4,7 +4,6 @@ import com.wonders.shixi.mapper.BookCommentMapper;
 import com.wonders.shixi.pojo.BookComment;
 import com.wonders.shixi.pojo.BookCommentLike;
 import com.wonders.shixi.pojo.BookCommentModel;
-import com.wonders.shixi.pojo.Model;
 import com.wonders.shixi.service.IBookCommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

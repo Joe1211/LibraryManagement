@@ -21,4 +21,6 @@ public interface IBookCommentService {
     int addLike(BookCommentLike bcl);
 
     int deleteLike(int bookCommentId,int readerId);
+
+    List<BookCommentModel> likeSort(int bookId);
 }

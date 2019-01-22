@@ -60,4 +60,6 @@ public interface BookCommentMapper {
      * @return
      */
     int deleteLike(@Param("bookCommentId")int bookCommentId,@Param("readerId") int readerId);
+
+    List<BookCommentModel> likeSort(Integer bookId);
 }

@@ -4,6 +4,7 @@ package com.wonders.shixi.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.wonders.shixi.pojo.*;
+import com.wonders.shixi.service.IBookCommentService;
 import com.wonders.shixi.service.impl.BookCommentServiceImpl;
 import com.wonders.shixi.service.impl.ReaderServiceImpl;
 import com.wonders.shixi.util.RestMsg;
@@ -23,7 +24,7 @@ import java.util.List;
 public class BookCommentController {
 
     @Autowired
-    BookCommentServiceImpl bookCommentService;
+    IBookCommentService bookCommentService;
     ReaderServiceImpl readerService;
 
     /**

@@ -138,7 +138,7 @@
           book_comment.update_time
         FROM
           book_comment,reader where book_comment.book_id=#{bookId} and book_comment.reader_id=reader.reader_id) a
-        LEFT JOIN book_comment_like b on a.id=b.book_comment_id group by b.book_comment_id
+        LEFT JOIN book_comment_like b on a.id=b.book_comment_id group by a.id
   </select>
 <!--是否为该评论点过赞-->
   <select id="findIsComment" parameterType="java.lang.Integer" resultType="java.lang.Integer">
@@ -158,4 +158,27 @@
   <delete id="deleteLike" parameterType="java.lang.Integer">
     delete from book_comment_like where book_comment_id=#{bookCommentId} and reader_id=#{readerId}
   </delete>
+  <!--根据评论点赞数降序排序（查询3条数据）-->
+  <select id="likeSort" parameterType="java.lang.Integer" resultMap="BaseResultMap2">
+    select
+      a.id,
+      a.book_id,
+      a.reader_id,
+      a.reader_name,
+      a.`comment`,
+      a.update_time,
+      count(b.book_comment_id) like_count
+    from
+      (
+        SELECT
+          book_comment.id,
+          book_comment.book_id,
+          book_comment.reader_id,
+          reader.reader_name,
+          book_comment.`comment`,
+          book_comment.update_time
+        FROM
+          book_comment,reader where book_comment.book_id=#{bookId} and book_comment.reader_id=reader.reader_id) a
+        LEFT JOIN book_comment_like b on a.id=b.book_comment_id group by b.book_comment_id ORDER BY like_count desc limit 3
+  </select>
 </mapper>

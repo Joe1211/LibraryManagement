@@ -347,13 +347,25 @@ public class BookController {
         RestMsg<Object> rm = new RestMsg<>();
         Reader reader = (Reader) session.getAttribute("reader");
         int readerId = reader.getReaderId();
-        //在查询之前传入当前页，然后多少记录
-        PageHelper.startPage(pn,5);
-        //startPage后紧跟的这个查询就是分页查询
-        List<BookCommentModel> list=bookCommentService.selectAllById(Integer.parseInt(bookId),readerId);
-        //使用PageInfo包装查询结果，只需要将pageInfo交给页面就可以
-        PageInfo pageInfo = new PageInfo<>(list,5);
-        //pageINfo封装了分页的详细信息，也可以指定连续显示的页数
+        int bId = Integer.parseInt(bookId);
+//        PageInfo pageInfo = new PageInfo();
+//        if (pn ==1){
+//            List<BookCommentModel> listSort=bookCommentService.likeSort(bId);
+//            PageHelper.startPage(pn,2);
+//            List<BookCommentModel> list=bookCommentService.selectAllById(bId,readerId);
+//            listSort.addAll(list);
+//            //使用PageInfo包装查询结果，只需要将pageInfo交给页面就可以
+////            PageInfo pageInfo = new PageInfo<>(list,5);
+//            pageInfo.setList(listSort);
+//            pageInfo.setNavigatePages(5);
+//        }else {
+            PageHelper.startPage(pn,5);
+            //startPage后紧跟的这个查询就是分页查询
+            List<BookCommentModel> list=bookCommentService.selectAllById(bId,readerId);
+            //使用PageInfo包装查询结果，只需要将pageInfo交给页面就可以
+            PageInfo pageInfo = new PageInfo<>(list,5);
+            //pageINfo封装了分页的详细信息，也可以指定连续显示的页数
+//        }
         if(pageInfo.getList().size()!=0){
             rm.setResult(pageInfo);
             return rm.successMsg();

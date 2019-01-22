@@ -14,19 +14,27 @@ import java.util.List;
 public class BookCommentServiceImpl implements IBookCommentService {
     @Autowired
     BookCommentMapper mapper;
+
+    /**
+     * 根据图书id查询该书评论
+     * @param bookId
+     * @param readerId
+     * @return
+     */
     @Override
     public List<BookCommentModel> selectAllById(int bookId,int readerId) {
         List<BookCommentModel> list = mapper.selectAllByBookId(bookId);
         for (BookCommentModel bcm:list) {
             if(bcm.getLikeCount()>0){
                int bcmId = bcm.getId();
+               //根据bookId和readerId判断是否给该条评论点过赞
                Integer i = mapper.findIsComment(bcmId,readerId);
                if (i!=null){
+                   //点过赞，状态为1，默认为null
                     bcm.setStatus(1);
                }
             }
         }
-
         return list;
     }
 
@@ -53,6 +61,16 @@ public class BookCommentServiceImpl implements IBookCommentService {
     @Override
     public int deleteLike(int bookCommentId, int readerId) {
         return mapper.deleteLike(bookCommentId, readerId);
+    }
+
+    /**
+     * 前3条数据根据点赞数排序
+     * @param bookId
+     * @return
+     */
+    @Override
+    public List<BookCommentModel> likeSort(int bookId) {
+        return mapper.likeSort(bookId);
     }
 
 }

@@ -217,58 +217,106 @@
         });
     }
 
-    function loadInfo(data) {
+    function  loadInfo(data) {
         var html = '';
-        $.each(data.result.list, function (i, item) {
-            html += '<div class="col-md-12 distance">';
-            html += ' <div class="col-md-2">';
-            html += '' + item.readerName + '</br>';
-            html += '' + item.updateTime + '';
-            html += '  </div>';
-            html += ' <div class="col-md-10">';
-            html += '' + item.comment + '';
-            html += '</div>';
-            html += '</div>';
-
+        $.each(data.result.list,function (i,item) {
+            html+='<div class="col-md-12 distance">';
+            html+=' <div>';
+            html+=''+item.readerName+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+            html+='<input class="hidden" id="bclid" value="'+item.id+'">'
+            html+=''+item.updateTime+'';
+            html+='  </div>';
+            html+=' <p>';
+            html+=''+item.comment+'';
+            html+='</p>';
+            if(item.status==1){
+                //已点赞
+                html+='<div style="height:16px;line-height: 16px;"><a href="javascript:void(0)" data-islike="true" onclick="likeToggle(this,'+item.id+')"><img src="img/icon/like.png" style="width:16px;height: 16px;"/></a>';
+            }else{
+                //未点赞
+                html+='<div style="height:16px;line-height: 16px;"><a href="javascript:void(0)" data-islike="false" onclick="likeToggle(this,'+item.id+')"><img src="img/icon/nolike.png" style="width:16px;height: 16px;"/></a>';
+            }
+            html+='&nbsp;&nbsp;<span>'+item.likeCount+'</span></div><hr style="margin:5px 0 5px 0">';
+            html+='</div>';
         })
-        html += '当前第' + data.result.pageNum + ' 页.总共' + data.result.pages + '页.一共 ' + data.result.total + ' 条记录'
+        html+= '当前第'+data.result.pageNum+' 页.总共'+data.result.pages+'页.一共 '+data.result.total+' 条记录'
 
-        html += '<div class="col-md-12">';
-        html += '';
-        html += '<nav aria-label="Page navigation">';
-        html += '  <ul class="pagination">';
+        html+='<div class="col-md-12">';
+        html+='';
+        html+='<nav aria-label="Page navigation">';
+        html+='  <ul class="pagination">';
         // 上一页
         //是否有上一页
         if (test = data.result.hasPreviousPage) {
-            html += '<li><a href="javascript:loadData(' + (data.result.pageNum - 1) + ')">' + "上一页" + '</a></li>';
-        } else {
-            html += '<li><a href="javascript:void(0))">' + "上一页" + '</a></li>';
+            html+='<li><a href="javascript:loadData('+(data.result.pageNum-1)+')">'+"上一页"+'</a></li>';
+        }else{
+            html+='<li><a href="javascript:void(0))">'+"上一页"+'</a></li>';
         }
 
         <!--循环遍历连续显示的页面，若是当前页就高亮显示，并且没有链接-->
         // navigatepageNums所有导航页号
         // pageNum 当前页
-        $.each(data.result.navigatepageNums, function (i, n) {
-            if (data.result.pageNum == n) {
-                html += '<li class="active"><a href="javascript:void(0))">' + n + '</a></li> ';
+        $.each(data.result.navigatepageNums,function (i,n) {
+            if (data.result.pageNum == n){
+                html+='<li class="active"><a href="javascript:void(0))">'+n+'</a></li> ';
             } else {
-                html += '<li><a href="javascript:loadData(' + n + ')">' + n + '</a></li> ';
+                html+='<li><a href="javascript:loadData('+n+')">'+n+'</a></li> ';
             }
         })
 
         // 下一页
         //是否有下一页
         if (test = data.result.hasNextPage) {
-            html += '<li><a href="javascript:loadData(' + (data.result.pageNum + 1) + ')">' + "下一页" + '</a></li>';
-        } else {
-            html += '<li><a href="javascript:void(0))">' + "下一页" + '</a></li>';
+            html+='<li><a href="javascript:loadData('+(data.result.pageNum+1)+')">'+"下一页"+'</a></li>';
+        }else{
+            html+='<li><a href="javascript:void(0))">'+"下一页"+'</a></li>';
         }
 
-        html += '  </ul>';
-        html += '   </nav>';
-        html += '  </div>';
+        html+='  </ul>';
+        html+='   </nav>';
+        html+='  </div>';
         $("#bod").html(html);
     }
+
+    //点赞切换
+    function likeToggle(obj,commentId){
+        if(obj.dataset.islike=="true"){
+            //取消点赞
+            $.ajax({
+                type:"post",
+                dataType:"json",
+                url:"api/bookcomment/deletelike?id="+commentId,
+                success:function(data){
+                    if(data!=null&&data.code==1){
+                        obj.getElementsByTagName("img")[0].src="img/icon/nolike.png";
+                        obj.parentElement.getElementsByTagName("span")[0].innerText=Number(obj.parentElement.getElementsByTagName("span")[0].innerText)-1;
+                        obj.dataset.islike="false";
+                    }
+                },
+                error:function(){
+                    console.log("服务器错误");
+                }
+            });
+        }else{
+            //点赞
+            $.ajax({
+                type:"post",
+                dataType:"json",
+                url:"api/bookcomment/like?id="+commentId,
+                success:function(data){
+                    if(data!=null&&data.code==1){
+                        obj.getElementsByTagName("img")[0].src="img/icon/like.png";
+                        obj.parentElement.getElementsByTagName("span")[0].innerText=Number(obj.parentElement.getElementsByTagName("span")[0].innerText)+1;
+                        obj.dataset.islike="true";
+                    }
+                },
+                error:function(){
+                    console.log("服务器错误");
+                }
+            });
+        }
+    }
+
 
     // 评论查询加载分页
     function loadData(page) {

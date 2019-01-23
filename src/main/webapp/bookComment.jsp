@@ -258,9 +258,8 @@
                 //未点赞
                 html+='<div style="height:16px;line-height: 16px;"><a href="javascript:void(0)" data-islike="false" onclick="likeToggle(this,'+item.id+')"><img src="img/icon/nolike.png" style="width:16px;height: 16px;"/></a>';
             }
-            html+='&nbsp;&nbsp;<span>'+item.likeCount+'</span></div>';
+            html+='&nbsp;&nbsp;<span>'+item.likeCount+'</span></div><hr style="margin:5px 0 5px 0">';
             html+='</div>';
-
         })
         html+= '当前第'+data.result.pageNum+' 页.总共'+data.result.pages+'页.一共 '+data.result.total+' 条记录'
 

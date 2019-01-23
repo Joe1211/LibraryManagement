@@ -117,15 +117,23 @@
         var html = '';
         $.each(data.result.list,function (i,item) {
             html+='<div class="col-md-12 distance">';
-            html+=' <div class="col-md-2">';
-            html+=''+item.readerName+'</br>';
+            html+=' <div>';
+            html+=''+item.readerName+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+            html+='<input class="hidden" id="bclid" value="'+item.id+'">'
             html+=''+item.updateTime+'';
             html+='  </div>';
-            html+=' <div class="col-md-10">';
+            html+=' <p>';
             html+=''+item.comment+'';
+            html+='</p>';
+            if(item.status==1){
+                //已点赞
+                html+='<div style="height:16px;line-height: 16px;"><a href="javascript:void(0)" data-islike="true" onclick="likeToggle(this,'+item.id+')"><img src="img/icon/like.png" style="width:16px;height: 16px;"/></a>';
+            }else{
+                //未点赞
+                html+='<div style="height:16px;line-height: 16px;"><a href="javascript:void(0)" data-islike="false" onclick="likeToggle(this,'+item.id+')"><img src="img/icon/nolike.png" style="width:16px;height: 16px;"/></a>';
+            }
+            html+='&nbsp;&nbsp;<span>'+item.likeCount+'</span></div><hr style="margin:5px 0 5px 0">';
             html+='</div>';
-            html+='</div>';
-
         })
         html+= '当前第'+data.result.pageNum+' 页.总共'+data.result.pages+'页.一共 '+data.result.total+' 条记录'
 
@@ -165,6 +173,46 @@
         html+='  </div>';
         $("#bod").html(html);
     }
+
+    //点赞切换
+    function likeToggle(obj,commentId){
+        if(obj.dataset.islike=="true"){
+            //取消点赞
+            $.ajax({
+                type:"post",
+                dataType:"json",
+                url:"api/bookcomment/deletelike?id="+commentId,
+                success:function(data){
+                    if(data!=null&&data.code==1){
+                        obj.getElementsByTagName("img")[0].src="img/icon/nolike.png";
+                        obj.parentElement.getElementsByTagName("span")[0].innerText=Number(obj.parentElement.getElementsByTagName("span")[0].innerText)-1;
+                        obj.dataset.islike="false";
+                    }
+                },
+                error:function(){
+                    console.log("服务器错误");
+                }
+            });
+        }else{
+            //点赞
+            $.ajax({
+                type:"post",
+                dataType:"json",
+                url:"api/bookcomment/like?id="+commentId,
+                success:function(data){
+                    if(data!=null&&data.code==1){
+                        obj.getElementsByTagName("img")[0].src="img/icon/like.png";
+                        obj.parentElement.getElementsByTagName("span")[0].innerText=Number(obj.parentElement.getElementsByTagName("span")[0].innerText)+1;
+                        obj.dataset.islike="true";
+                    }
+                },
+                error:function(){
+                    console.log("服务器错误");
+                }
+            });
+        }
+    }
+
 
     // 评论查询加载分页
     function loadData(page) {

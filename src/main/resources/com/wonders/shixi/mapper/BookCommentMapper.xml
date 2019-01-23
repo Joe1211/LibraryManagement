@@ -138,7 +138,7 @@
           book_comment.update_time
         FROM
           book_comment,reader where book_comment.book_id=#{bookId} and book_comment.reader_id=reader.reader_id) a
-        LEFT JOIN book_comment_like b on a.id=b.book_comment_id group by a.id
+        LEFT JOIN book_comment_like b on a.id=b.book_comment_id group by a.id ORDER BY a.update_time desc
   </select>
 <!--是否为该评论点过赞-->
   <select id="findIsComment" parameterType="java.lang.Integer" resultType="java.lang.Integer">
@@ -179,6 +179,6 @@
           book_comment.update_time
         FROM
           book_comment,reader where book_comment.book_id=#{bookId} and book_comment.reader_id=reader.reader_id) a
-        LEFT JOIN book_comment_like b on a.id=b.book_comment_id group by b.book_comment_id ORDER BY like_count desc limit 3
+        LEFT JOIN book_comment_like b on a.id=b.book_comment_id group by a.id ORDER BY like_count desc limit 3
   </select>
 </mapper>

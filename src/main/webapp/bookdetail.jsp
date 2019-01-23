@@ -162,7 +162,13 @@
             <div class="panel panel-default">
                 <div class="panel-heading">图书评论</div>
                 <div class="panel-body">
+                    <div id="bod2">
+
+                    </div>
                     <div id="bod">
+
+                    </div>
+                    <div id="bod1">
 
                     </div>
                 </div>
@@ -176,6 +182,41 @@
 <script>
     window.onload = function () {
         //评论
+        $.ajax({
+            type: 'get',
+            url: 'api/books/likesort' + '?bookId=' + $(".bid").val(),
+            success: function (data) {
+                if(data.code == 1 ){
+                    // alert(data)
+                    var html = '';
+                    $.each(data.result,function (i,item) {
+                        html+='<div class="col-md-12 distance">';
+                        html+=' <div>';
+                        html+=''+item.readerName+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+                        // html+='<input class="hidden" id="bclid" value="'+item.id+'">'
+                        html+=''+item.updateTime+'';
+                        html+='  </div>';
+                        html+=' <p>';
+                        html+=''+item.comment+'';
+                        html+='</p>';
+                        if(item.status==1){
+                            //已点赞
+                            html+='<div style="height:16px;line-height: 16px;"><a href="javascript:void(0)" data-islike="true" onclick="likeToggle(this,'+item.id+')"><img src="img/icon/like.png" style="width:16px;height: 16px;"/></a>';
+                        }else{
+                            //未点赞
+                            html+='<div style="height:16px;line-height: 16px;"><a href="javascript:void(0)" data-islike="false" onclick="likeToggle(this,'+item.id+')"><img src="img/icon/nolike.png" style="width:16px;height: 16px;"/></a>';
+                        }
+                        html+='&nbsp;&nbsp;<span>'+item.likeCount+'</span></div><hr style="margin:5px 0 5px 0">';
+                        html+='</div>';
+                    })
+                    html+="最新评论"
+                    // alert(html);
+                    $("#bod2").html(html);
+                }else{
+                    $("#bod").html("该书还没有评论！");
+                }
+            }
+        })
         $.ajax({
             type: 'get',
             url: 'api/books/comments' + '?bookId=' + $(".bid").val(),
@@ -239,43 +280,17 @@
             html+='&nbsp;&nbsp;<span>'+item.likeCount+'</span></div><hr style="margin:5px 0 5px 0">';
             html+='</div>';
         })
-        html+= '当前第'+data.result.pageNum+' 页.总共'+data.result.pages+'页.一共 '+data.result.total+' 条记录'
 
-        html+='<div class="col-md-12">';
-        html+='';
-        html+='<nav aria-label="Page navigation">';
-        html+='  <ul class="pagination">';
-        // 上一页
-        //是否有上一页
-        if (test = data.result.hasPreviousPage) {
-            html+='<li><a href="javascript:loadData('+(data.result.pageNum-1)+')">'+"上一页"+'</a></li>';
-        }else{
-            html+='<li><a href="javascript:void(0))">'+"上一页"+'</a></li>';
-        }
-
-        <!--循环遍历连续显示的页面，若是当前页就高亮显示，并且没有链接-->
-        // navigatepageNums所有导航页号
-        // pageNum 当前页
-        $.each(data.result.navigatepageNums,function (i,n) {
-            if (data.result.pageNum == n){
-                html+='<li class="active"><a href="javascript:void(0))">'+n+'</a></li> ';
-            } else {
-                html+='<li><a href="javascript:loadData('+n+')">'+n+'</a></li> ';
-            }
-        })
-
+        $("#bod").append(html);
+        var html =  '';
         // 下一页
         //是否有下一页
         if (test = data.result.hasNextPage) {
-            html+='<li><a href="javascript:loadData('+(data.result.pageNum+1)+')">'+"下一页"+'</a></li>';
+            html+='<li><a href="javascript:loadData('+(data.result.pageNum+1)+')">'+"查看更多"+'</a></li>';
         }else{
-            html+='<li><a href="javascript:void(0))">'+"下一页"+'</a></li>';
+            html+='<li><a href="javascript:void(0))">'+"到底了"+'</a></li>';
         }
-
-        html+='  </ul>';
-        html+='   </nav>';
-        html+='  </div>';
-        $("#bod").html(html);
+        $("#bod1").html(html);
     }
 
     //点赞切换

@@ -69,8 +69,20 @@ public class BookCommentServiceImpl implements IBookCommentService {
      * @return
      */
     @Override
-    public List<BookCommentModel> likeSort(int bookId) {
-        return mapper.likeSort(bookId);
+    public List<BookCommentModel> likeSort(int bookId,int readerId) {
+        List<BookCommentModel> list = mapper.likeSort(bookId);
+        for (BookCommentModel bcm:list) {
+            if(bcm.getLikeCount()>0){
+                int bcmId = bcm.getId();
+                //根据bookId和readerId判断是否给该条评论点过赞
+                Integer i = mapper.findIsComment(bcmId,readerId);
+                if (i!=null){
+                    //点过赞，状态为1，默认为null
+                    bcm.setStatus(1);
+                }
+            }
+        }
+        return list;
     }
 
 }

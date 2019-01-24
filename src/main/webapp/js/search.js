@@ -22,7 +22,7 @@ window.onload=function(){
         type:'get',
         url:'api/booktypes',
         dataType:'json',
-        success(data){
+        success:function(data){
                 var html = '';
                 html+='<option>请选择</option>';
                 $.each(data,function (i,item) {

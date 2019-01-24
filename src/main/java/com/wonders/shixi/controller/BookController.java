@@ -371,6 +371,7 @@ public class BookController {
         int readerId = reader.getReaderId();
         int bId = Integer.parseInt(bookId);
         PageHelper.startPage(pn,3);
+
         //startPage后紧跟的这个查询就是分页查询
         List<BookCommentModel> list=bookCommentService.selectAllById(bId,readerId);
         //使用PageInfo包装查询结果，只需要将pageInfo交给页面就可以

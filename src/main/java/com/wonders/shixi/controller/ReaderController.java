@@ -125,6 +125,7 @@ public class ReaderController {
         List<Reader> readers = null;
         if (readerCondition != null) {
             readers = readerService.selectReadersByCondition(readerCondition);
+
         }
         //日志写入
         if (readers != null) {

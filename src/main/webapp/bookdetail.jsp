@@ -148,7 +148,7 @@
                             </div>
                         </div>
                         <div class="col-md-2 col-lg-offset-10">
-                            <a href="javascript:loadBorrow()">
+                            <a href="javascript:loadBorrow(${msg.bookId})">
                                 <button class="btn btn-primary form-group" type="button">图书借阅</button>
                             </a>
                         </div>
@@ -440,6 +440,16 @@
             }
         })
     })
+    // 借阅
+    function loadBorrow(bookId) {
+        $.ajax({
+            type:'get',
+            url:'api/books/borrow'+'?bookId='+bookId+'&readerId='+$("#readerId").val(),
+            success:function (data) {
+                alert(data.msg)
+            }
+        })
+    }
 
 </script>
 

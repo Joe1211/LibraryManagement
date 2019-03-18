@@ -141,6 +141,7 @@ public class BookController {
             }
 //            response.setContentType("application/json");
 //            System.out.println(JSON.toJSONString(rm));
+
             return rm;
         }
 
@@ -532,7 +533,7 @@ public class BookController {
         //创建一个Trigger触发器的实例，定义该job每天0点执行
         CronTrigger cronTrigger = TriggerBuilder.newTrigger()
                 .withIdentity("cronTrigger1")
-                .withSchedule(CronScheduleBuilder.cronSchedule("0 10 11 * * ?"))
+                .withSchedule(CronScheduleBuilder.cronSchedule("0 0 0 * * ?"))
                 .build();
         //创建Scheduler实例
         StdSchedulerFactory stdSchedulerFactory = new StdSchedulerFactory();

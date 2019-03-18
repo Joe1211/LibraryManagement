@@ -110,7 +110,7 @@
             margin-bottom: 20px;
         }
         .biaoti{
-            margin-top: 650px;
+            margin-top: 540px;
             margin-left: 45%;
         }
         .dibu{
@@ -298,44 +298,44 @@
     </div>
 
     <!--活动信息-->
-    <div class="col-md-12">
-        <div class="col-md-2">
-            <a class="btn btn-info btn-l" href="#" role="button">
-                新闻公告
-                <p style="font-size: 15px;">Library News</p>
-            </a>
-        </div>
-        <div class="col-md-2">
-            <a class="btn btn-info btn-l" href="#" role="button">
-                服务指南
-                <p style="font-size: 15px;">Guidenlines</p>
-            </a>
-        </div>
-        <div class="col-md-2">
-            <a class="btn btn-info btn-l" href="#" role="button">
-                在线咨询
-                <p style="font-size: 15px;">Online Q&A</p>
-            </a>
-        </div>
-        <div class="col-md-2">
-            <a class="btn btn-info btn-l" href="#" role="button">
-                已借图书
-                <p style="font-size: 15px;">Borrowed books</p>
-            </a>
-        </div>
-        <div class="col-md-2">
-            <a class="btn btn-info btn-l" href="#" role="button">
-                我的活动
-                <p style="font-size: 15px;">My activities</p>
-            </a>
-        </div>
-        <div class="col-md-2">
-            <a class="btn btn-info btn-l" href="#" role="button">
-                馆藏信息
-                <p style="font-size: 15px;">Library Info</p>
-            </a>
-        </div>
-    </div>
+    <%--<div class="col-md-12">--%>
+        <%--<div class="col-md-2">--%>
+            <%--<a class="btn btn-info btn-l" href="#" role="button">--%>
+                <%--新闻公告--%>
+                <%--<p style="font-size: 15px;">Library News</p>--%>
+            <%--</a>--%>
+        <%--</div>--%>
+        <%--<div class="col-md-2">--%>
+            <%--<a class="btn btn-info btn-l" href="#" role="button">--%>
+                <%--服务指南--%>
+                <%--<p style="font-size: 15px;">Guidenlines</p>--%>
+            <%--</a>--%>
+        <%--</div>--%>
+        <%--<div class="col-md-2">--%>
+            <%--<a class="btn btn-info btn-l" href="#" role="button">--%>
+                <%--在线咨询--%>
+                <%--<p style="font-size: 15px;">Online Q&A</p>--%>
+            <%--</a>--%>
+        <%--</div>--%>
+        <%--<div class="col-md-2">--%>
+            <%--<a class="btn btn-info btn-l" href="#" role="button">--%>
+                <%--已借图书--%>
+                <%--<p style="font-size: 15px;">Borrowed books</p>--%>
+            <%--</a>--%>
+        <%--</div>--%>
+        <%--<div class="col-md-2">--%>
+            <%--<a class="btn btn-info btn-l" href="#" role="button">--%>
+                <%--我的活动--%>
+                <%--<p style="font-size: 15px;">My activities</p>--%>
+            <%--</a>--%>
+        <%--</div>--%>
+        <%--<div class="col-md-2">--%>
+            <%--<a class="btn btn-info btn-l" href="#" role="button">--%>
+                <%--馆藏信息--%>
+                <%--<p style="font-size: 15px;">Library Info</p>--%>
+            <%--</a>--%>
+        <%--</div>--%>
+    <%--</div>--%>
 
 
     <h3 class="biaoti">---每日推荐---</h3>

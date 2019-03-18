@@ -21,9 +21,9 @@ public class MailUtil {
         //端口号587
         props.put("mail.smtp.port", "587");
         // 账号
-        props.put("mail.user", "312613431@qq.com");
+        props.put("mail.user", "1652744678@qq.com");
         // STMP口令
-        props.put("mail.password", "qewvnyziizdabicf");
+        props.put("mail.password", "rnigpmhxgafaeiei");
 
         // 构建授权信息，用于进行SMTP进行身份验证
         Authenticator authenticator = new Authenticator() {
@@ -75,9 +75,9 @@ public class MailUtil {
         //端口号587
         props.put("mail.smtp.port", "587");
         // 账号
-        props.put("mail.user", "312613431@qq.com");
+        props.put("mail.user", "1652744678@qq.com");
         // STMP口令
-        props.put("mail.password", "qewvnyziizdabicf");
+        props.put("mail.password", "rnigpmhxgafaeiei");
 
         // 构建授权信息，用于进行SMTP进行身份验证
         Authenticator authenticator = new Authenticator() {

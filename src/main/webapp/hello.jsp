@@ -8,6 +8,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <link rel="shortcut icon" href="img/icon/favicon.ico"/>
+    <link rel="bookmark" href="img/icon/favicon.ico"/>
     <link rel="stylesheet" href="css/hello.css">
     <title>欢迎</title>
 </head>

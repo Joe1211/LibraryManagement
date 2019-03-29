@@ -6,6 +6,8 @@
 <head>
     <meta charset="UTF-8">
     <title>test</title>
+    <link rel="shortcut icon" href="img/icon/favicon.ico"/>
+    <link rel="bookmark" href="img/icon/favicon.ico"/>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -43,7 +45,7 @@
                     <div class="col-md-3">
                         <img src="/api/books/findBookCover?id=${msg.bookId}" class="tupian2"/>
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-md-8 col-md-offset-1">
                         <h3>&nbsp&nbsp&nbsp${msg.bookName}</h3>
                         <input type="hidden" class="bid" value=${msg.bookId}>
                         <div class="col-md-12 distance">

@@ -8,7 +8,7 @@ $(function(){
                 data:$(form).serialize(),
                 success:function(data){
                     if(data!=null&&data.code==1){
-                        alert(data.msg);
+                        // alert(data.msg);
                         location.href="/login.jsp";
                     }else{
                         alert(data.msg);

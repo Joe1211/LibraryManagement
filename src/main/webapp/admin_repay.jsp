@@ -43,7 +43,7 @@
             html+='<tr>';
             html+=' <td>图书ID</td>';
             html+='<td>书名</td>';
-            html+='<td>作者</td>';
+            html+='<td style="width:20%">作者</td>';
             html+='   <td>索书号</td>';
             html+='    <td>读者ID</td>';
             html+='<td>读者名</td>';

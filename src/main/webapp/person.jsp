@@ -5,6 +5,8 @@
 <head>
     <meta charset="utf-8"/>
     <title>个人中心</title>
+    <link rel="shortcut icon" href="img/icon/favicon.ico"/>
+    <link rel="bookmark" href="img/icon/favicon.ico"/>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/custom.css"/>
@@ -52,6 +54,7 @@
                 <a href="updata.jsp" target="showiframe" class="list-group-item">修改密码</a>
                 <a href="borrow.jsp" target="showiframe" class="list-group-item">我的借阅</a>
                 <a href="repay.jsp" target="showiframe" class="list-group-item">已还图书</a>
+                <a href="index.jsp" class="list-group-item">返回主页</a>
             </div>
         </div>
 

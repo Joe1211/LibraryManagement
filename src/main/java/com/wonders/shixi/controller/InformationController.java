@@ -50,7 +50,7 @@ public class InformationController {
         //return pageInfo;
     }
 
-    @RequestMapping(value = "/delete",method = {RequestMethod.POST,RequestMethod.GET})
+    @RequestMapping(value = "/delete",method = RequestMethod.GET)
     public String deletebook(@RequestParam(value = "bookId")Integer bookId){
         System.out.println("bookid="+bookId);
         informationService.deletebook(bookId);

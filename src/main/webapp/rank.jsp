@@ -12,6 +12,8 @@
 <head>
     <meta charset="utf-8"/>
     <title>搜索结果</title>
+    <link rel="shortcut icon" href="img/icon/favicon.ico"/>
+    <link rel="bookmark" href="img/icon/favicon.ico"/>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/custom.css"/>

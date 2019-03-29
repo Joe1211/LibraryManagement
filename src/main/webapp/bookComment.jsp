@@ -6,6 +6,8 @@
 <head>
     <meta charset="UTF-8">
     <title>test</title>
+    <link rel="shortcut icon" href="img/icon/favicon.ico"/>
+    <link rel="bookmark" href="img/icon/favicon.ico"/>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/score.css"/>
     <script src="js/jquery-3.3.1.min.js"></script>

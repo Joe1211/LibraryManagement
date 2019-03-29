@@ -6,6 +6,8 @@
 <head>
     <meta charset="UTF-8">
     <title>test</title>
+    <link rel="shortcut icon" href="img/icon/favicon.ico"/>
+    <link rel="bookmark" href="img/icon/favicon.ico"/>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/score.css">
     <script src="js/jquery-3.3.1.min.js"></script>
@@ -85,13 +87,18 @@
         </div>
     </div>
 </nav>
+<div class="col-md-offset-11">
+    <a href="javascript:history.go(-1)"><button class="btn btn-info">返回</button></a>
+</div>
 <div class="contrainer panel panel-collapse">
 
     <div class="panel-body">
-        <%--图书详情--%>
-        <div class="container">
+
+    <%--图书详情--%>
+            <div class="container">
             <div class="panel panel-default">
                 <div class="panel-heading">图书详情</div>
+
                 <div class="panel-body">
 
                     <div class="col-md-3">
@@ -170,6 +177,7 @@
                     </div>
                     <div id="bod1">
 
+
                     </div>
                 </div>
             </div>
@@ -189,6 +197,7 @@
                 if(data.code == 1 ){
                     // alert(data)
                     var html = '';
+                    html+='<span style="font-size: 20px;color: #01A9DB;margin-bottom:10px">热门评论</span>';
                     $.each(data.result,function (i,item) {
                         html+='<div class="col-md-12 distance">';
                         html+=' <div>';
@@ -209,7 +218,6 @@
                         html+='&nbsp;&nbsp;<span>'+item.likeCount+'</span></div><hr style="margin:5px 0 5px 0">';
                         html+='</div>';
                     })
-                    html+="最新评论"
                     // alert(html);
                     $("#bod2").html(html);
                 }else{
@@ -260,6 +268,7 @@
 
     function  loadInfo(data) {
         var html = '';
+        html+='<span style="font-size: 20px;color: #01A9DB;margin-bottom:10px">最新评论</span>';
         $.each(data.result.list,function (i,item) {
             html+='<div class="col-md-12 distance">';
             html+=' <div>';

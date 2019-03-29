@@ -43,7 +43,7 @@
         html+='<tr>';
         html+='<td>图书ID</td>';
         html+='<td>读者ID</td>';
-        html+='<td>评论内容</td>';
+        html+='<td style="width:60%">评论内容</td>';
         html+='<td>评论时间</td>';
         html+='<td>操作</td>';
         html+='</tr>';

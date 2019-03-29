@@ -3,8 +3,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <link rel="icon" type="image/png" href="img/favicon.png">
-    <link rel="apple-touch-icon-precomposed" href="img/app-icon72x72@2x.png">
+    <link rel="shortcut icon" href="img/icon/favicon.ico"/>
+    <link rel="bookmark" href="img/icon/favicon.ico"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>用户登录</title>
     <link rel="stylesheet" href="css/amazeui.min.css"/>

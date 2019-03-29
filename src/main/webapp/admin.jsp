@@ -14,8 +14,8 @@
     <meta name="keywords" content="index">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="renderer" content="webkit">
-    <link rel="icon" type="image/png" href="img/favicon.png">
-    <link rel="apple-touch-icon-precomposed" href="img/app-icon72x72@2x.png">
+    <link rel="shortcut icon" href="img/icon/favicon.ico"/>
+    <link rel="bookmark" href="img/icon/favicon.ico"/>
     <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
     <script src="js/echarts.min.js"></script>
     <link rel="stylesheet" href="css/amazeui.min.css"/>

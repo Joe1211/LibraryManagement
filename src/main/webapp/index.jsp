@@ -241,7 +241,7 @@
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="api/readermanagement/outReader" id="outReader">注销账户</a>
+                                <a href="api/readermanagement/outReader" id="outReader">退出登录</a>
                             </li>
                         </ul>
                     </div>

@@ -8,12 +8,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>我的借阅</title>
+    <title>已借图书</title>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/custom.css"/>
 </head>
 <body>
-    <h1>我的借阅</h1>
+    <h1>已借图书</h1>
     <input type="hidden" id="readerId" value="${reader.readerId}">
     <div id="bod">
     </div>

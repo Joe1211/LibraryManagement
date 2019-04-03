@@ -50,10 +50,10 @@
                 <a href="#" class="list-group-item disabled">
                     个人主页
                 </a>
-                <a href="xinxi.jsp" target="showiframe" class="list-group-item">基本信息</a>
-                <a href="updata.jsp" target="showiframe" class="list-group-item">修改密码</a>
-                <a href="borrow.jsp" target="showiframe" class="list-group-item">我的借阅</a>
-                <a href="repay.jsp" target="showiframe" class="list-group-item">已还图书</a>
+                <a href="xinxi.jsp" target="showiframe" class="list-group-item">个人信息</a>
+                <%--<a href="updata.jsp" target="showiframe" class="list-group-item">修改密码</a>--%>
+                <a href="borrow.jsp" target="showiframe" class="list-group-item">已借图书</a>
+                <a href="repay.jsp" target="showiframe" class="list-group-item">图书评论</a>
                 <a href="index.jsp" class="list-group-item">返回主页</a>
             </div>
         </div>

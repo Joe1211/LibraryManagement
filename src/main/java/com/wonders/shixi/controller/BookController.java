@@ -435,19 +435,37 @@ public class BookController {
      * 被@PreDestroy修饰的方法会在服务器卸载Servlet的时候运行，并且只会被服务器调用一次，类似于Servlet的destroy()方法。被@PreDestroy修饰的方法会在destroy()方法之后运行，在Servlet被彻底卸载之前。
      */
     @PostConstruct
+//    public void timer() throws SchedulerException {
+//        //创建一个jobDetail的实例，将该实例与EmailJob Class绑定
+//        JobDetail jobDetail = JobBuilder.newJob(EmailJob.class).withIdentity("cronJob").build();
+//        //创建一个Trigger触发器的实例，定义该job每天中午12执行
+//        CronTrigger cronTrigger = TriggerBuilder.newTrigger()
+//                .withIdentity("cronTrigger")
+//                .withSchedule(CronScheduleBuilder.cronSchedule("0 0 12 * * ?"))
+//                .build();
+//        //创建Scheduler实例,调度器
+//        StdSchedulerFactory stdSchedulerFactory = new StdSchedulerFactory();
+//        Scheduler scheduler = stdSchedulerFactory.getScheduler();
+//        //
+//        scheduler.scheduleJob(jobDetail,cronTrigger);
+//        scheduler.start();
+//    }
     public void timer() throws SchedulerException {
-        //创建一个jobDetail的实例，将该实例与EmailJob Class绑定
-        JobDetail jobDetail = JobBuilder.newJob(EmailJob.class).withIdentity("cronJob").build();
-        //创建一个Trigger触发器的实例，定义该job每天中午12执行
-        CronTrigger cronTrigger = TriggerBuilder.newTrigger()
-                .withIdentity("cronTrigger")
-                .withSchedule(CronScheduleBuilder.cronSchedule("0 0 12 * * ?"))
-                .build();
-        //创建Scheduler实例
-        StdSchedulerFactory stdSchedulerFactory = new StdSchedulerFactory();
-        Scheduler scheduler = stdSchedulerFactory.getScheduler();
+        //调度器Scheduler
+        Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
+        //任务实例 JobDetail
+        JobDetail jobDetail = JobBuilder.newJob(EmailJob.class)     //加载任务类
+                                .withIdentity("job1","gourp1")  //任务名称；任务组名称
+                                .build();
+        //触发器
+        Trigger trigger = TriggerBuilder.newTrigger()
+                            .withIdentity("trigger1","gourp1")  //触发器名称；触发器组名称
+                            .withSchedule(CronScheduleBuilder.cronSchedule("0 0 12 * * ?"))
+                            .build();
+        //让调度器关联任务和触发器
+        scheduler.scheduleJob(jobDetail,trigger);
+        //启动
         scheduler.start();
-        scheduler.scheduleJob(jobDetail,cronTrigger);
     }
 
     /**
@@ -527,19 +545,36 @@ public class BookController {
      * 被@PreDestroy修饰的方法会在服务器卸载Servlet的时候运行，并且只会被服务器调用一次，类似于Servlet的destroy()方法。被@PreDestroy修饰的方法会在destroy()方法之后运行，在Servlet被彻底卸载之前。
      */
     @PostConstruct
+//    public void timer1() throws SchedulerException {
+//        //创建一个jobDetail的实例，将该实例与EmailJob Class绑定
+//        JobDetail jobDetail = JobBuilder.newJob(RecommendJob.class).withIdentity("cronJob1").build();
+//        //创建一个Trigger触发器的实例，定义该job每天0点执行
+//        CronTrigger cronTrigger = TriggerBuilder.newTrigger()
+//                .withIdentity("cronTrigger1")
+//                .withSchedule(CronScheduleBuilder.cronSchedule("0 0 0 * * ?"))
+//                .build();
+//        //创建Scheduler实例
+//        StdSchedulerFactory stdSchedulerFactory = new StdSchedulerFactory();
+//        Scheduler scheduler = stdSchedulerFactory.getScheduler();
+//        scheduler.start();
+//        scheduler.scheduleJob(jobDetail,cronTrigger);
+//    }
     public void timer1() throws SchedulerException {
-        //创建一个jobDetail的实例，将该实例与EmailJob Class绑定
-        JobDetail jobDetail = JobBuilder.newJob(RecommendJob.class).withIdentity("cronJob1").build();
-        //创建一个Trigger触发器的实例，定义该job每天0点执行
-        CronTrigger cronTrigger = TriggerBuilder.newTrigger()
-                .withIdentity("cronTrigger1")
+        //调度器Scheduler
+        Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
+        //任务实例 JobDetail
+        JobDetail jobDetail = JobBuilder.newJob(RecommendJob.class)     //加载任务类
+                .withIdentity("job2","gourp2")  //任务名称；任务组名称
+                .build();
+        //触发器
+        Trigger trigger = TriggerBuilder.newTrigger()
+                .withIdentity("trigger2","gourp2")  //触发器名称；触发器组名称
                 .withSchedule(CronScheduleBuilder.cronSchedule("0 0 0 * * ?"))
                 .build();
-        //创建Scheduler实例
-        StdSchedulerFactory stdSchedulerFactory = new StdSchedulerFactory();
-        Scheduler scheduler = stdSchedulerFactory.getScheduler();
+        //让调度器关联任务和触发器
+        scheduler.scheduleJob(jobDetail,trigger);
+        //启动
         scheduler.start();
-        scheduler.scheduleJob(jobDetail,cronTrigger);
     }
 
     /**

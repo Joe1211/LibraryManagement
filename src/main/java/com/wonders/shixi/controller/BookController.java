@@ -569,7 +569,7 @@ public class BookController {
         //触发器
         Trigger trigger = TriggerBuilder.newTrigger()
                 .withIdentity("trigger2","gourp2")  //触发器名称；触发器组名称
-                .withSchedule(CronScheduleBuilder.cronSchedule("0 0 0 * * ?"))
+                .withSchedule(CronScheduleBuilder.cronSchedule("0 17 11 * * ?"))
                 .build();
         //让调度器关联任务和触发器
         scheduler.scheduleJob(jobDetail,trigger);

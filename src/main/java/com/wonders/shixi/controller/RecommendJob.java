@@ -28,7 +28,7 @@ public class RecommendJob implements Job {
         //Service注入
         SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
         //具体的业务逻辑
-//        System.out.println("修改每日推荐");
+        System.out.println("修改每日推荐");
         Jedis jedis = RedisPool.getJedis();
         String k = "tushu";
         byte[] key = k.getBytes();
